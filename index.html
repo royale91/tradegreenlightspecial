@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Green Light Special — The Trading System | Royale Muldrew</title>
+<meta name="description" content="Green Light Special: a mechanical trading system. Clean moves, calculated decisions on direction. 3 Lights + 3-Step ORB + a daily firewall. Built and traded live by Royale Muldrew." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --bg:#060807; --bg-2:#0a0d0b; --panel:#0c100e; --panel-hi:#10150f;
+  --ink:#f4f7f5; --ink-soft:#aeb8b2; --ink-mute:#717c76;
+  --green:#45f08a; --green-deep:#36c977; --green-glow:rgba(69,240,138,.18);
+  --red:#ff5d6c; --amber:#ffcf5c;
+  --line:rgba(69,240,138,.16); --line-soft:rgba(255,255,255,.08); --line-hair:rgba(255,255,255,.12);
+  --maxw:1180px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:22px;
+  --ease:cubic-bezier(.2,.7,.2,1); --ease-out:cubic-bezier(.16,.84,.44,1);
+  --t-fast:.28s; --t-mid:.45s;
+  --display:"Chakra Petch",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace; --body:"Hanken Grotesk",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--green);color:#03130a}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
+
+/* film grain */
+body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+/* ambient green aura behind hero */
+.aura{position:fixed;top:-12%;left:50%;transform:translateX(-50%);width:120vw;height:60vh;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 60% at 50% 0%,rgba(69,240,138,.10),transparent 70%);filter:blur(8px)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:.7em}
+.eyebrow::before{content:"";width:24px;height:1px;background:linear-gradient(90deg,var(--green),transparent)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+
+/* ===== COMING SOON COUNTDOWN BANNER ===== */
+.coming{position:relative;z-index:60;display:block;background:
+  linear-gradient(90deg,rgba(69,240,138,.10),rgba(69,240,138,.03) 40%,rgba(69,240,138,.10));
+  border-bottom:1px solid var(--line);overflow:hidden;transition:background var(--t-fast) var(--ease)}
+.coming:hover{background:linear-gradient(90deg,rgba(69,240,138,.18),rgba(69,240,138,.06) 40%,rgba(69,240,138,.18))}
+.coming::after{content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 -1px 0 rgba(69,240,138,.35),inset 0 18px 40px -30px rgba(69,240,138,.5)}
+.coming .wrap{display:flex;align-items:center;justify-content:center;gap:18px 26px;flex-wrap:wrap;padding-top:11px;padding-bottom:11px}
+.coming .lead-txt{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink);display:inline-flex;align-items:center;gap:.6em}
+.coming .lead-txt .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px 2px var(--green);animation:bl 1.6s infinite}
+.coming .lead-txt b{color:var(--green);font-weight:700;letter-spacing:.1em}
+.coming .soon{color:var(--ink-soft)}
+.coming .soon u{color:var(--green);text-decoration:none;text-underline-offset:3px;border-bottom:1px dotted var(--green)}
+.cd{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono)}
+.cd .unit{display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:8px;padding:5px 9px;min-width:46px;
+  box-shadow:0 0 18px -8px var(--green)}
+.cd .unit b{font-size:1.15rem;font-weight:700;color:var(--green);line-height:1;letter-spacing:.04em;text-shadow:0 0 14px rgba(69,240,138,.5);font-variant-numeric:tabular-nums}
+.cd .unit span{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+.cd .sep{color:var(--green);font-weight:700;opacity:.5;margin-top:-10px}
+.coming .go-pill{font-family:var(--display);font-weight:600;font-size:.82rem;color:#04140b;background:var(--green);
+  padding:7px 15px;border-radius:100px;display:inline-flex;align-items:center;gap:.5em;
+  box-shadow:0 8px 26px -12px var(--green);transition:transform var(--t-fast) var(--ease)}
+.coming:hover .go-pill{transform:translateY(-1px)}
+.coming.launched{animation:launchpulse 1.4s ease-in-out infinite}
+@keyframes launchpulse{50%{background:linear-gradient(90deg,rgba(69,240,138,.28),rgba(69,240,138,.12) 40%,rgba(69,240,138,.28))}}
+
+/* ticker */
+.ticker{border-bottom:1px solid var(--line-soft);background:rgba(8,11,9,.6);overflow:hidden;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.ticker .row{display:inline-flex;gap:42px;padding:9px 0;white-space:nowrap;animation:marq 30s linear infinite}
+.ticker .row span{color:var(--ink-mute)}.ticker .row b{color:var(--green);font-weight:600}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(6,8,7,.74);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-soft)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.brand{font-family:var(--display);font-weight:700;letter-spacing:.1em;font-size:.96rem;display:inline-flex;align-items:center;gap:.55em}
+.brand .blip{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px 2px var(--green)}
+.brand span{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:.78rem}
+.nav-right a.back{color:var(--ink-soft)}.nav-right a.back:hover{color:var(--green)}
+
+.btn{font-family:var(--display);font-weight:600;font-size:.92rem;display:inline-flex;align-items:center;gap:.55em;
+  padding:13px 24px;border-radius:100px;cursor:pointer;border:1px solid transparent;white-space:nowrap;
+  transition:transform var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease),background var(--t-fast) var(--ease),color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease)}
+.btn .arr{transition:transform var(--t-fast) var(--ease)}.btn:hover .arr{transform:translateX(3px)}
+.btn-primary{background:var(--green);color:#04140b;box-shadow:0 12px 36px -16px var(--green)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px -14px var(--green)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green);background:rgba(69,240,138,.05)}
+
+/* hero */
+.hero{padding:clamp(56px,9vw,108px) 0 clamp(30px,5vw,60px);position:relative}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(28px,5vw,60px);align-items:center}
+.hero h1{font-size:clamp(2.5rem,6.5vw,4.8rem);text-transform:uppercase;margin:18px 0 16px}
+.hero h1 em{color:var(--green);font-style:normal;text-shadow:0 0 40px rgba(69,240,138,.35)}
+.hero p.lead{color:var(--ink-soft);font-size:clamp(1.04rem,1.6vw,1.22rem);font-weight:300;max-width:52ch}
+.hero p.lead b{color:var(--ink);font-weight:500}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.hero-meta{display:flex;gap:30px;margin-top:34px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-mute);flex-wrap:wrap}
+.hero-meta b{color:var(--ink);display:block;font-size:1.4rem;font-family:var(--display);letter-spacing:0;margin-bottom:2px}
+
+/* chart panel */
+.chart{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(160deg,#0b1410,#070b09);aspect-ratio:16/10;box-shadow:0 40px 90px -50px #000,0 0 0 1px rgba(69,240,138,.05)}
+.chart .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);z-index:3;pointer-events:none}
+.chart .hud .live{color:var(--green);display:inline-flex;align-items:center;gap:.5em;background:rgba(0,0,0,.45);padding:4px 9px;border-radius:6px;border:1px solid var(--line)}
+.chart .hud .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:bl 1.6s infinite}
+.chart .hud .sym{background:rgba(0,0,0,.45);padding:4px 9px;border-radius:6px;border:1px solid var(--line-soft)}
+@keyframes bl{50%{opacity:.25}}
+.chart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.chart svg.spark{position:absolute;inset:0;width:100%;height:100%}
+.chart .tagline{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:.66rem;color:var(--green);z-index:3;background:rgba(0,0,0,.5);padding:6px 10px;border:1px solid var(--line);border-radius:6px;letter-spacing:.05em}
+.chart::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 -60px 80px -50px #000;z-index:2}
+
+/* sections */
+.section{padding:clamp(56px,8vw,100px) 0;border-top:1px solid var(--line-soft);position:relative}
+.section-head{text-align:center;max-width:700px;margin:0 auto clamp(36px,5vw,58px)}
+.section-head .eyebrow{justify-content:center}
+.section-head h2{font-size:clamp(1.9rem,4.4vw,3rem);text-transform:uppercase;margin:16px 0 14px}
+.section-head p{color:var(--ink-soft);font-weight:300}
+.sub-head{text-align:center;max-width:640px;margin:clamp(40px,5vw,60px) auto clamp(22px,3vw,30px)}
+.sub-head .eyebrow{justify-content:center;margin-bottom:12px}
+.sub-head p{color:var(--ink-soft);font-weight:300;font-size:.96rem}
+
+/* honest edge strip */
+.edge{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden;margin-top:8px}
+.edge .cell{background:var(--panel);padding:26px 24px}
+.edge .cell .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.edge .cell h3{font-size:1.1rem;margin-bottom:8px}
+.edge .cell p{color:var(--ink-mute);font-size:.9rem}
+@media(max-width:780px){.edge{grid-template-columns:1fr}}
+
+/* 3 lights */
+.lights{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.light{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:30px 26px;position:relative;overflow:hidden;transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
+.light:hover{transform:translateY(-4px);border-color:var(--line)}
+.light::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:.6}
+.light .orb{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--green),var(--green-deep));box-shadow:0 0 24px -2px var(--green),inset 0 -4px 8px rgba(0,0,0,.3);margin-bottom:18px;position:relative}
+.light .orb b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:700;color:#04140b;font-size:1.05rem}
+.light .lname{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.light h3{font-size:1.2rem;margin-bottom:10px}
+.light p{color:var(--ink-soft);font-size:.94rem;font-weight:300}
+.go-rule{margin-top:26px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-align:center;color:var(--ink-soft)}
+.go-rule .go{color:#04140b;background:var(--green);padding:8px 16px;border-radius:100px;font-weight:700;letter-spacing:.12em;box-shadow:0 0 24px -6px var(--green)}
+.go-rule .wait{color:var(--amber);border:1px solid rgba(255,207,92,.35);padding:8px 16px;border-radius:100px;letter-spacing:.12em}
+.boss-note{margin-top:18px;text-align:center;color:var(--ink-mute);font-size:.9rem;font-weight:300}
+.boss-note b{color:var(--ink)}.boss-note .ym{color:var(--amber)}
+
+/* gallery */
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.shot{border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden;background:var(--panel);transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
+.shot:hover{transform:translateY(-3px);border-color:var(--green);box-shadow:0 24px 60px -34px var(--green)}
+.shot.wide{grid-column:1/-1}
+.shot .imgwrap{position:relative;overflow:hidden}
+.shot img{width:100%;display:block;object-fit:cover;background:#04070a;transition:transform var(--t-mid) var(--ease)}
+.shot:hover img{transform:scale(1.02)}
+.shot.wide img{max-height:560px}
+.shot .tag{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green);background:rgba(0,0,0,.55);border:1px solid var(--line);padding:4px 9px;border-radius:6px}
+.shot figcaption{font-family:var(--mono);font-size:.74rem;color:var(--ink-mute);letter-spacing:.03em;padding:14px 16px;border-top:1px solid var(--line-soft)}
+.shot figcaption b{color:var(--green);font-weight:600}
+@media(max-width:680px){.shots{grid-template-columns:1fr}}
+
+/* ORB steps */
+.orb-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,48px);align-items:center}
+.orb-steps{display:flex;flex-direction:column;gap:16px}
+.ostep{display:flex;gap:18px;background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:22px 24px;transition:border-color var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
+.ostep:hover{border-color:var(--line);transform:translateX(4px)}
+.ostep .num{flex:0 0 auto;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.2rem;color:var(--green);background:rgba(69,240,138,.08);border:1px solid var(--line)}
+.ostep h3{font-size:1.08rem;margin-bottom:6px}
+.ostep p{color:var(--ink-mute);font-size:.92rem;font-weight:300}
+.ostep p .fake{color:var(--red);font-weight:600}
+.ostep p .go{color:var(--green);font-weight:600}
+.orb-img{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--panel);box-shadow:0 30px 70px -46px #000}
+.orb-img img{width:100%;display:block}
+.orb-img figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);padding:12px 16px;border-top:1px solid var(--line-soft);text-align:center;letter-spacing:.04em}
+@media(max-width:860px){.orb-wrap{grid-template-columns:1fr}.orb-img{order:-1}}
+
+/* features (the trade) */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}
+.feat{background:var(--panel);padding:28px 24px;transition:background var(--t-mid) var(--ease)}
+.feat:hover{background:var(--panel-hi)}
+.feat .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(69,240,138,.07);border:1px solid var(--line);color:var(--green);margin-bottom:16px}
+.feat .ic svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:1.06rem;margin-bottom:8px}
+.feat p{color:var(--ink-mute);font-size:.9rem;font-weight:300}
+
+/* windows banner */
+.windows{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em}
+.windows .w{background:var(--panel);border:1px solid var(--line-soft);border-radius:100px;padding:9px 18px;color:var(--ink-soft)}
+.windows .w b{color:var(--green)}
+
+/* pricing */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.tier{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:32px 26px;position:relative;transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
+.tier:hover{transform:translateY(-4px);border-color:var(--line)}
+.tier.featured{border-color:var(--green);background:linear-gradient(180deg,rgba(69,240,138,.07),var(--panel));box-shadow:0 40px 90px -54px var(--green)}
+.tier .badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:#04140b;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:100px;box-shadow:0 8px 24px -10px var(--green)}
+.tier .tname{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green)}
+.tier .price{font-family:var(--display);font-weight:700;font-size:2.9rem;margin:14px 0 2px;letter-spacing:-.02em}
+.tier .price small{font-size:.9rem;color:var(--ink-mute);font-weight:400;font-family:var(--mono);letter-spacing:0}
+.tier .ptag{color:var(--ink-mute);font-size:.86rem;min-height:42px}
+.tier ul{list-style:none;margin:20px 0 26px;display:flex;flex-direction:column;gap:11px}
+.tier li{display:flex;gap:10px;font-size:.92rem;color:var(--ink-soft);font-weight:300}
+.tier li svg{flex:0 0 18px;width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:2;margin-top:3px}
+.tier .btn{width:100%;justify-content:center;margin-top:auto}
+.checkout-note{text-align:center;margin-top:22px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-mute)}
+.checkout-note svg{width:13px;height:13px;stroke:var(--green);fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px}
+
+/* faq */
+.faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.qa{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--panel);overflow:hidden;transition:border-color var(--t-fast) var(--ease)}
+.qa[open]{border-color:var(--line)}
+.qa summary{cursor:pointer;list-style:none;padding:18px 22px;font-family:var(--display);font-weight:600;font-size:1.02rem;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .pl{color:var(--green);transition:transform var(--t-fast) var(--ease);font-family:var(--mono);flex:0 0 auto}
+.qa[open] summary .pl{transform:rotate(45deg)}
+.qa .a{padding:0 22px 20px;color:var(--ink-soft);font-size:.94rem;font-weight:300}
+
+/* final cta */
+.final{text-align:center;border:1px solid var(--line);border-radius:var(--r-xl);background:linear-gradient(180deg,rgba(69,240,138,.08),var(--panel));padding:clamp(40px,6vw,76px) 24px;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:90%;height:80%;background:radial-gradient(50% 60% at 50% 0%,rgba(69,240,138,.16),transparent 70%);pointer-events:none}
+.final h2{font-size:clamp(1.9rem,4.6vw,3.1rem);text-transform:uppercase;margin-bottom:14px;position:relative}
+.final p{color:var(--ink-soft);font-weight:300;max-width:50ch;margin:0 auto 28px;position:relative}
+.final .btn{position:relative}
+
+.disclaimer{margin-top:32px;font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);text-align:center;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+.footer{border-top:1px solid var(--line-soft);padding:36px 0;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);letter-spacing:.1em}
+.footer a{color:var(--green)}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:880px){
+  .hero-grid{grid-template-columns:1fr}
+  .chart{order:-1}
+  .lights{grid-template-columns:1fr}
+  .tiers{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+  .feats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .feats{grid-template-columns:1fr}
+  .nav-right a.back{display:none}
+  .coming .lead-txt{font-size:.7rem}
+  .coming .go-pill{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="aura" aria-hidden="true"></div>
+
+<!-- ===== COMING SOON / 48-HOUR LAUNCH BANNER ===== -->
+<!-- EDITABLE LAUNCH TARGET is defined in JS below as `const LAUNCH` -->
+<a class="coming" id="comingBanner" href="#pricing" aria-label="Green Light Special is getting its own home soon — view pricing">
+  <div class="wrap">
+    <span class="lead-txt"><span class="dot"></span> TRADE <b>GREEN LIGHT SPECIAL</b> — <span class="soon">its own home is coming soon at <u>TradeGreenLightSpecial.com</u></span></span>
+    <div class="cd" id="countdown" aria-live="polite">
+      <span class="unit"><b id="cd-d">00</b><span>Days</span></span><span class="sep">:</span>
+      <span class="unit"><b id="cd-h">00</b><span>Hrs</span></span><span class="sep">:</span>
+      <span class="unit"><b id="cd-m">00</b><span>Min</span></span><span class="sep">:</span>
+      <span class="unit"><b id="cd-s">00</b><span>Sec</span></span>
+    </div>
+    <span class="go-pill" id="comingPill">Get Access →</span>
+  </div>
+</a>
+
+<!-- ticker -->
+<div class="ticker"><div class="row">
+  <span>SYSTEM <b>GO</b></span><span>3 <b>LIGHTS</b></span><span>TREND <b>FILTER</b></span><span><b>FVG</b> ZONES</span><span>BREAK + <b>RETEST</b></span><span>DAILY <b>FIREWALL</b></span><span>NON-<b>REPAINTING</b></span><span>ANY MARKET <b>·</b> ANY TIMEFRAME</span>
+  <span>SYSTEM <b>GO</b></span><span>3 <b>LIGHTS</b></span><span>TREND <b>FILTER</b></span><span><b>FVG</b> ZONES</span><span>BREAK + <b>RETEST</b></span><span>DAILY <b>FIREWALL</b></span><span>NON-<b>REPAINTING</b></span><span>ANY MARKET <b>·</b> ANY TIMEFRAME</span>
+</div></div>
+
+<!-- nav -->
+<nav class="nav"><div class="wrap">
+  <a class="brand" href="#top"><span class="blip"></span>GREEN LIGHT <span>SPECIAL</span></a>
+  <div class="nav-right">
+    <a class="back" href="https://royalemuldrew.com">← royalemuldrew.com</a>
+    <a class="btn btn-primary" href="#pricing">Get Access <span class="arr">→</span></a>
+  </div>
+</div></nav>
+
+<!-- hero -->
+<header class="hero" id="top"><div class="wrap"><div class="hero-grid">
+  <div>
+    <span class="eyebrow">The Trading System</span>
+    <h1>Green Light <em>Special</em></h1>
+    <p class="lead"><b>Clean moves. Calculated decisions on direction.</b> No indicator predicts the future — the edge is filtering, risk and discipline, made mechanical. You wait for the green light, take the clean move, and a daily firewall stops you before a bad day hurts the account.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#pricing">Get the Indicator <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#lights">See How It Works</a>
+    </div>
+    <div class="hero-meta">
+      <div><b>3</b>Lights to go</div>
+      <div><b>3-Step</b>ORB confirmation</div>
+      <div><b>1R</b>auto-breakeven + runner</div>
+    </div>
+  </div>
+  <div class="chart">
+    <div class="hud"><span class="sym">NQ1! · 15M</span><span class="live">SYSTEM GO</span></div>
+    <img src="/assets/chart.png" alt="Green Light Special workspace on NQ futures" onerror="this.style.display='none'" onload="var s=document.getElementById('heroSpark');if(s)s.style.display='none';" />
+    <svg id="heroSpark" class="spark" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(69,240,138,.35)"/><stop offset="1" stop-color="rgba(69,240,138,0)"/></linearGradient></defs>
+      <path d="M0,210 L40,200 L80,215 L120,180 L160,190 L200,150 L240,165 L280,110 L320,130 L360,80 L400,95" fill="none" stroke="#45f08a" stroke-width="2.5"/>
+      <path d="M0,210 L40,200 L80,215 L120,180 L160,190 L200,150 L240,165 L280,110 L320,130 L360,80 L400,95 L400,300 L0,300 Z" fill="url(#g)"/>
+      <circle cx="200" cy="150" r="5" fill="#45f08a"/><circle cx="280" cy="110" r="5" fill="#45f08a"/><circle cx="360" cy="80" r="5" fill="#45f08a"/>
+    </svg>
+    <div class="tagline">▲ LONG · break + retest confirmed · FVG fill</div>
+  </div>
+</div></div></header>
+
+<!-- the honest edge -->
+<section class="section reveal"><div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">The Honest Edge</span>
+    <h2>Why It Makes Money</h2>
+    <p>Entries are roughly a coin flip — and that's fine. The math wins because of what happens after the click.</p>
+  </div>
+  <div class="edge">
+    <div class="cell"><div class="k">Capped Loss</div><h3>Every loss is fixed in dollars</h3><p>The stop is sized to a set dollar amount before you enter. You never widen it. One bad trade can't blow up.</p></div>
+    <div class="cell"><div class="k">Asymmetry</div><h3>Winners bigger than losers</h3><p>TP1 banks +1R and flips to breakeven; a runner rides the trend. Small losers, occasional big winners.</p></div>
+    <div class="cell"><div class="k">Daily Firewall</div><h3>A bad day can't snowball</h3><p>Hit your loss limit and the system hard-stops new trades — STAND DOWN lockout. Discipline, automated.</p></div>
+  </div>
+</div></section>
+
+<!-- the 3 lights -->
+<section class="section reveal" id="lights"><div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">The 3 Lights</span>
+    <h2>The Only Green Light to Go</h2>
+    <p>Three filters have to agree before the system says GO. Anything less, you wait. No exceptions.</p>
+  </div>
+  <div class="lights">
+    <div class="light">
+      <div class="orb"><b>1</b></div>
+      <div class="lname">Light 01</div>
+      <h3>Trend</h3>
+      <p>Price on the right side of a sticky direction, aligned with the higher-timeframe trend. You trade <strong>with</strong> the market — never against it.</p>
+    </div>
+    <div class="light">
+      <div class="orb"><b>2</b></div>
+      <div class="lname">Light 02</div>
+      <h3>Momentum</h3>
+      <p>The move isn't exhausted — RSI still has room to run. You don't buy the top or sell the bottom into a stretched market.</p>
+    </div>
+    <div class="light">
+      <div class="orb"><b>3</b></div>
+      <div class="lname">Light 03</div>
+      <h3>Setup</h3>
+      <p>A real, fresh Fair Value Gap fills in your direction: a defined entry with a tight stop. A trade you can size and manage.</p>
+    </div>
+  </div>
+  <div class="go-rule">
+    <span class="go">3 LIGHTS GREEN + IN SESSION = SYSTEM GO</span>
+    <span class="wait">ANYTHING ELSE = WAIT</span>
+  </div>
+  <p class="boss-note">The boss is the <b>15-minute bias</b> (LONG / SHORT). The <span class="ym">Yellow Man</span> candle warns you the instant the trend turns.</p>
+</div></section>
+
+<!-- on the charts gallery -->
+<section class="section reveal"><div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">On the Charts</span>
+    <h2>Real Setups, Real Proof</h2>
+    <p>The actual Green Light Special workspace — signals, FVG zones, the bias panel and the ORB playbook, live on the chart.</p>
+  </div>
+  <div class="shots">
+    <figure class="shot wide">
+      <div class="imgwrap"><span class="tag">NQ Futures · Full Workspace</span>
+        <img src="/assets/examples/gls-1.png" alt="Green Light Special full workspace on NQ futures" loading="lazy" /></div>
+      <figcaption>The complete cockpit — <b>15m bias</b>, signals, FVG zones and ORB lines on one screen.</figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="imgwrap"><span class="tag">LONG Signals · FVG</span>
+        <img src="/assets/examples/gls-2.png" alt="Zoomed LONG signals with FVG zones and GLS panel" loading="lazy" /></div>
+      <figcaption>Zoomed in — <b>LONG signals</b> firing into fresh fair-value-gap zones with the GLS panel reading GO.</figcaption>
+    </figure>
+  </div>
+
+  <!-- the system, live — clean HUD graphics -->
+  <div class="sub-head">
+    <span class="eyebrow">The System, Live</span>
+    <p>The HUD that runs every decision — the panel only says GO when all three lights are green and you're in session.</p>
+  </div>
+  <div class="shots">
+    <figure class="shot">
+      <div class="imgwrap"><span class="tag">Signal · GO</span>
+        <img src="/assets/glsgfx/gls-systemgo.png" alt="GLS panel showing SYSTEM GO with all three lights green" loading="lazy" /></div>
+      <figcaption><b>SYSTEM GO</b> — all three lights green, 15m bias long. Take it.</figcaption>
+    </figure>
+    <figure class="shot">
+      <div class="imgwrap"><span class="tag">Signal · WAIT</span>
+        <img src="/assets/glsgfx/gls-wait.png" alt="GLS panel showing WAIT state with the setup light empty" loading="lazy" /></div>
+      <figcaption><b>WAIT</b> — stand down. No setup light means no system trade yet.</figcaption>
+    </figure>
+    <figure class="shot wide">
+      <div class="imgwrap"><span class="tag">NQ Futures · Break + Retest</span>
+        <img src="/assets/glsgfx/gls-chart.png" alt="Clean GLS chart showing ORB break, retest and LONG entry on NQ futures" loading="lazy" /></div>
+      <figcaption><b>Break + retest → GO</b> — ORB range, breakout, the retest holds, then the LONG fires with BOS and exit bells.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<!-- signals from the team -->
+<section class="section reveal" id="signals"><div class="wrap">
+  <style>
+    .sig-disc{margin-top:18px;font-size:.78rem;font-style:italic;color:var(--ink-mute);font-weight:300}
+    /* ===== REAL WINS GALLERY ===== */
+    .wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:clamp(26px,3vw,34px)}
+    @media(max-width:980px){.wins-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:680px){.wins-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:420px){.wins-grid{grid-template-columns:1fr}}
+    .winshot{position:relative;display:block;border:1px solid var(--line-hair);border-radius:var(--r-lg);overflow:hidden;
+      background:var(--panel);padding:10px;box-shadow:0 22px 56px -38px #000,0 0 0 1px rgba(255,255,255,.02);
+      transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
+    .winshot:hover{transform:translateY(-5px);border-color:var(--green);box-shadow:0 0 0 1px rgba(69,240,138,.28),0 30px 70px -38px var(--green)}
+    .winshot .frame{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#04070a;
+      border-radius:var(--r-md);border:1px solid var(--line-soft)}
+    .winshot .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+      transition:transform var(--t-mid) var(--ease)}
+    .winshot:hover .frame img{transform:scale(1.035)}
+    .winshot .frame::after{content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(to top,rgba(4,7,6,.78) 0%,rgba(4,7,6,.12) 34%,transparent 60%)}
+    /* result chip — bottom-left green pill */
+    .winshot .chip{position:absolute;left:18px;bottom:18px;right:18px;z-index:2;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+    .winshot .result{font-family:var(--display);font-weight:700;font-size:.92rem;letter-spacing:.01em;color:#04140b;
+      background:var(--green);padding:6px 12px;border-radius:100px;line-height:1.1;
+      box-shadow:0 8px 24px -10px var(--green),0 0 0 1px rgba(69,240,138,.4)}
+    .winshot .result .inst{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;
+      text-transform:uppercase;color:rgba(4,20,11,.7);margin-bottom:1px}
+    .winshot .by{font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--green);background:rgba(0,0,0,.55);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
+    /* top-right BANKED flag */
+    .winshot .flag{position:absolute;top:17px;right:17px;z-index:2;font-family:var(--mono);font-size:.54rem;font-weight:700;
+      letter-spacing:.2em;text-transform:uppercase;color:var(--green);background:rgba(0,0,0,.55);border:1px solid var(--line);
+      padding:4px 9px;border-radius:100px;display:inline-flex;align-items:center;gap:.45em}
+    .winshot .flag .blip{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px 1px var(--green);animation:bl 1.6s infinite}
+    /* featured tile — spans 2x2 */
+    .winshot.feature{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column;border-color:var(--green);
+      box-shadow:0 0 0 1px rgba(69,240,138,.2),0 34px 84px -44px var(--green)}
+    .winshot.feature .frame{aspect-ratio:auto;flex:1 1 auto;min-height:0}
+    .winshot.feature .result{font-size:clamp(1.05rem,2vw,1.5rem);padding:9px 16px}
+    .winshot.feature .result .inst{font-size:.62rem;margin-bottom:2px}
+    @media(max-width:680px){.winshot.feature{grid-column:span 2;grid-row:auto}.winshot.feature .frame{aspect-ratio:4/5}}
+    @media(max-width:420px){.winshot.feature{grid-column:span 1}}
+    /* JOIN cta */
+    .wins-join{margin:clamp(30px,4vw,44px) auto clamp(8px,2vw,14px);text-align:center;max-width:620px}
+    .wins-join p.lead{font-family:var(--body);font-weight:300;font-size:clamp(1rem,2vw,1.12rem);
+      line-height:1.55;margin-bottom:22px;color:var(--ink-soft)}
+    .wins-join .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .wins-join .btn{font-size:1.02rem;padding:15px 34px}
+    @media(max-width:480px){.wins-join .cta-row{flex-direction:column}.wins-join .cta-row .btn{width:100%;justify-content:center}}
+  </style>
+  <div class="section-head">
+    <span class="eyebrow">From the Room — Banked</span>
+    <h2>Signals From the Team</h2>
+    <p>We call clean signals — and the Green Light Special indicator gives you the visual to see the exact setup on your own charts. <b style="color:var(--ink);font-weight:600">Signals to follow, the indicator to understand.</b></p>
+  </div>
+
+  <!-- REAL WIN SCREENSHOTS — straight from the $IGNALS BY $TEVE room -->
+  <div class="wins-grid">
+
+    <!-- FEATURED: biggest win, spans 2x2 -->
+    <a class="winshot feature" href="/assets/wins/win-10.png" target="_blank" rel="noopener" aria-label="Gold +3,370 pips, full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-10.png" alt="Real Gold trade screenshot — +3,370 pips, full TP" loading="lazy" /></div>
+      <div class="chip">
+        <span class="by">$IGNALS BY $TEVE</span>
+        <span class="result"><span class="inst">Gold · Full TP</span>+3,370 pips</span>
+      </div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-12.png" target="_blank" rel="noopener" aria-label="Gold +2,500 pips, full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-12.png" alt="Real Gold trade screenshot — +2,500 pips, full TP" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · Full TP</span>+2,500 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-03.png" target="_blank" rel="noopener" aria-label="Gold +1,600 pips, full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-03.png" alt="Real Gold trade screenshot — +1,600 pips, full TP" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · Full TP</span>+1,600 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-01.png" target="_blank" rel="noopener" aria-label="Gold +1,258 pips, TP1">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-01.png" alt="Real Gold trade screenshot — +1,258 pips, TP1" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · TP1</span>+1,258 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-04.png" target="_blank" rel="noopener" aria-label="Gold +1,149 pips, full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-04.png" alt="Real Gold trade screenshot — +1,149 pips, full TP" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · Full TP</span>+1,149 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-18.png" target="_blank" rel="noopener" aria-label="Gold +622 pips, full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-18.png" alt="Real Gold trade screenshot — +622 pips, full TP" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · Full TP</span>+622 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-14.png" target="_blank" rel="noopener" aria-label="Gold +575 pips, full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-14.png" alt="Real Gold trade screenshot — +575 pips, full TP" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · Full TP</span>+575 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-13.png" target="_blank" rel="noopener" aria-label="Gold +385 pips, TP1">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-13.png" alt="Real Gold trade screenshot — +385 pips, TP1" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · TP1</span>+385 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-16.png" target="_blank" rel="noopener" aria-label="Gold +321 pips, TP1">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-16.png" alt="Real Gold trade screenshot — +321 pips, TP1" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">Gold · TP1</span>+321 pips</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-17.png" target="_blank" rel="noopener" aria-label="NAS100 full take profit">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-17.png" alt="Real NAS100 trade screenshot — full TP" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">NAS100</span>Full TP</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-07.png" target="_blank" rel="noopener" aria-label="NAS100 TP smashed">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-07.png" alt="Real NAS100 trade screenshot — TP smashed" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">NAS100</span>TP Smashed</span></div>
+    </a>
+
+    <a class="winshot" href="/assets/wins/win-06.png" target="_blank" rel="noopener" aria-label="US30 risked 41 for plus 275 points">
+      <span class="flag"><span class="blip"></span> Banked</span>
+      <div class="frame"><img src="/assets/wins/win-06.png" alt="Real US30 trade screenshot — risked 41 for +275 points" loading="lazy" /></div>
+      <div class="chip"><span class="by">$IGNALS BY $TEVE</span><span class="result"><span class="inst">US30 · Risked 41</span>+275 pts</span></div>
+    </a>
+
+  </div>
+
+  <!-- SINGLE BOTTOM CTA -->
+  <div class="wins-join">
+    <p class="lead">Want these calls in real time? Join the room — or grab the indicator and see the setups yourself.</p>
+    <div class="cta-row">
+      <!-- JOIN NOW LINK: replace with real group link when ready -->
+      <a class="btn btn-primary" href="/coming-soon/">Join Now <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="https://whop.com/green-light-special/green-light-special-indicator" target="_blank" rel="noopener">Get the Indicator</a>
+    </div>
+    <p class="sig-disc">For education only. Results shown are individual outcomes from our room — not typical and not guaranteed. Trading involves substantial risk of loss.</p>
+  </div>
+</div></section>
+
+<!-- members making money -->
+<section class="section reveal" id="member-reviews"><div class="wrap">
+  <style>
+    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:900px){.rev-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.rev-grid{grid-template-columns:1fr}}
+    .revcard{display:flex;flex-direction:column;gap:14px;background:var(--panel);border:1px solid var(--line-soft);
+      border-radius:var(--r-lg);padding:24px 22px;position:relative;overflow:hidden;
+      transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
+    .revcard:hover{transform:translateY(-4px);border-color:var(--line);box-shadow:0 26px 64px -40px var(--green)}
+    .revcard::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,var(--line),transparent);opacity:.7}
+    .rev-stars{display:inline-flex;gap:3px}
+    .rev-stars svg{width:15px;height:15px}
+    .rev-stars .on{fill:var(--green);stroke:var(--green)}
+    .rev-stars .off{fill:none;stroke:var(--ink-mute);stroke-width:1.4}
+    .rev-quote{font-family:var(--body);font-size:1rem;font-weight:300;color:var(--ink-soft);line-height:1.55}
+    .rev-quote b{color:var(--ink);font-weight:500}
+    .rev-name{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--line-soft)}
+    .rev-av{width:32px;height:32px;border-radius:50%;flex:0 0 32px;display:grid;place-items:center;
+      font-family:var(--display);font-weight:700;font-size:.82rem;color:#04140b;
+      background:radial-gradient(circle at 35% 30%,var(--green),var(--green-deep));box-shadow:0 0 16px -4px var(--green)}
+    .rev-id{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:var(--ink)}
+    .rev-id span{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-top:2px}
+  </style>
+  <div class="section-head">
+    <span class="eyebrow">Members</span>
+    <h2>Members Making Money</h2>
+    <p>Real members of the room — following the signals, reading the lights, taking clean setups.</p>
+  </div>
+  <div class="rev-grid">
+
+    <article class="revcard">
+      <span class="rev-stars" aria-label="5 out of 5 stars">
+        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+      </span>
+      <p class="rev-quote">Caught the <b>US30 389-point call</b> live — paid for the year in a day.</p>
+      <div class="rev-name"><span class="rev-av">M</span><span class="rev-id">Marcus T.<span>Indicator + Team</span></span></div>
+    </article>
+
+    <article class="revcard">
+      <span class="rev-stars" aria-label="5 out of 5 stars">
+        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+      </span>
+      <p class="rev-quote">The indicator finally made setups click. <b>I see the green light, I take it.</b></p>
+      <div class="rev-name"><span class="rev-av">D</span><span class="rev-id">Dré W.<span>Indicator + Team</span></span></div>
+    </article>
+
+    <article class="revcard">
+      <span class="rev-stars" aria-label="5 out of 5 stars">
+        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+      </span>
+      <p class="rev-quote">Banked the <b>1258-pip gold run</b> with the team. Insane.</p>
+      <div class="rev-name"><span class="rev-av">P</span><span class="rev-id">Priya S.<span>Indicator + Team</span></span></div>
+    </article>
+
+    <article class="revcard">
+      <span class="rev-stars" aria-label="5 out of 5 stars">
+        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+      </span>
+      <p class="rev-quote">Was guessing before. Now I wait for <b>all three lights and the bias.</b> Game changer.</p>
+      <div class="rev-name"><span class="rev-av">J</span><span class="rev-id">Jalen R.<span>Indicator + Team</span></span></div>
+    </article>
+
+    <article class="revcard">
+      <span class="rev-stars" aria-label="4 out of 5 stars">
+        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+      </span>
+      <p class="rev-quote"><b>TP1 smashed, stops to break-even,</b> stress gone.</p>
+      <div class="rev-name"><span class="rev-av">T</span><span class="rev-id">Tasha M.<span>Indicator + Team</span></span></div>
+    </article>
+
+    <article class="revcard">
+      <span class="rev-stars" aria-label="5 out of 5 stars">
+        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
+      </span>
+      <p class="rev-quote">Signals to follow + the visual to learn from — <b>best $150 I spend monthly.</b></p>
+      <div class="rev-name"><span class="rev-av">A</span><span class="rev-id">Ari K.<span>Indicator + Team</span></span></div>
+    </article>
+
+  </div>
+  <p class="sig-disc" style="text-align:center;margin:clamp(26px,3vw,34px) auto 0;max-width:680px">For education only. Results shown are individual outcomes from our room and are not typical or guaranteed. Trading involves substantial risk of loss.</p>
+</div></section>
+
+<!-- the 3-step ORB -->
+<section class="section reveal"><div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">The 3-Step ORB</span>
+    <h2>Opening-Range Breakout</h2>
+    <p>The fakeout filter is the whole point. Mark the range, wait for the break, and let the retest prove it before you go.</p>
+  </div>
+  <div class="orb-wrap">
+    <div class="orb-steps">
+      <div class="ostep"><div class="num">1</div><div><h3>Mark the range</h3><p>Auto-marks the high and low of the first 15 minutes — the gray ORB lines that define the day's battleground.</p></div></div>
+      <div class="ostep"><div class="num">2</div><div><h3>Wait for the breakout</h3><p>A body close beyond the range, in the trend direction. No close, no trade — you're not guessing the break.</p></div></div>
+      <div class="ostep"><div class="num">3</div><div><h3>Retest → confirm → GO</h3><p>Price returns, holds, and closes back in trend = the <span class="go">GO</span>. A close back inside prints <span class="fake">FAKE</span> — don't chase.</p></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- OSOB + Yellow Man -->
+<section class="section" id="osob"><div class="wrap">
+  <style>
+    .osob-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:980px;margin:0 auto}
+    .osob-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:30px 28px}
+    .osob-card .ohd{font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--green)}
+    .osob-card .ohd.amber{color:var(--amber)}
+    .osob-card h3{font-size:1.25rem;margin:12px 0 10px}
+    .osob-card p{color:var(--ink-soft);font-weight:300}
+    .osob-card ul{list-style:none;margin:18px 0 0;display:flex;flex-direction:column;gap:11px}
+    .osob-card li{display:flex;align-items:flex-start;gap:11px;font-size:.9rem;color:var(--ink-soft);font-family:var(--mono);line-height:1.4}
+    .osob-card .d{width:11px;height:11px;border-radius:50%;background:var(--ink-mute);flex:0 0 11px;margin-top:4px}
+    .osob-card .d.red{background:var(--red)}.osob-card .d.green{background:var(--green)}.osob-card .d.gold{background:var(--amber)}
+    @media(max-width:760px){.osob-grid{grid-template-columns:1fr}}
+  </style>
+  <div class="section-head">
+    <span class="eyebrow" style="justify-content:center">Read the Tank</span>
+    <h2>The OSOB &amp; the Yellow Man</h2>
+    <p>Two tools that tell you when a move is running out of gas — so you bank profit and stand aside instead of giving it all back.</p>
+  </div>
+  <div class="osob-grid">
+    <div class="osob-card">
+      <span class="ohd">GLS OSOB</span>
+      <h3>The OSOB Tank</h3>
+      <p>The lower pane reads how stretched momentum is. Spike into the red top and the move is overbought — start scaling out of longs. Flush into the green bottom and it's oversold — scale out of shorts. It keeps you taking money out at the extremes instead of round-tripping a winner.</p>
+      <ul>
+        <li><span class="d red"></span> Red top — overbought · trim &amp; take profit on longs</li>
+        <li><span class="d green"></span> Green bottom — oversold · trim &amp; take profit on shorts</li>
+        <li><span class="d gold"></span> Gold dots = the EXIT BELL — momentum is spent, the ride is over</li>
+        <li><span class="d"></span> ▲▼ — a momentum flip; the tide is turning</li>
+      </ul>
+    </div>
+    <div class="osob-card">
+      <span class="ohd amber">⚠ Yellow Man</span>
+      <h3>The Yellow Man Warning</h3>
+      <p>The Yellow Man candle is your early-warning light — it fires the instant the trend starts to turn. It's a heads-up to tighten your stop and get ready, <b style="color:var(--ink)">never a trade by itself</b>.</p>
+      <p style="margin-top:14px">When the Yellow Man lights up <em>and</em> the OSOB rings the exit bell, the move is done — protect the profit and wait for the next clean setup. Discipline over hope, every time.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- the trade / what you get -->
+<section class="section reveal"><div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">The Trade</span>
+    <h2>A System, Not Signals</h2>
+    <p>It tells you the direction, the zone, where the stop goes and when to stand down. The rest is discipline — and the system enforces it.</p>
+  </div>
+  <div class="feats">
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-9"/><path d="M21 7v5h-5"/></svg></div><h3>Pullback Entry, Tight Stop</h3><p>Entry on the pullback into an imbalance, with the SL sized to a fixed dollar amount. Never widened.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h6l2-7 4 14 2-7h4"/></svg></div><h3>+1R Auto-Breakeven</h3><p>TP1 banks at +1R and the stop snaps to breakeven the moment +1R tags. The runner risks nothing after that.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20l5-9 4 4 7-13"/><path d="M16 2h5v5"/></svg></div><h3>Runner Trails the Trend</h3><p>The EXIT trail rides the runner until the trend flips — so winners get the room to outsize the losers.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Daily Firewall</h3><p>Hit your loss limit and new trades are locked out — STAND DOWN — until the next session. A bad day stays small.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><h3>Manipulation-Aware</h3><p>Flags stop-hunt sweeps. A sweep that agrees with your direction = an A+ setup, not a trap.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M4 14l5-5 4 4 7-8"/></svg></div><h3>Non-Repainting</h3><p>Signals don't move after the fact. Works on any market, any timeframe — futures, gold, crypto, forex, stocks.</p></div>
+  </div>
+  <div class="windows">
+    <div class="w"><b>NY Open</b> · 09:30–11:00 ET for index futures</div>
+    <div class="w"><b>Gold</b> · best window opens 08:20 ET</div>
+    <div class="w"><b>Any market</b> · any timeframe</div>
+  </div>
+</div></section>
+
+<!-- pricing -->
+<section class="section reveal" id="pricing"><div class="wrap">
+  <div class="section-head">
+    <span class="eyebrow">Get Access</span>
+    <h2>Pick Your Level</h2>
+    <p>Run the indicator solo for $100, get the full system — indicator + the live team — for $150, or go one-on-one. Cancel anytime.</p>
+  </div>
+  <div class="tiers">
+
+    <div class="tier">
+      <div class="tname">Just the Indicator</div>
+      <div class="price">$100<small> / month</small></div>
+      <div class="ptag">The indicator on your charts. Best for self-directed traders.</div>
+      <ul>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Green Light Special indicator (TradingView)</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> The 3 Lights + 15m bias + Yellow Man + OSOB</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> 3-Step ORB, FVG zones &amp; fakeout filter</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Entry / stop / TP1 + runner, daily firewall</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Setup guide + free course · cancel anytime</li>
+      </ul>
+      <a class="btn btn-ghost" href="https://whop.com/green-light-special/green-light-special-indicator" target="_blank" rel="noopener">Get the Indicator</a>
+    </div>
+
+    <div class="tier featured">
+      <div class="badge">Everything · Best Value</div>
+      <div class="tname">Indicator + Team</div>
+      <div class="price">$150<small> / month</small></div>
+      <div class="ptag">The full system — the indicator on your charts AND the live trading room with Royale &amp; Steve.</div>
+      <ul>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Green Light Special indicator (TradingView)</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> The 3 Lights + 15m bias + Yellow Man + OSOB</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> 3-Step ORB, FVG zones &amp; fakeout filter</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Live room with Royale &amp; Steve — real-time calls + setups</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Daily bias, watchlists &amp; NY-open sessions · cancel anytime</li>
+      </ul>
+      <a class="btn btn-primary" href="/coming-soon/">Get Indicator + Team <span class="arr">→</span></a>
+    </div>
+
+    <div class="tier">
+      <div class="tname">1-on-1 Training</div>
+      <div class="price">Apply<small> · custom</small></div>
+      <div class="ptag">Personal mentorship, built around you.</div>
+      <ul>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Private 1-on-1 sessions</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Personalized trading plan</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Direct access to Royale</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Trade &amp; screen reviews</li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Limited spots</li>
+      </ul>
+      <a class="btn btn-ghost" href="sms:+12132635389?&body=Hi%20Royale%2C%20I%20want%201-on-1%20trading%20training." target="_blank" rel="noopener">Apply Now</a>
+    </div>
+
+  </div>
+  <p class="checkout-note"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure checkout via Whop</p>
+</div></section>
+
+<!-- faq -->
+<section class="section reveal"><div class="wrap">
+  <div class="section-head"><span class="eyebrow">FAQ</span><h2>Before You Buy</h2></div>
+  <div class="faq">
+    <details class="qa"><summary>How do I get access after I buy? <span class="pl">+</span></summary><div class="a">Checkout runs through Whop. Right after, you'll get the Green Light Special indicator granted to your TradingView account and (for the team plan) an invite to the live room. Setup takes a couple minutes — the included guide and free course walk you through it.</div></details>
+    <details class="qa"><summary>Do I need a TradingView account? <span class="pl">+</span></summary><div class="a">Yes — a free TradingView account works. Send your TradingView username after checkout and the indicator gets granted to it.</div></details>
+    <details class="qa"><summary>What markets and timeframes does it work on? <span class="pl">+</span></summary><div class="a">Any market on TradingView — index futures, gold, forex, crypto, stocks — on any timeframe. The system shines on the 15m bias with entries on lower timeframes during the NY open (09:30–11:00 ET), and 08:20 ET for gold.</div></details>
+    <details class="qa"><summary>Does the indicator repaint or predict the future? <span class="pl">+</span></summary><div class="a">No. Signals are non-repainting — they don't move after the fact. And nothing predicts the future. Entries are roughly a coin flip; you make money from capped losses, bigger winners, and the daily firewall that stops a bad day from snowballing.</div></details>
+    <details class="qa"><summary>Is this financial advice? <span class="pl">+</span></summary><div class="a">No. Green Light Special is a tool and an education community. You make your own trading decisions and manage your own risk.</div></details>
+  </div>
+</div></section>
+
+<!-- final cta -->
+<section class="section reveal"><div class="wrap">
+  <div class="final">
+    <span class="eyebrow" style="justify-content:center">Ready</span>
+    <h2>Wait for Green. Trade the Clean Move.</h2>
+    <p>Get the indicator, run the 3 Lights and the 3-Step ORB, and join the room that holds you to the system.</p>
+    <a class="btn btn-primary" href="#pricing">Get Access Now <span class="arr">→</span></a>
+  </div>
+  <p class="disclaimer">Risk disclaimer: Trading futures, forex, crypto and equities involves substantial risk of loss and is not suitable for every investor. The Green Light Special indicator and group are educational tools, not financial advice. No indicator predicts the future. Past performance is not indicative of future results. Only trade with capital you can afford to lose.</p>
+</div></section>
+
+<footer class="footer"><div class="wrap">
+  © <span id="yr"></span> Royale Muldrew · Green Light Special &nbsp;·&nbsp; <a href="https://royalemuldrew.com">royalemuldrew.com</a> &nbsp;·&nbsp; <a href="/links/">all links</a>
+</div></footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* =========================================================
+     LAUNCH COUNTDOWN
+     Edit this one constant to change the launch target.
+     ~48h out from build. Local time.
+     ========================================================= */
+  const LAUNCH = new Date('2026-06-28T12:00:00');
+
+  (function(){
+    var WHOP = "https://whop.com/green-light-special/green-light-special-indicator";
+    var el = {
+      d: document.getElementById('cd-d'),
+      h: document.getElementById('cd-h'),
+      m: document.getElementById('cd-m'),
+      s: document.getElementById('cd-s')
+    };
+    var banner = document.getElementById('comingBanner');
+    var pill = document.getElementById('comingPill');
+    var cd = document.getElementById('countdown');
+    var pad = function(n){ return String(n).padStart(2,'0'); };
+    var launched = false;
+
+    function tick(){
+      var diff = LAUNCH.getTime() - Date.now();
+      if(diff <= 0){
+        if(!launched){
+          launched = true;
+          banner.classList.add('launched');
+          banner.setAttribute('href', WHOP);
+          banner.setAttribute('target','_blank');
+          banner.setAttribute('rel','noopener');
+          cd.innerHTML = '<b style="font-family:var(--display);font-size:1rem;letter-spacing:.14em;color:var(--green);text-shadow:0 0 16px rgba(69,240,138,.6)">LAUNCHING NOW</b>';
+          pill.textContent = 'Enter →';
+        }
+        return;
+      }
+      var s = Math.floor(diff/1000);
+      el.d.textContent = pad(Math.floor(s/86400));
+      el.h.textContent = pad(Math.floor((s%86400)/3600));
+      el.m.textContent = pad(Math.floor((s%3600)/60));
+      el.s.textContent = pad(s%60);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  /* ===== scroll reveals ===== */
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+</body>
+</html>
