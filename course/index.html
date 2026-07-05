@@ -646,6 +646,7 @@ blockquote.tipq b{color:var(--green)}
         <li>🔶 <b>Level Regain</b> — the failed-break reclaim: price pokes <i>beyond</i> a level then closes back <i>within</i> in 1–3 candles = a trap. Fires WITH the trend only. <i>(Settings → Setup)</i></li>
         <li>🔁 <b>Reversal Switch</b> — catches the flip <i>after</i> the Yellow Man warning; great for the slow overnight / Asia trends. Optional volume-spike setting for sharp-only reversals. <i>(Settings → Setup)</i></li>
         <li>🎯 <b>Sniper</b> — opening-momentum breakout dots (BUY / SELL / STRONG) for the first move of the session. <i>(Settings → Setup)</i></li>
+        <li>🔔 <b>Opening Go</b> — the opening-bell direction call. Prints <b>🔔 OPENING GO – LONG</b> or <b>SHORT</b> the moment the session opens clean, or <b>🟡 CHOP – STAND ASIDE</b> when there's no clean trend — so you know your bias before the first candle. <i>(Settings → Setup)</i></li>
         <li>🔄 <b>Smart Reversal</b> — flags exhaustion at key levels — use it for exits and careful counter-trend, never a blind fade. <i>(Settings → Setup)</i></li>
       </ul>
 
@@ -653,6 +654,49 @@ blockquote.tipq b{color:var(--green)}
         <span class="ic">⚡</span>
         <div class="ct"><span class="hd" style="color:var(--amber,#ffd400)">Bonus Feature — Breakaway Scalper</span>A separate range-break engine that trades the retest for you. When a range forms (yellow range lines), it waits for the break, drops a <b>limit at the retest</b>, then sets <b>TP + SL at 1:1</b>. It slides your stop to <b>breakeven at +1R</b>, and if the break rips away with no retest it still takes it at market (<b>runner-catch</b>). A strong-trend gate keeps it honest, and it works on <b>any timeframe</b>. Off by default — flip on <i>useBreak</i> when you want to scalp breakouts. <i>(Settings → Setup)</i></div>
       </div>
+
+      <figure class="shot" style="background:rgba(0,0,0,.3)">
+        <svg viewBox="0 0 680 300" role="img" aria-label="Breakaway Scalper: a range forms, price breaks out, a limit order fills on the retest, then price targets take profit at 1 to 1 while the stop moves to breakeven." style="display:block;width:100%;height:auto">
+          <defs>
+            <linearGradient id="tpg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(69,240,138,.30)"/><stop offset="1" stop-color="rgba(69,240,138,0)"/></linearGradient>
+            <linearGradient id="slg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,93,108,0)"/><stop offset="1" stop-color="rgba(255,93,108,.28)"/></linearGradient>
+          </defs>
+          <rect x="415" y="34" width="240" height="30" fill="url(#tpg)"/>
+          <line x1="415" y1="48" x2="655" y2="48" stroke="#45f08a" stroke-width="1.4" stroke-dasharray="2 5"/>
+          <text x="651" y="30" text-anchor="end" fill="#45f08a" font-family="'JetBrains Mono',monospace" font-size="12.5" font-weight="700">TP · 1:1 R</text>
+          <rect x="300" y="222" width="355" height="30" fill="url(#slg)"/>
+          <line x1="300" y1="236" x2="655" y2="236" stroke="#ff5d6c" stroke-width="1.4" stroke-dasharray="2 5"/>
+          <text x="651" y="268" text-anchor="end" fill="#ff5d6c" font-family="'JetBrains Mono',monospace" font-size="12.5" font-weight="700">SL</text>
+          <rect x="30" y="112" width="300" height="90" fill="rgba(255,212,0,.06)"/>
+          <line x1="30" y1="112" x2="330" y2="112" stroke="#ffd400" stroke-width="1.6" stroke-dasharray="6 5"/>
+          <line x1="30" y1="202" x2="655" y2="202" stroke="#ffd400" stroke-width="1.6" stroke-dasharray="6 5"/>
+          <text x="40" y="104" fill="#ffd400" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" opacity=".9">RANGE</text>
+          <line x1="330" y1="112" x2="655" y2="112" stroke="#45f08a" stroke-width="1.8" stroke-dasharray="7 5"/>
+          <g stroke-linecap="butt">
+            <line x1="55" y1="132" x2="55" y2="184" stroke="#5a6b62" stroke-width="1.5"/><rect x="48" y="142" width="14" height="35" rx="1.5" fill="#45f08a"/>
+            <line x1="90" y1="127" x2="90" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="83" y="137" width="14" height="35" rx="1.5" fill="#ff5d6c"/>
+            <line x1="125" y1="134" x2="125" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="118" y="142" width="14" height="33" rx="1.5" fill="#45f08a"/>
+            <line x1="160" y1="130" x2="160" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="153" y="140" width="14" height="34" rx="1.5" fill="#ff5d6c"/>
+            <line x1="195" y1="132" x2="195" y2="180" stroke="#5a6b62" stroke-width="1.5"/><rect x="188" y="142" width="14" height="30" rx="1.5" fill="#45f08a"/>
+            <line x1="230" y1="134" x2="230" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="223" y="142" width="14" height="32" rx="1.5" fill="#ff5d6c"/>
+            <line x1="278" y1="78" x2="278" y2="197" stroke="#5a6b62" stroke-width="1.5"/><rect x="269" y="87" width="18" height="100" rx="2" fill="#45f08a"/>
+            <line x1="305" y1="66" x2="305" y2="100" stroke="#5a6b62" stroke-width="1.5"/><rect x="298" y="72" width="14" height="22" rx="1.5" fill="#45f08a"/>
+            <line x1="345" y1="74" x2="345" y2="116" stroke="#5a6b62" stroke-width="1.5"/><rect x="338" y="82" width="14" height="28" rx="1.5" fill="#ff5d6c"/>
+            <line x1="378" y1="96" x2="378" y2="120" stroke="#5a6b62" stroke-width="1.5"/><rect x="371" y="102" width="14" height="12" rx="1.5" fill="#ff5d6c"/>
+            <line x1="415" y1="80" x2="415" y2="116" stroke="#5a6b62" stroke-width="1.5"/><rect x="408" y="87" width="14" height="24" rx="1.5" fill="#45f08a"/>
+            <line x1="450" y1="58" x2="450" y2="94" stroke="#5a6b62" stroke-width="1.5"/><rect x="443" y="64" width="14" height="26" rx="1.5" fill="#45f08a"/>
+            <line x1="485" y1="42" x2="485" y2="72" stroke="#5a6b62" stroke-width="1.5"/><rect x="478" y="46" width="14" height="24" rx="1.5" fill="#45f08a"/>
+            <line x1="520" y1="36" x2="520" y2="56" stroke="#5a6b62" stroke-width="1.5"/><rect x="513" y="40" width="14" height="14" rx="1.5" fill="#45f08a"/>
+          </g>
+          <circle cx="378" cy="112" r="7" fill="#45f08a" stroke="#04140b" stroke-width="1.5"/>
+          <path d="M378 108 l6 8 h-12 z" fill="#04140b"/>
+          <g transform="translate(392,104)">
+            <rect x="0" y="0" width="96" height="20" rx="5" fill="#0c100e" stroke="#45f08a" stroke-width="1"/>
+            <text x="48" y="14" text-anchor="middle" fill="#45f08a" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">LIMIT BUY</text>
+          </g>
+        </svg>
+        <figcaption>Breakaway Scalper: range → break → limit at the retest → TP at 1:1, stop to breakeven.</figcaption>
+      </figure>
 
       <div class="callout key">
         <span class="ic">🧩</span>
