@@ -643,7 +643,16 @@ blockquote.tipq b{color:var(--green)}
         <li>🌙 <b>Swing mode</b> — switches the whole engine to 4h/Daily and ignores intraday sessions, for swing trading instead of day trading. <i>(Settings → Sessions)</i></li>
         <li>🕒 <b>Power Hour</b> — marks the 3–4 PM ET window. <i>(Off by default — research shows a weak edge, so test it before trusting it.) (Settings → Sessions)</i></li>
         <li>🔴 <b>News-day stand-down</b> — flip this ON before a big news day (CPI, FOMC) and GLS stays quiet all day so you don't get chopped up. <i>(Settings → Firewall)</i></li>
+        <li>🔶 <b>Level Regain</b> — the failed-break reclaim: price pokes <i>beyond</i> a level then closes back <i>within</i> in 1–3 candles = a trap. Fires WITH the trend only. <i>(Settings → Setup)</i></li>
+        <li>🔁 <b>Reversal Switch</b> — catches the flip <i>after</i> the Yellow Man warning; great for the slow overnight / Asia trends. Optional volume-spike setting for sharp-only reversals. <i>(Settings → Setup)</i></li>
+        <li>🎯 <b>Sniper</b> — opening-momentum breakout dots (BUY / SELL / STRONG) for the first move of the session. <i>(Settings → Setup)</i></li>
+        <li>🔄 <b>Smart Reversal</b> — flags exhaustion at key levels — use it for exits and careful counter-trend, never a blind fade. <i>(Settings → Setup)</i></li>
       </ul>
+
+      <div class="callout key" style="border-color:rgba(255,212,0,.35);background:linear-gradient(180deg,rgba(255,212,0,.06),transparent)">
+        <span class="ic">⚡</span>
+        <div class="ct"><span class="hd" style="color:var(--amber,#ffd400)">Bonus Feature — Breakaway Scalper</span>A separate range-break engine that trades the retest for you. When a range forms (yellow range lines), it waits for the break, drops a <b>limit at the retest</b>, then sets <b>TP + SL at 1:1</b>. It slides your stop to <b>breakeven at +1R</b>, and if the break rips away with no retest it still takes it at market (<b>runner-catch</b>). A strong-trend gate keeps it honest, and it works on <b>any timeframe</b>. Off by default — flip on <i>useBreak</i> when you want to scalp breakouts. <i>(Settings → Setup)</i></div>
+      </div>
 
       <div class="callout key">
         <span class="ic">🧩</span>
@@ -689,22 +698,16 @@ blockquote.tipq b{color:var(--green)}
 
   <!-- BOTTOM CTA -->
   <section class="cta">
-    <span class="eyebrow" style="justify-content:center">🟢 Get the System</span>
+    <span class="eyebrow" style="justify-content:center">🟢 Get Access Today</span>
     <h2 style="margin-top:14px">When it's <span class="glow">green</span>, you go.</h2>
-    <p>Two indicators, one disciplined system. Pick the plan that fits.</p>
+    <p>You've seen the whole system. Get it on your charts — both indicators <b>plus</b> the live signal group calling clean setups with you, all in one membership.</p>
 
     <div class="price-cards">
-      <div class="price-card">
-        <div class="pc-tag">Indicators Only</div>
-        <div class="pc-name">Green Light Special + OSOB</div>
-        <div class="pc-price">$99.99 <span>/mo</span></div>
-        <a class="btn btn-primary" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Get the Indicators <span class="arr">→</span></a>
-      </div>
-      <div class="price-card alt">
-        <div class="pc-tag">Indicators + Signal Group</div>
-        <div class="pc-name">GLS Indicator + OSOB Signal Group</div>
+      <div class="price-card alt" style="grid-column:1/-1;max-width:420px;margin:0 auto">
+        <div class="pc-tag">Indicator + Signal Group</div>
+        <div class="pc-name">GLS + OSOB Indicators + Live Signal Group</div>
         <div class="pc-price">$149.99 <span>/mo</span></div>
-        <a class="btn btn-amber" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Get Indicator + Group <span class="arr">→</span></a>
+        <a class="btn btn-amber" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Get Access Today <span class="arr">→</span></a>
       </div>
     </div>
 
