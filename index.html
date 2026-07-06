@@ -437,7 +437,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 
 <!-- top payment bar -->
 <a class="topbar" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">
-  <span class="tb-txt"><span class="tb-dot"></span> Indicator + Signal Group — <b>$149.99/mo</b> · both indicators + live calls · <b>free course included</b></span>
+  <span class="tb-txt"><span class="tb-dot"></span> The Telegram Group + the Indicator — <b>everything for $149.99/mo</b> · free course included</span>
   <span class="tb-btn">Join Now →</span>
 </a>
 <style>
@@ -462,30 +462,70 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 <!-- nav -->
 <nav class="nav"><div class="wrap">
   <a class="brand" href="#top"><span class="blip"></span>GREEN LIGHT <span>SPECIAL</span></a>
-  <div class="nav-right">
-    <a class="btn btn-ghost nav-course" href="/course/">📘 Free Course</a>
-    <a class="btn btn-primary" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join the Group <span class="arr">→</span></a>
+  <div class="nav-links">
+    <a href="/course/">How to Use</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
   </div>
-  <style>.nav .nav-course{padding:9px 16px;font-size:.82rem;border-color:var(--green);color:var(--green)}.nav .nav-course:hover{background:rgba(69,240,138,.10)}@media(max-width:560px){.nav .nav-course{padding:7px 11px;font-size:.74rem}}</style>
-</div></nav>
+  <div class="nav-right">
+    <a class="btn btn-primary nav-join" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join <span class="arr">→</span></a>
+    <button class="hamb" id="hambBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</div>
+  <div class="mobile-menu" id="mmenu">
+    <a href="/course/"><span>📘</span> How to Use <span class="mm-sub">— the full course</span></a>
+    <a href="#value-stack"><span>🎁</span> What You Get</a>
+    <a href="#features"><span>⚡</span> Features <span class="mm-sub">— everything it does</span></a>
+    <a href="#signals"><span>📈</span> Live Results</a>
+    <a href="#pricing"><span>💳</span> Pricing &amp; Join</a>
+    <a href="/faq/"><span>❓</span> FAQ</a>
+    <a href="/disclaimer/"><span>📄</span> Disclaimer</a>
+    <a class="btn btn-primary mm-cta" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join the Group — $149.99/mo <span class="arr">→</span></a>
+  </div>
+</nav>
+<style>
+  .nav .nav-links{display:flex;gap:26px;margin-left:auto;margin-right:22px}
+  .nav .nav-links a{font-family:var(--mono);font-size:.82rem;letter-spacing:.02em;color:var(--ink-soft);transition:color .2s}
+  .nav .nav-links a:hover{color:var(--green)}
+  .nav .hamb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:38px;background:transparent;border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0 10px}
+  .nav .hamb span{display:block;height:2px;width:100%;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+  .nav .hamb.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav .hamb.open span:nth-child(2){opacity:0}
+  .nav .hamb.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{overflow:hidden;max-height:0;transition:max-height .35s ease;background:var(--panel);border-bottom:1px solid var(--line)}
+  .mobile-menu.open{max-height:640px}
+  .mobile-menu a{display:flex;align-items:center;gap:12px;padding:15px 22px;font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);border-top:1px solid rgba(255,255,255,.05)}
+  .mobile-menu a:first-child{border-top:0}
+  .mobile-menu a .mm-sub{font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--ink-mute)}
+  .mobile-menu .mm-cta{justify-content:center;margin:14px 18px 20px;color:#04140b}
+  @media(max-width:760px){.nav .nav-links{display:none}.nav .hamb{display:flex}.nav .nav-join{display:none}}
+  @media(min-width:761px){.mobile-menu{display:none}}
+</style>
+<script>
+  (function(){var b=document.getElementById('hambBtn'),m=document.getElementById('mmenu');if(!b)return;
+    function close(){b.classList.remove('open');m.classList.remove('open');b.setAttribute('aria-expanded','false');}
+    b.addEventListener('click',function(){var o=m.classList.toggle('open');b.classList.toggle('open',o);b.setAttribute('aria-expanded',o);});
+    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
+  })();
+</script>
 
 <!-- hero -->
 <header class="hero" id="top"><div class="wrap"><div class="hero-grid">
   <div>
-    <span class="eyebrow">The Indicator + The Group</span>
+    <span class="eyebrow">The Indicator + The Telegram Group</span>
     <h1>Green Light <em>Special</em></h1>
-    <p class="lead"><b>The indicator that calls the trade — and the group that trades it with you.</b> Get the invite-only TradingView bundle (GLS + OSOB) that draws your entry, stop and target, and join the live room where we call clean setups on Gold · NAS · US30 · GBPJPY in real time.</p>
+    <p class="lead"><b>Get the Telegram signal group AND the indicator — everything for $149.99/mo.</b> The invite-only TradingView indicator (GLS + OSOB) draws your entry, stop and target, and our Telegram room calls clean setups on Gold · NAS · US30 · GBPJPY in real time. One price. One membership.</p>
     <div class="buybox">
-      <div class="priceline"><b>Indicator + Signal Group</b> <span class="amt">$149.99</span>/mo · one membership, everything included</div>
+      <div class="priceline"><b>Telegram Group + Indicator</b> <span class="amt">$149.99</span>/mo · everything included</div>
       <div class="buy-cta">
         <a class="btn btn-primary" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join Now — $149.99/mo <span class="arr">→</span></a>
-        <a class="btn btn-ghost" href="#features">See Everything Included</a>
+        <a class="btn btn-ghost" href="/course/">📘 Free Course</a>
       </div>
-      <p class="trustline">🔒 <b>Secure checkout via Whop</b> · cancel anytime · both indicators (GLS + OSOB) + live calls included</p>
+      <p class="trustline">🔒 <b>Secure checkout via Whop</b> · cancel anytime · both indicators + the Telegram group + free course</p>
     </div>
     <div class="hero-cta">
-      <a class="btn btn-ghost" href="#value-stack">Why the Group?</a>
-      <a class="btn btn-ghost" href="#lights">See How It Works</a>
+      <a class="btn btn-ghost" href="#features">See the Features</a>
+      <a class="btn btn-ghost" href="#signals">Real Results</a>
     </div>
     <div class="hero-meta">
       <div><b>Live</b>signal room daily</div>
@@ -518,7 +558,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 <section class="section reveal" id="value-stack"><div class="wrap">
   <div class="section-head">
     <span class="eyebrow">Everything You Get in the Group</span>
-    <h2>What $149.99/mo Gets You</h2>
+    <h2>Everything You Get for $149.99/mo</h2>
     <p>The indicator calls the trade. The group trades it with you. Here's the whole stack — with honest value on every line.</p>
   </div>
   <div class="vstack-wrap">
@@ -535,7 +575,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
       </div>
       <div class="vrow">
         <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>Live signal room</b><span>Real-time calls on Gold · NAS · US30 · GBPJPY — the $IGNALS group.</span></span>
+        <span class="vtxt"><b>The Telegram signal group</b><span>Real-time calls on Gold · NAS · US30 · GBPJPY — trade right alongside the team.</span></span>
         <span class="vval">$300+/mo value</span>
       </div>
       <div class="vrow">
@@ -566,166 +606,14 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 </div></section>
 
 <!-- A) TWO INDICATORS, ONE SYSTEM -->
-<section class="section reveal" id="bundle"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Two Indicators, One System</span>
-    <h2>Get In, Then Get Out</h2>
-    <p>Green Light Special is a bundle of two TradingView indicators that work as one playbook — one gets you into the clean move, the other gets you out before you give it back. <b style="color:var(--ink);font-weight:600">Both are included.</b></p>
-  </div>
-  <div class="duo">
-    <div class="duo-card">
-      <span class="kpill">Included</span>
-      <div class="role">Indicator 01 · Main Chart</div>
-      <h3>Green Light <em>Special</em></h3>
-      <p>The main chart indicator — direction, signals, zones and risk all on price. It draws the entry, the stop, the target and the size, and only flashes SYSTEM GO when the read is clean.</p>
-      <div class="verb in">→ Tells you when to GET IN</div>
-    </div>
-    <div class="duo-card">
-      <span class="kpill">Included</span>
-      <div class="role">Indicator 02 · Exit Pane</div>
-      <h3>GLS <em>OSOB</em></h3>
-      <p>The companion pane that lives below price. Its one job is the exit — it shows when a long is getting tired, when a short is getting tired, and rings the EXIT BELL so you scale or tighten instead of round-tripping a winner.</p>
-      <div class="verb out">→ Tells you when to GET OUT</div>
-    </div>
-  </div>
-  <p class="duo-incl"><b>One purchase, two scripts.</b> Invite-only on TradingView — markets: MES · MNQ · MGC · MYM · timeframes: 5m &amp; 15m.</p>
-</div></section>
 
 <!-- the honest edge -->
-<section class="section reveal"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">The Honest Edge</span>
-    <h2>Why It Makes Money</h2>
-    <p>Entries are roughly a coin flip — and that's fine. The math wins because of what happens after the click.</p>
-  </div>
-  <div class="edge">
-    <div class="cell"><div class="k">Capped Loss</div><h3>Every loss is fixed in dollars</h3><p>The stop is sized to a set dollar amount before you enter. You never widen it. One bad trade can't blow up.</p></div>
-    <div class="cell"><div class="k">Asymmetry</div><h3>Winners bigger than losers</h3><p>TP1 banks +1R and flips to breakeven; a runner rides the trend. Small losers, occasional big winners.</p></div>
-    <div class="cell"><div class="k">Daily Firewall</div><h3>A bad day can't snowball</h3><p>Hit your loss limit and the system hard-stops new trades — STAND DOWN lockout. Discipline, automated.</p></div>
-  </div>
-</div></section>
 
 <!-- B) THE DASHBOARD -->
-<section class="section reveal" id="lights"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">The Dashboard</span>
-    <h2>Always On Your Chart</h2>
-    <p>Green Light Special runs a live HUD on price — direction, the three green lights, and a plain-English status banner that walks you through the whole trade.</p>
-  </div>
-
-  <div class="dash">
-    <!-- DIRECTION -->
-    <div class="dash-card">
-      <div class="dh">🎯 Direction Panel</div>
-      <h3>The Timeframe Stack</h3>
-      <p class="sub">Day · 4h · 15m · 5m, stacked. The whole stack has to line up.</p>
-      <div class="tfstack">
-        <div class="tfrow"><span class="tf">DAY</span><span class="st up"><span class="d"></span>LONG</span></div>
-        <div class="tfrow"><span class="tf">4H</span><span class="st up"><span class="d"></span>LONG</span></div>
-        <div class="tfrow"><span class="tf">15M</span><span class="st up"><span class="d"></span>LONG</span></div>
-        <div class="tfrow"><span class="tf">5M</span><span class="st up"><span class="d"></span>LONG</span></div>
-      </div>
-      <p class="dir-key">All <b class="g">green</b> = strong long · all <b class="r">red</b> = strong short · <b class="a">mixed</b> = wait.</p>
-    </div>
-
-    <!-- 3 GREEN LIGHTS -->
-    <div class="dash-card">
-      <div class="dh">🟢 The 3 Green Lights</div>
-      <h3>All Three, or You Wait</h3>
-      <p class="sub">Three filters must agree before the system says GO.</p>
-      <div class="glmini">
-        <div class="glrow"><span class="gd"></span><span class="gt"><b>① Trend</b> A clean trend — not chop.</span></div>
-        <div class="glrow"><span class="gd"></span><span class="gt"><b>② Momentum</b> The move isn't exhausted.</span></div>
-        <div class="glrow"><span class="gd"></span><span class="gt"><b>③ Setup</b> A real entry is present.</span></div>
-      </div>
-      <div class="gl-stats">
-        <div class="s"><b>+ / –</b><span>Live Day P&amp;L</span></div>
-        <div class="s"><b>Win %</b><span>Session</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STATUS BANNER WALKTHROUGH -->
-  <div class="dh" style="font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);text-align:center;margin:6px 0 16px">🚦 The Status Banner — plain English, every step</div>
-  <div class="statuses">
-    <div class="stt"><span class="badge2 ready">Get Ready</span><p>Conditions are lining up — get your size and levels set.</p></div>
-    <div class="stt"><span class="badge2 go">System Go</span><p>All three lights green, in session. This is the entry.</p></div>
-    <div class="stt"><span class="badge2 in">In A Trade, Ride It</span><p>You're filled. Manage to the plan, don't touch it.</p></div>
-    <div class="stt"><span class="badge2 in">Runner, Let It Ride</span><p>First target banked, stop at breakeven — let the runner run.</p></div>
-    <div class="stt"><span class="badge2 ready">Chop — Stand Aside</span><p>No clean trend. The system makes you sit on your hands.</p></div>
-    <div class="stt"><span class="badge2 stop">Done / Closed / Stand Down</span><p>Daily goal or loss limit hit — the firewall stops new trades.</p></div>
-  </div>
-  <div class="cta-band">
-    <p>Get the dashboard on your charts <b>+ the room calling it live.</b></p>
-    <div class="row">
-      <a class="btn btn-primary" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join the Group — $149.99 <span class="arr">→</span></a>
-    </div>
-  </div>
-</div></section>
 
 <!-- C) THE SIGNALS -->
-<section class="section reveal" id="signals-grid"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">The Signals</span>
-    <h2>Clean Lights, No Noise</h2>
-    <p>Entries print as simple green / red light dots on price — no "buy / sell" text to lean on. A with-trend entry only confirms on bar close, backed by trend, momentum and above-average volume, in session.</p>
-  </div>
-  <div class="sig-dots">
-    <span><span class="gdot"></span> Green light = with-trend long</span>
-    <span><span class="rdot"></span> Red light = with-trend short</span>
-  </div>
-  <div class="sigs">
-    <div class="sigc"><div class="si">🟢🔴</div><h3>With-Trend Entry</h3><p>Green / red light dot, confirmed on close by trend + momentum + above-average volume, in session.</p></div>
-    <div class="sigc"><div class="si">💎</div><h3>STRONG (A+)</h3><p>The premium signal — all 4 timeframes agree. Highest-conviction setups only.</p></div>
-    <div class="sigc"><div class="si">⭐</div><h3>Golden Pocket</h3><p>Marks the 0.618–0.79 OTE zone — the deep-discount pullback area to enter from.</p></div>
-    <div class="sigc"><div class="si">🛡</div><h3>Strong Support / Resistance</h3><p>Levels tested 2+ times are flagged as the walls that hold.</p></div>
-    <div class="sigc"><div class="si">🚀</div><h3>ORB</h3><p>Volume-backed break of the opening range — the day's first real directional move.</p></div>
-    <div class="sigc"><div class="si">📦</div><h3>FVG Detection</h3><p>"Wait for fill" while the fair-value gap is open → "✅ FILLED — GET IN" the moment price tags it.</p></div>
-    <div class="sigc"><div class="si">↪</div><h3>Pullback Entries</h3><p>Continuation entries on the retrace into the trend, not at the highs.</p></div>
-    <div class="sigc"><div class="si">🔄</div><h3>Smart Reversal</h3><p>Flags exhaustion — used for exits and careful counter-trend, not blind fades.</p></div>
-    <div class="sigc"><div class="si">🟡</div><h3>Yellow Man</h3><p>The trend-flip warning candle. A heads-up to tighten up — never a trade by itself.</p></div>
-    <div class="sigc"><div class="si">🏛</div><h3>BOS / CHoCH <span class="opt">Optional</span></h3><p>Break of structure / change of character marked on price for structure reads.</p></div>
-    <div class="sigc"><div class="si">💧</div><h3>Liquidity Lines <span class="opt">Optional</span></h3><p>Prior-day high &amp; low (PDH / PDL) — the magnets price hunts.</p></div>
-    <div class="sigc"><div class="si">📊</div><h3>VWAP</h3><p>The session's volume-weighted average — the intraday fair-value anchor.</p></div>
-  </div>
-</div></section>
 
 <!-- 🎯 SCALPER MODE (new) -->
-<section class="section reveal" id="scalper"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">New · Scalper Mode</span>
-    <h2>BUY NOW / SELL NOW — Built for the Fast Frames</h2>
-    <p>A dedicated scalp engine for <b style="color:var(--ink);font-weight:600">1m · 5m · 10m · 15m · 30m</b>. When a clean setup lines up it prints <b style="color:var(--green)">BUY NOW</b> / <b style="color:var(--red)">SELL NOW</b> right on the candle with a 🎯 target zone — words, not guesswork. Capped at <b style="color:var(--ink);font-weight:600">5 clean calls a session</b>, so it never floods the chart.</p>
-  </div>
-
-  <div class="sigs">
-    <div class="sigc"><div class="si">↪</div><h3>Pullback to the Line</h3><p>Buy the dip / sell the rip back to the moving average, in the direction of the trend. The bread-and-butter scalp.</p></div>
-    <div class="sigc"><div class="si">🩸</div><h3>Liquidity Grab</h3><p>The anti-stop-hunt entry — when price sweeps a low/high to run stops then reclaims it, you go <b style="color:var(--ink)">with</b> the reversal (Wyckoff spring / upthrust).</p></div>
-    <div class="sigc"><div class="si">💥</div><h3>Consolidation Breakout</h3><p>Catches the explosive move out of a tight coil — only on a volume-backed close <b style="color:var(--ink)">out</b> of the range.</p></div>
-  </div>
-
-  <div class="sub-head">
-    <span class="eyebrow">Six filters, or it stays quiet</span>
-    <p>Every BUY NOW / SELL NOW has to earn it — this is the anti-fake-out core.</p>
-  </div>
-  <div class="edge">
-    <div class="cell"><div class="k">With the trend</div><h3>Never against the tide</h3><p>Longs only in an uptrend, shorts only in a downtrend — and the trend line has to be moving your way. No buying a rollover.</p></div>
-    <div class="cell"><div class="k">Room to run</div><h3>No tops, no bottoms</h3><p>Won't buy into resistance or sell into support. It only fires when there's real room in the trade's direction.</p></div>
-    <div class="cell"><div class="k">Confirmed on close</div><h3>Wicks can't fake it</h3><p>Fires on the bar close, volume-backed and not exhausted — never mid-candle, so a wick can't trap you in.</p></div>
-  </div>
-
-  <div class="sub-head">
-    <span class="eyebrow">Best times to scalp</span>
-    <p>Session-only by default (highest win rate) — or flip on <b style="color:var(--ink)">"Scalp around the clock"</b> for 24 hours.</p>
-  </div>
-  <div class="windows">
-    <span class="w">🥇 <b>9:30–11:30 AM ET</b> NY open</span>
-    <span class="w">🥈 <b>3:00–4:00 PM ET</b> power hour</span>
-    <span class="w">🇬🇧 <b>3:00–6:00 AM ET</b> London</span>
-    <span class="w">🥇 <b>8 AM–12 PM ET</b> gold overlap</span>
-    <span class="w">❌ avoid <b>11:30–1:30 PM</b> lunch chop</span>
-  </div>
-</div></section>
 
 <!-- ===================== FULL FEATURE LIST ===================== -->
 <section class="section reveal" id="features"><div class="wrap">
@@ -883,141 +771,8 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 </div></section>
 
 <!-- ENTRY EXAMPLES — what a green light entry looks like -->
-<section class="section reveal" id="entry-examples"><div class="wrap">
-  <style>
-    .entryex{display:flex;flex-direction:column;gap:clamp(20px,3vw,30px)}
-    .exfig{position:relative;margin:0;background:var(--panel);border:1px solid var(--line-hair);border-radius:var(--r-xl);
-      padding:clamp(12px,1.6vw,18px);box-shadow:0 34px 90px -46px #000,0 0 0 1px rgba(255,255,255,.02);
-      transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
-    .exfig:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 0 0 1px rgba(69,240,138,.26),0 40px 100px -46px var(--green)}
-    .exfig .exframe{position:relative;width:100%;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--line-soft);background:#04070a}
-    .exfig .exframe img{width:100%;height:auto;display:block}
-    .exfig .extag{position:absolute;top:14px;left:14px;z-index:2;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;
-      text-transform:uppercase;color:var(--green);background:rgba(0,0,0,.62);border:1px solid var(--line);padding:5px 11px;border-radius:6px}
-    .exfig figcaption{display:flex;align-items:flex-start;gap:.6em;font-family:var(--body);font-weight:300;font-size:1rem;
-      color:var(--ink-soft);letter-spacing:.01em;padding:16px 6px 4px;line-height:1.5}
-    .exfig figcaption .cn{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.14em;color:var(--green);
-      border:1px solid var(--line);border-radius:6px;padding:3px 8px;flex:0 0 auto;margin-top:1px}
-    .exfig figcaption b{color:var(--ink);font-weight:600}
-    .exrow{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,30px)}
-    @media(max-width:820px){.exrow{grid-template-columns:1fr}}
-  </style>
-  <div class="section-head">
-    <span class="eyebrow">See the Indicator in Action</span>
-    <h2>What a Green Light Entry Looks Like</h2>
-    <p>Direction lines up, the light fires, the FVG flips to <b style="color:var(--green);font-weight:600">✅ FILLED — GET IN</b>, and the ticket draws your entry, stop, and target. <b style="color:var(--ink);font-weight:600">This is what the indicator prints on your chart.</b></p>
-  </div>
-
-  <div class="entryex">
-    <!-- FEATURED: full workspace -->
-    <figure class="exfig">
-      <div class="exframe"><span class="extag">Main · MNQ 15M · Full Workspace</span>
-        <img src="/assets/gls/clean/gls-main-01.png" alt="Green Light Special main indicator on MNQ 15m — LONG then SHORT signals, the direction panel leaning SHORT with every timeframe DOWN, the GLS panel, the golden-pocket zone and the entry ticket" loading="lazy" /></div>
-      <figcaption><span class="cn">READ IT</span><span><b>STRONG SHORT on all four timeframes</b> — the direction panel reads DOWN top to bottom, so the system only takes shorts. The red SHORT fires the break, the golden-pocket sell zone and the entry ticket draw the levels.</span></figcaption>
-    </figure>
-
-    <div class="exrow">
-      <figure class="exfig">
-        <div class="exframe"><span class="extag">Signal · Up Close</span>
-          <img src="/assets/gls/clean/gls-main-02.png" alt="Close-up of the Green Light Special LONG and SHORT signal tags — the yellow-man flip candle at the top, then the SHORT light" loading="lazy" /></div>
-        <figcaption><span class="cn">GET IN</span><span><b>✅ FILLED — GET IN as price tags the gap</b> — LONG rode the trend, the Yellow Man warned the flip, then the SHORT light fires the reversal into the fair-value gap.</span></figcaption>
-      </figure>
-      <figure class="exfig">
-        <div class="exframe"><span class="extag">Direction + Lights</span>
-          <img src="/assets/gls/clean/gls-main-03.png" alt="Green Light Special LONG signal printing into the golden-pocket pullback zone with the moving-average stack" loading="lazy" /></div>
-        <figcaption><span class="cn">THE ZONE</span><span><b>The golden-pocket sell zone + the ticket</b> — a clean LONG prints into the pullback, with-trend, showing entry / stop / target off the discount zone.</span></figcaption>
-      </figure>
-    </div>
-  </div>
-  <div class="cta-band">
-    <p>Want this on your charts? <b>Get the indicator</b> — or join the group and trade the calls too.</p>
-    <div class="row">
-      <a class="btn btn-primary" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join the Group — $149.99 <span class="arr">→</span></a>
-    </div>
-  </div>
-</div></section>
 
 <!-- on the charts gallery -->
-<section class="section reveal"><div class="wrap">
-  <style>
-    /* main-indicator framed tiles */
-    .mainshots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:clamp(30px,4vw,42px)}
-    @media(max-width:760px){.mainshots{grid-template-columns:1fr}}
-    .mainshot{position:relative;display:block;border:1px solid var(--line-hair);border-radius:var(--r-lg);overflow:hidden;
-      background:var(--panel);padding:10px;box-shadow:0 22px 56px -38px #000,0 0 0 1px rgba(255,255,255,.02);
-      transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
-    .mainshot:hover{transform:translateY(-5px);border-color:var(--green);box-shadow:0 0 0 1px rgba(69,240,138,.28),0 30px 70px -38px var(--green)}
-    .mainshot .frame{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#04070a;
-      border-radius:var(--r-md);border:1px solid var(--line-soft)}
-    .mainshot .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
-      transition:transform var(--t-mid) var(--ease)}
-    .mainshot:hover .frame img{transform:scale(1.04)}
-    .mainshot .tag{position:absolute;top:18px;left:18px;z-index:2;font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;
-      text-transform:uppercase;color:var(--green);background:rgba(0,0,0,.6);border:1px solid var(--line);padding:4px 9px;border-radius:6px}
-    .mainshot figcaption{font-family:var(--mono);font-size:.74rem;color:var(--ink-mute);letter-spacing:.03em;padding:14px 8px 6px}
-    .mainshot figcaption b{color:var(--green);font-weight:600}
-  </style>
-  <div class="section-head">
-    <span class="eyebrow">See the Indicator in Action</span>
-    <h2>Real Setups, Real Proof</h2>
-    <p>The actual Green Light Special workspace — signals, FVG zones, the bias panel and the ORB playbook, live on the chart. <b style="color:var(--ink);font-weight:600">This is the tool you get.</b></p>
-  </div>
-
-  <!-- MAIN INDICATOR — clean full-quality screenshots -->
-  <div class="mainshots">
-    <figure class="mainshot">
-      <div class="frame"><span class="tag">Main · MNQ 15M</span>
-        <img src="/assets/gls/gls-main-01.png" alt="Green Light Special main indicator on MNQ — LONG and SHORT signals with the direction panel" loading="lazy" /></div>
-      <figcaption><b>LONG &amp; SHORT signals</b> — the full chart with the direction panel and lights reading live.</figcaption>
-    </figure>
-    <figure class="mainshot">
-      <div class="frame"><span class="tag">Signal · Up Close</span>
-        <img src="/assets/gls/gls-main-02.png" alt="Close-up of the Green Light Special LONG and SHORT signal tags on price" loading="lazy" /></div>
-      <figcaption><b>The signal up close</b> — LONG fires the trend, SHORT flips it at the exhaustion top.</figcaption>
-    </figure>
-    <figure class="mainshot">
-      <div class="frame"><span class="tag">Direction + Lights</span>
-        <img src="/assets/gls/gls-main-03.png" alt="Green Light Special LONG signal printing into the golden-pocket pullback zone" loading="lazy" /></div>
-      <figcaption><b>Direction panel + lights</b> — a clean LONG printing into the pullback, with-trend.</figcaption>
-    </figure>
-  </div>
-
-  <div class="shots">
-    <figure class="shot wide">
-      <div class="imgwrap"><span class="tag">NQ Futures · Full Workspace</span>
-        <img src="/assets/examples/gls-1.png" alt="Green Light Special full workspace on NQ futures" loading="lazy" /></div>
-      <figcaption>The complete cockpit — <b>15m bias</b>, signals, FVG zones and ORB lines on one screen.</figcaption>
-    </figure>
-    <figure class="shot">
-      <div class="imgwrap"><span class="tag">LONG Signals · FVG</span>
-        <img src="/assets/examples/gls-2.png" alt="Zoomed LONG signals with FVG zones and GLS panel" loading="lazy" /></div>
-      <figcaption>Zoomed in — <b>LONG signals</b> firing into fresh fair-value-gap zones with the GLS panel reading GO.</figcaption>
-    </figure>
-  </div>
-
-  <!-- the system, live — clean HUD graphics -->
-  <div class="sub-head">
-    <span class="eyebrow">The System, Live</span>
-    <p>The HUD that runs every decision — the panel only says GO when all three lights are green and you're in session.</p>
-  </div>
-  <div class="shots">
-    <figure class="shot">
-      <div class="imgwrap"><span class="tag">Signal · GO</span>
-        <img src="/assets/glsgfx/gls-systemgo.png" alt="GLS panel showing SYSTEM GO with all three lights green" loading="lazy" /></div>
-      <figcaption><b>SYSTEM GO</b> — all three lights green, 15m bias long. Take it.</figcaption>
-    </figure>
-    <figure class="shot">
-      <div class="imgwrap"><span class="tag">Signal · WAIT</span>
-        <img src="/assets/glsgfx/gls-wait.png" alt="GLS panel showing WAIT state with the setup light empty" loading="lazy" /></div>
-      <figcaption><b>WAIT</b> — stand down. No setup light means no system trade yet.</figcaption>
-    </figure>
-    <figure class="shot wide">
-      <div class="imgwrap"><span class="tag">NQ Futures · Break + Retest</span>
-        <img src="/assets/glsgfx/gls-chart.png" alt="Clean GLS chart showing ORB break, retest and LONG entry on NQ futures" loading="lazy" /></div>
-      <figcaption><b>Break + retest → GO</b> — ORB range, breakout, the retest holds, then the LONG fires with BOS and exit bells.</figcaption>
-    </figure>
-  </div>
-</div></section>
 
 <!-- signals from the team -->
 <section class="section reveal" id="signals"><div class="wrap">
@@ -1251,117 +1006,14 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 </div></section>
 
 <!-- D) RISK & DISCIPLINE -->
-<section class="section reveal" id="risk"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Risk &amp; Discipline</span>
-    <h2>Built In, Not Bolted On</h2>
-    <p>The edge isn't the entry — it's the risk and the discipline. Green Light Special enforces both automatically, which is why it's built for funded and prop accounts.</p>
-  </div>
-  <div class="risk">
-    <div class="riskc"><div class="rk">Sizing</div><h3>Auto Position Sizing</h3><p>Sizes the trade to your chosen dollar risk — every entry, sized for you before you click.</p></div>
-    <div class="riskc"><div class="rk">Stops &amp; Targets</div><h3>ATR Stops + R-Multiple TPs</h3><p>ATR-based stops with reward-multiple targets and an optional trail — breakeven at +1R.</p></div>
-    <div class="riskc"><div class="rk">Daily Firewall</div><h3>Loss Limit + Profit Goal</h3><p>Set a daily loss limit and profit goal — hit either and the system auto stands down. Built for funded / prop.</p></div>
-    <div class="riskc"><div class="rk">Chop Filter</div><h3>Kaufman Efficiency Ratio</h3><p>Measures how clean the move really is and stands you aside when price is just chopping.</p></div>
-    <div class="riskc"><div class="rk">No-Chase Gate</div><h3>Don't Chase</h3><p>Blocks late entries once price has already run — no buying the top after the move.</p></div>
-    <div class="riskc"><div class="rk">Session &amp; News</div><h3>Auto-Fit + News Blackout</h3><p>Auto-fits the active session and blacks out the news windows at 8:30 &amp; 10:00 ET.</p></div>
-  </div>
-</div></section>
 
 <!-- OSOB + Yellow Man -->
-<section class="section" id="osob"><div class="wrap">
-  <style>
-    .osob-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:980px;margin:0 auto}
-    .osob-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:30px 28px}
-    .osob-card .ohd{font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--green)}
-    .osob-card .ohd.amber{color:var(--amber)}
-    .osob-card h3{font-size:1.25rem;margin:12px 0 10px}
-    .osob-card p{color:var(--ink-soft);font-weight:300}
-    .osob-card ul{list-style:none;margin:18px 0 0;display:flex;flex-direction:column;gap:11px}
-    .osob-card li{display:flex;align-items:flex-start;gap:11px;font-size:.9rem;color:var(--ink-soft);font-family:var(--mono);line-height:1.4}
-    .osob-card .d{width:11px;height:11px;border-radius:50%;background:var(--ink-mute);flex:0 0 11px;margin-top:4px}
-    .osob-card .d.red{background:var(--red)}.osob-card .d.green{background:var(--green)}.osob-card .d.gold{background:var(--amber)}
-    @media(max-width:760px){.osob-grid{grid-template-columns:1fr}}
-  </style>
-  <div class="section-head">
-    <span class="eyebrow" style="justify-content:center">Indicator 02 · Exit Pane</span>
-    <h2>GLS OSOB — The Exit Companion</h2>
-    <p>A separate pane below price. Its one job is telling you when to <b style="color:var(--ink);font-weight:600">get out and scale</b> — never when to get in.</p>
-  </div>
-  <div class="osob-grid">
-    <div class="osob-card">
-      <span class="ohd">How to Read It</span>
-      <h3>The OSOB Pane</h3>
-      <p>The pane reads how stretched momentum is, so you bank profit at the extremes instead of round-tripping a winner.</p>
-      <ul>
-        <li><span class="d" style="background:#fff"></span> ⚪ White wave drifting — let it ride</li>
-        <li><span class="d red"></span> 🔴 Red top (overbought) — long getting tired → scale</li>
-        <li><span class="d green"></span> 🟢 Green bottom (oversold) — short getting tired → scale</li>
-        <li><span class="d gold"></span> 🟡 GOLD dots = the EXIT BELL — extreme rolling over → take it / tighten</li>
-        <li><span class="d"></span> ▲▼ zero-cross — momentum flipped</li>
-      </ul>
-    </div>
-    <div class="osob-card">
-      <span class="ohd amber">⚠ Honest Framing</span>
-      <h3>Exits Only — Never Entries</h3>
-      <p>Overbought/oversold oscillators work in ranges and fail in trends — so OSOB is for EXITS and scaling only, never to fade a trend or pick an entry. That's why it's a companion to GLS, not a standalone signal.</p>
-      <p style="margin-top:14px">Pair it with the Yellow Man warning candle on the main chart: when the Yellow Man lights up <em>and</em> OSOB rings the exit bell, the move is done — protect the profit and wait for the next clean setup.</p>
-    </div>
-  </div>
-</div></section>
 
 <!-- F) HOW THEY WORK TOGETHER -->
-<section class="section reveal" id="method"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">How They Work Together</span>
-    <h2>The Method, In Six Steps</h2>
-    <p>GLS gets you in, OSOB gets you out. Run them in order, respect the firewall, and let the math do its job.</p>
-  </div>
-  <div class="method">
-    <div class="mstep"><div class="num">1</div><div><h3>Direction</h3><p>Trade with the stack — Day / 4h / 15m / 5m all pointing the same way.</p></div></div>
-    <div class="mstep"><div class="num">2</div><div><h3>Wait for the light</h3><p>Only act on SYSTEM GO. No light, no trade — you sit on your hands.</p></div></div>
-    <div class="mstep"><div class="num">3</div><div><h3>Enter</h3><p>Take the entry, stop, target and size that GLS draws on the chart for you.</p></div></div>
-    <div class="mstep"><div class="num">4</div><div><h3>Manage</h3><p>Breakeven at +1R, then trail. The runner can't hurt you after that.</p></div></div>
-    <div class="mstep"><div class="num">5</div><div><h3>Use OSOB to exit</h3><p>Gold EXIT BELL dots → first target, scale out, or tighten the stop.</p></div></div>
-    <div class="mstep"><div class="num">6</div><div><h3>Respect the firewall</h3><p>Stop at the daily goal or loss limit. Skip the chop. Live to trade tomorrow.</p></div></div>
-  </div>
-  <p class="rules">The rules it enforces: <b>with-trend only</b> · <b>in-session only</b> · <b>above-average volume</b> · <b>never chop</b> · <b>never chase</b> · <b>always a stop + daily limit</b>.</p>
-  <div class="cta-band">
-    <p>Run the method with the team calling the setups <b>live.</b></p>
-    <div class="row">
-      <a class="btn btn-primary" href="https://whop.com/checkout/B1XySMKP1VBA7QtPz-SH8V-2vaZ-kzA4-jowNzCFQxhmB/" target="_blank" rel="noopener">Join the Group — $149.99 <span class="arr">→</span></a>
-    </div>
-  </div>
-</div></section>
 
 <!-- G) VALIDITY -->
-<section class="section reveal" id="validity"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Validity</span>
-    <h2>What You Can Trust</h2>
-    <p>No tricks, no hindsight signals — what you see on the chart is what was actually there at the close.</p>
-  </div>
-  <div class="valids">
-    <span class="vb"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> <b>No repainting</b> — confirms on bar close</span>
-    <span class="vb"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> <b>Locked</b> to the price scale</span>
-    <span class="vb"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> <b>Multi-timeframe</b> non-lagging reads</span>
-  </div>
-</div></section>
 
 <!-- H) HOW TO GET ACCESS -->
-<section class="section reveal" id="access"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Invite-Only</span>
-    <h2>How to Get Access</h2>
-    <p>Both indicators are granted to your TradingView account after purchase — added by hand, within 24 hours.</p>
-  </div>
-  <div class="access">
-    <div class="acc"><div class="anum">1</div><h3>Purchase</h3><p>Grab the bundle through secure checkout below.</p></div>
-    <div class="acc"><div class="anum">2</div><h3>Send your username</h3><p>Send your exact TradingView username after you buy.</p></div>
-    <div class="acc"><div class="anum">3</div><h3>Get added</h3><p>You're added to BOTH scripts within 24 hours.</p></div>
-    <div class="acc"><div class="anum">4</div><h3>Add them</h3><p>TradingView → Indicators → Invite-Only Scripts → add both.</p></div>
-  </div>
-  <p class="access-note">Access is <b>per-account</b>, paying members only — <b>no sharing</b>, source hidden.</p>
-</div></section>
 
 <!-- FREE COURSE band -->
 <section class="section reveal" id="free-course"><div class="wrap">
@@ -1451,14 +1103,12 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 <section class="section reveal"><div class="wrap">
   <div class="section-head"><span class="eyebrow">FAQ</span><h2>Before You Buy</h2></div>
   <div class="faq">
-    <details class="qa"><summary>What exactly do I get? <span class="pl">+</span></summary><div class="a">Two TradingView indicators, both included: <b>Green Light Special</b> (the main chart indicator — when to get in) and <b>GLS OSOB</b> (the exit companion pane — when to get out). One purchase, two invite-only scripts.</div></details>
-    <details class="qa"><summary>How do I get access after I buy? <span class="pl">+</span></summary><div class="a">Access is invite-only. After checkout, send your exact TradingView username — both scripts are added to your account within 24 hours. Then open TradingView → Indicators → Invite-Only Scripts and add both. The team plan also includes an invite to the live room.</div></details>
-    <details class="qa"><summary>Do I need a TradingView account? <span class="pl">+</span></summary><div class="a">Yes — a free TradingView account works. Send your TradingView username after checkout and both indicators get granted to it. Access is per-account, paying members only, no sharing.</div></details>
-    <details class="qa"><summary>What markets and timeframes does it work on? <span class="pl">+</span></summary><div class="a">Intraday index &amp; commodity futures: <b>MES · MNQ · MGC · MYM</b>, on the <b>5-minute and 15-minute</b>. The dashboard reads Day / 4h / 15m / 5m, with entries during the active session.</div></details>
-    <details class="qa"><summary>Does the indicator repaint or predict the future? <span class="pl">+</span></summary><div class="a">No. Signals are non-repainting — they confirm on bar close and don't move after the fact. And nothing predicts the future. The real edge is filtering, risk/reward and discipline — capped losses, bigger winners, and a daily firewall that stops a bad day from snowballing.</div></details>
-    <details class="qa"><summary>Is this financial advice? <span class="pl">+</span></summary><div class="a">No. Green Light Special and GLS OSOB are educational tools, not financial advice and not a signal-for-hire service. You make your own trading decisions and manage your own risk.</div></details>
+    <details class="qa"><summary>What exactly do I get? <span class="pl">+</span></summary><div class="a">One membership for <b>$149.99/mo</b>: both TradingView indicators (<b>Green Light Special</b> + <b>GLS OSOB</b>), the <b>Telegram signal group</b> with live calls, and the full <b>free course</b>.</div></details>
+    <details class="qa"><summary>How do I get access after I buy? <span class="pl">+</span></summary><div class="a">Invite-only. After checkout, send your exact TradingView username — both scripts are added within 24 hours — plus your invite to the Telegram group.</div></details>
+    <details class="qa"><summary>What markets and timeframes does it work on? <span class="pl">+</span></summary><div class="a">Intraday index &amp; commodity futures — <b>MES · MNQ · MGC · MYM</b> — on the <b>5-minute and 15-minute</b>. Works on the matching forex pairs too.</div></details>
+    <details class="qa"><summary>Does the indicator repaint? <span class="pl">+</span></summary><div class="a">No. Signals are non-repainting — they confirm on bar close and don't move after the fact. The edge is filtering, risk/reward and discipline.</div></details>
   </div>
-  <p class="disclaimer" style="margin-top:clamp(28px,4vw,40px)">Green Light Special and GLS OSOB are educational tools, not financial advice and not a signal-for-hire service. No indicator predicts the market or guarantees profits — the real edge is filtering, risk/reward, and discipline. Trading futures involves substantial risk of loss. Always backtest and forward-test on your own instruments, trade small, and manage your risk. Past performance does not guarantee future results.</p>
+  <p style="text-align:center;margin-top:clamp(20px,3vw,28px)"><a class="btn btn-ghost" href="/faq/">Read the full FAQ →</a></p>
 </div></section>
 
 <!-- final cta -->
@@ -1476,6 +1126,11 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spac
 </div></section>
 
 <footer class="footer"><div class="wrap">
+  <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;font-family:var(--mono);font-size:.78rem">
+    <a href="/course/" style="color:var(--ink-soft)">Free Course</a>
+    <a href="/faq/" style="color:var(--ink-soft)">FAQ</a>
+    <a href="/disclaimer/" style="color:var(--ink-soft)">Disclaimer</a>
+  </div>
   © <span id="yr"></span> Green Light Special &nbsp;·&nbsp; <a href="https://tradegreenlightspecial.com">tradegreenlightspecial.com</a>
 </div></footer>
 
