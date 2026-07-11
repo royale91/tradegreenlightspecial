@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Green Light Special — Complete User Course | How to Read It, Set It Up, and Trade It</title>
-<meta name="description" content="The complete, free Green Light Special user course: read every part of the dashboard, dial in the best settings, take a trade step by step, manage it, and know when to stand aside. When it's green, you go." />
+<title>The Green Light Special — Real Money Playbook | How to Use It, Made Super Simple</title>
+<meta name="description" content="The Real Money Playbook: how to use the Green Light Special, made super simple. Only trade when the lights say go, take small losses, let wins get big, and stop when you're up. When it's green, you go." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -78,6 +78,21 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:700;line-height:1.12;letter-s
   background:var(--panel);box-shadow:0 40px 90px -50px rgba(0,0,0,.9),0 0 0 1px rgba(69,240,138,.05) inset}
 .hero-fig img{width:100%;height:auto}
 
+/* the-3 / steps strip */
+.threes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0 6px}
+.three{border:1px solid var(--line);border-radius:var(--r-md);background:rgba(69,240,138,.03);padding:20px 20px}
+.three .tn{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green-deep);margin-bottom:8px}
+.three .tt{font-family:var(--display);font-weight:700;font-size:1.05rem;margin-bottom:6px;color:var(--ink)}
+.three p{font-size:.94rem;color:var(--ink-soft);line-height:1.55}
+
+/* 5-step flow */
+.steps5{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 10px;align-items:stretch}
+.step5{flex:1 1 150px;min-width:140px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--panel);padding:16px 16px;position:relative}
+.step5 .sn{font-family:var(--mono);font-weight:700;font-size:.72rem;color:#04140b;background:var(--green);border-radius:8px;
+  width:26px;height:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px -8px var(--green);margin-bottom:12px}
+.step5 .st{font-family:var(--display);font-weight:700;font-size:1rem;margin-bottom:4px}
+.step5 p{font-size:.9rem;color:var(--ink-soft);line-height:1.5}
+
 /* TOC */
 .toc{margin:52px 0;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--panel);padding:30px 30px 26px;
   box-shadow:0 30px 70px -50px rgba(0,0,0,.8)}
@@ -111,6 +126,18 @@ ol.clean li{padding-left:38px;counter-increment:step}
 ol.clean li::before{content:counter(step);position:absolute;left:0;top:.05em;font-family:var(--mono);font-size:.72rem;font-weight:700;
   color:var(--green);width:24px;height:24px;border:1px solid var(--line);border-radius:7px;display:flex;align-items:center;justify-content:center;background:rgba(69,240,138,.06)}
 .lesson .body-text a{color:var(--green);border-bottom:1px solid rgba(69,240,138,.4)}
+
+/* tables */
+.tbl{margin:24px 0;border:1px solid var(--line-soft);border-radius:var(--r-md);overflow:hidden;background:rgba(255,255,255,.015)}
+.tbl table{width:100%;border-collapse:collapse;font-size:.96rem}
+.tbl th{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);
+  text-align:left;padding:12px 16px;background:rgba(69,240,138,.05);border-bottom:1px solid var(--line-soft);font-weight:600}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--line-soft);color:var(--ink-soft);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td b,.tbl td strong{color:var(--ink);font-weight:600}
+.tbl .ok{color:var(--green);font-weight:600}
+.tbl .no{color:var(--red);font-weight:600}
+.tbl-scroll{overflow-x:auto}
 
 /* figure */
 figure.shot{margin:30px 0;border:1px solid var(--line-hair);border-radius:var(--r-lg);overflow:hidden;background:var(--panel-hi);
@@ -201,11 +228,14 @@ blockquote.tipq b{color:var(--green)}
   .lesson-num{min-width:54px;padding:7px 8px;font-size:.74rem}
   .cta{padding:34px 22px}
   .toc,.enforce{border-radius:var(--r-md)}
+  .threes{grid-template-columns:1fr}
+  .tbl table{font-size:.9rem}
+  .tbl th,.tbl td{padding:10px 12px}
 }
 
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .btn:hover,.price-card:hover{transform:none}
+  .btn:hover,.price-card:hover,.step5:hover{transform:none}
 }
 </style>
 </head>
@@ -217,7 +247,7 @@ blockquote.tipq b{color:var(--green)}
   <div class="wrap">
     <a class="brand" href="/" aria-label="Green Light Special — back to home">
       <span class="blip"></span>
-      <span>GREEN LIGHT <b>SPECIAL</b> <span class="sub">· FREE COURSE</span></span>
+      <span>GREEN LIGHT <b>SPECIAL</b> <span class="sub">· REAL MONEY PLAYBOOK</span></span>
     </a>
     <div class="nav-right">
       <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">
@@ -230,24 +260,24 @@ blockquote.tipq b{color:var(--green)}
 <!-- HERO -->
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">🟢 The Complete User Course</span>
-    <h1>The Green Light Special<br><span class="glow">— Complete User Course</span></h1>
-    <p class="lede">How to Read It, Set It Up, and Trade It <span class="dot">·</span> When it's green, you go.</p>
+    <span class="eyebrow">🟢 The Real Money Playbook</span>
+    <h1>The Real Money Playbook<br><span class="glow">— made super simple</span></h1>
+    <p class="lede">How to use the Green Light Special <span class="dot">·</span> When it's green, you go.</p>
 
-    <p class="body">This course teaches you how to use the <b style="color:var(--ink)">Green Light Special (GLS)</b> and its companion <b style="color:var(--ink)">GLS OSOB</b> the right way. By the end you'll know how to read every part of the dashboard, dial in the best settings, take a trade step-by-step, manage it, and — just as important — know when to stand aside. Read it once front-to-back, then keep it open beside your charts for your first week.</p>
+    <p class="body"><b style="color:var(--ink)">Read this first.</b> This tool will not win every trade — nobody can. But here's the secret: you make money by doing <b style="color:var(--ink)">3 easy things.</b> Only trade when the lights say go. Take small losses. Let your wins get big. (And stop when you're up for the day.) This tool helps you do all three. Do what it says and you give yourself the best shot over time.</p>
 
     <div class="honesty">
       <span class="ic">🟡</span>
-      <p><b>Important honesty up front:</b> GLS is a decision tool, not a money machine. No indicator predicts the market or guarantees profit. The edge is <i>filtering, risk/reward, and discipline</i> — this course teaches you to use all three.</p>
+      <p><b>Honesty up front:</b> the Green Light Special is a decision tool, not a money machine. No signal wins every time — some trades still lose, and that's normal. The edge is <i>filtering, risk/reward, and discipline.</i> This playbook teaches you all three.</p>
     </div>
 
     <div class="cta-btns" style="justify-content:flex-start;margin:0 0 30px">
       <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Get the Indicators <span class="arr">→</span></a>
-      <a class="btn btn-ghost" href="/assets/course/green-light-special-course.pdf" download>📥 Download the Course (PDF)</a>
+      <a class="btn btn-ghost" href="/assets/course/green-light-special-course.pdf" download>📥 Download the Playbook (PDF)</a>
     </div>
 
     <figure class="hero-fig">
-      <img src="/assets/course/gls-cover-wide.png" alt="Green Light Special cover — the operator dashboard, when it's green, you go" loading="eager" width="1500" height="840" />
+      <img src="/assets/course/gls-cover-wide.png" alt="The Green Light Special — Real Money Playbook cover, when it's green, you go" loading="eager" width="1500" height="840" />
     </figure>
 
     <figure class="shot" style="margin-top:30px">
@@ -257,26 +287,47 @@ blockquote.tipq b{color:var(--green)}
   </div>
 </header>
 
+<!-- THE WHOLE THING IN 5 STEPS -->
+<div class="wrap">
+  <div class="lesson" style="border-top:none;padding-top:10px">
+    <span class="eyebrow">🟢 The whole thing</span>
+    <h2 style="font-size:clamp(1.5rem,3.2vw,2.05rem);margin:16px 0 6px">Every trade is the same 5 steps</h2>
+    <p class="body" style="margin-bottom:6px">Learn these and you know the system. The rest of this playbook just shows you how.</p>
+
+    <div class="steps5">
+      <div class="step5"><div class="sn">1</div><div class="st">Which way</div><p>Is the market going up or down?</p></div>
+      <div class="step5"><div class="sn">2</div><div class="st">Get ready</div><p>A good trade is coming.</p></div>
+      <div class="step5"><div class="sn">3</div><div class="st">Go in</div><p>The green light says buy or sell now.</p></div>
+      <div class="step5"><div class="sn">4</div><div class="st">Hold</div><p>Stay in and let it grow.</p></div>
+      <div class="step5"><div class="sn">5</div><div class="st">Get out</div><p>Take your money. Stop for the day.</p></div>
+    </div>
+
+    <div class="threes">
+      <div class="three"><div class="tn">The 3 things</div><div class="tt">Trade the light</div><p>Only take a trade when the tool says go.</p></div>
+      <div class="three"><div class="tn">The 3 things</div><div class="tt">Small losses</div><p>Cut losers fast. Let winners run far.</p></div>
+      <div class="three"><div class="tn">The 3 things</div><div class="tt">Stop up</div><p>Hit your goal for the day? Close the laptop.</p></div>
+    </div>
+  </div>
+</div>
+
 <!-- TOC -->
 <div class="wrap">
-  <nav class="toc" aria-label="Course index">
-    <h2>📚 <span class="lbl">Course Index</span> — 15 Parts</h2>
+  <nav class="toc" aria-label="Playbook index">
+    <h2>📚 <span class="lbl">Playbook Index</span> — 13 Parts</h2>
     <div class="toc-grid">
-      <a href="#part1"><span class="n">01</span><span class="t">What You Get</span></a>
-      <a href="#part2"><span class="n">02</span><span class="t">Quick Start (5 minutes)</span></a>
-      <a href="#part3"><span class="n">03</span><span class="t">Best Settings</span></a>
-      <a href="#part4"><span class="n">04</span><span class="t">The Dashboard</span></a>
-      <a href="#part5"><span class="n">05</span><span class="t">The Signals</span></a>
-      <a href="#part6"><span class="n">06</span><span class="t">The Zones</span></a>
-      <a href="#part7"><span class="n">07</span><span class="t">The Yellow Man</span></a>
-      <a href="#part8"><span class="n">08</span><span class="t">GLS OSOB — Your Exit Tool</span></a>
-      <a href="#part9"><span class="n">09</span><span class="t">The Playbook</span></a>
-      <a href="#part10"><span class="n">10</span><span class="t">Risk &amp; The Firewall</span></a>
-      <a href="#part11"><span class="n">11</span><span class="t">When NOT to Trade</span></a>
-      <a href="#part12"><span class="n">12</span><span class="t">Best Times &amp; Markets</span></a>
-      <a href="#part13"><span class="n">13</span><span class="t">Common Mistakes</span></a>
-      <a href="#part14"><span class="n">14</span><span class="t">Power Features (Optional)</span></a>
-      <a href="#part15"><span class="n">15</span><span class="t">More Real Examples</span></a>
+      <a href="#part1"><span class="n">01</span><span class="t">What to Trade</span></a>
+      <a href="#part2"><span class="n">02</span><span class="t">Set Your Chart</span></a>
+      <a href="#part3"><span class="n">03</span><span class="t">Read the Banner</span></a>
+      <a href="#part4"><span class="n">04</span><span class="t">The 5 Ways to Win</span></a>
+      <a href="#part5"><span class="n">05</span><span class="t">The Helpers</span></a>
+      <a href="#part6"><span class="n">06</span><span class="t">The OSOB — Your Exit Tool</span></a>
+      <a href="#part7"><span class="n">07</span><span class="t">Use Both Tools to Win</span></a>
+      <a href="#part8"><span class="n">08</span><span class="t">Manage a Trade</span></a>
+      <a href="#part9"><span class="n">09</span><span class="t">The Money Rules</span></a>
+      <a href="#part10"><span class="n">10</span><span class="t">The Top Ways to Win</span></a>
+      <a href="#part11"><span class="n">11</span><span class="t">Your Settings</span></a>
+      <a href="#part12"><span class="n">12</span><span class="t">Your Daily Plan</span></a>
+      <a href="#part13"><span class="n">13</span><span class="t">The Mindset</span></a>
     </div>
   </nav>
 </div>
@@ -285,115 +336,131 @@ blockquote.tipq b{color:var(--green)}
 
   <!-- PART 1 -->
   <section class="lesson" id="part1">
-    <div class="lesson-head"><span class="lesson-num">01</span><h2>What You Get</h2></div>
+    <div class="lesson-head"><span class="lesson-num">01</span><h2>What to Trade</h2></div>
     <div class="body-text">
-      <p>Your access includes <b>two indicators</b>, used together:</p>
-      <ol class="clean">
-        <li><b>Green Light Special</b> — the main chart indicator. It reads direction across four timeframes, filters out the chop, and shows you when to enter, where your stop and target go, and how big to size.</li>
-        <li><b>GLS OSOB</b> — a companion pane that sits <i>below</i> price. Its one job: tell you when to <b>get out / take profit</b>.</li>
-      </ol>
-      <div class="callout key">
-        <span class="ic">🟢</span>
-        <div class="ct"><span class="hd">In + Out</span>GLS tells you when to get <b>in</b>. OSOB tells you when to get <b>out</b>. Run both.</div>
+      <p><b>This tool is built for FUTURES.</b> That's what it does best. Futures move a lot at the open and show real buying and selling, so every signal is sharp. <b>Trade futures first.</b></p>
+
+      <h3>🏆 The 4 best — futures (this is your main thing)</h3>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>Name</th><th>What to type</th><th>When it's best</th></tr></thead>
+          <tbody>
+            <tr><td><b>S&amp;P 500</b></td><td><b>ES</b> (or MES for small money)</td><td>9:30 in the morning (NY time)</td></tr>
+            <tr><td><b>Nasdaq</b></td><td><b>NQ</b> (or MNQ for small money)</td><td>9:30 in the morning</td></tr>
+            <tr><td><b>Dow</b></td><td><b>YM</b> (or MYM for small money)</td><td>9:30 in the morning</td></tr>
+            <tr><td><b>Gold</b></td><td><b>GC</b> (or MGC for small money)</td><td>8:00 in the morning</td></tr>
+          </tbody>
+        </table>
       </div>
-      <ul class="clean">
-        <li><b>Built for:</b> intraday index &amp; commodity futures — <b>MES · MNQ · MGC · MYM</b> (and similar index/commodity contracts).</li>
-        <li><b>Best timeframes:</b> the <b>5-minute</b> and <b>15-minute</b>.</li>
-      </ul>
+      <p>These 4 futures are the best markets for this tool. They move a lot, lots of people trade them, and the tool sees the <b>real</b> buying and selling — so the green lights are clean and true. <b>If you only ever trade these 4, you have everything you need.</b></p>
+
+      <div class="callout tip">
+        <span class="ic">💡</span>
+        <div class="ct"><span class="hd">Small account or a funded challenge?</span>Trade the little ones: <b>MES · MNQ · MYM · MGC.</b> Same exact trades, way less money at risk. <b>This is the best place to start.</b></div>
+      </div>
+
+      <h3>Why futures win</h3>
+      <p>The tool's magic is the <b>volume</b> — it watches how many people are really buying and selling. Futures show the <b>real</b> number from the exchange, so the tool sees the truth. That's why futures give the sharpest, most honest signals. <b>Stick with ES, NQ, YM, and Gold.</b></p>
+
+      <h3>Forex (only if you want extra — futures come first)</h3>
+      <p>Forex works too, but it's a <b>side option</b>, not the main event. Trade it at the <b>London open (3:00 AM NY)</b> or <b>New York open (8:00 AM NY).</b> Best pairs: <b>EUR/USD</b> (easiest), <b>GBP/USD</b> (bigger moves), <b>USD/JPY</b> (smooth), <b>GBP/JPY</b> (wild), <b>AUD/USD</b>.</p>
+      <div class="callout warn">
+        <span class="ic">⚠️</span>
+        <div class="ct"><span class="hd">The catch</span>Forex does not show real volume like futures do, so the tool's best trick (the volume filter) is weaker there. On forex, watch the price and the <b>yellow average-price line (the VWAP — the day's fair price)</b> more. <b>This is why futures are better. Trade futures.</b></div>
+      </div>
+
+      <h3>Don't trade</h3>
+      <p>Small, slow, dead stuff. Weird coins. Quiet night hours. If nothing is moving, there is no trade.</p>
+      <blockquote class="tipq"><b>Best tip:</b> pick <b>ONE</b> future and trade only that. Most beginners do great with <b>MNQ</b> or <b>MYM</b>. Learn one market well — that beats guessing at five.</blockquote>
     </div>
   </section>
 
   <!-- PART 2 -->
   <section class="lesson" id="part2">
-    <div class="lesson-head"><span class="lesson-num">02</span><h2>Quick Start <span style="font-size:.6em;color:var(--ink-mute);font-weight:500">(5 minutes)</span></h2></div>
+    <div class="lesson-head"><span class="lesson-num">02</span><h2>Set Your Chart</h2></div>
     <div class="body-text">
-      <ol class="clean">
-        <li>Open TradingView → <b>Indicators</b> → <b>Invite-Only Scripts</b>.</li>
-        <li>Add <b>Green Light Special</b> and <b>Green Light Special — OSOB</b> to your chart.</li>
-        <li>GLS goes on the <b>main price chart</b>. OSOB drops into its <b>own pane below</b> automatically.</li>
-        <li>Set your chart to <b>MES / MNQ / MGC / MYM</b> on the <b>5m</b> (day trading) or <b>15m</b> (more context).</li>
-        <li><b>One-time scale fix (only if needed):</b> if the lines ever look like they're floating off the candles, right-click the price axis → <b>"Merge all scales into one."</b> (The latest version locks to the candles automatically, so most people never touch this.)</li>
-      </ol>
-      <p>That's it — you're ready to read the dashboard.</p>
+      <figure class="shot">
+        <img src="/assets/course/new3.png" alt="The GLS dashboard — the 4 clocks (Day, 4h, 15m, 5m) each showing UP or DOWN" loading="lazy" />
+        <figcaption>The dashboard — the 4 clocks (Day · 4h · 15m · 5m) each read UP or DOWN</figcaption>
+      </figure>
+
+      <p>Look at the <b>bottom-left box</b> on your chart. It shows <b>4 clocks:</b> Day, 4h, 15m, 5m. Each one says <b>UP</b> or <b>DOWN</b>. <i>(The box in the top-right corner is a different one — that's the Scalper's info panel.)</i></p>
+
+      <h3>The rule is easy</h3>
+      <ul class="clean">
+        <li>All 4 say <b>UP</b> → it's a <b>buy day.</b> Only look to buy.</li>
+        <li>All 4 say <b>DOWN</b> → it's a <b>sell day.</b> Only look to sell.</li>
+        <li><b>Mixed</b> (some up, some down) → <b>do not trade.</b> Wait.</li>
+      </ul>
+      <div class="callout tip">
+        <span class="ic">💡</span>
+        <div class="ct">Mixed days are traps. The tool says <b>"WAIT"</b> so you don't lose money. That boring "wait" saves your account.</div>
+      </div>
+
+      <h3>⏰ Two charts, two jobs <span style="font-size:.8em;color:var(--ink-mute)">(important — don't skip it)</span></h3>
+      <p>Different trades work best on different charts. It's easy:</p>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>For this trade</th><th>Use this chart</th></tr></thead>
+          <tbody>
+            <tr><td><b>The Opening trade</b> (the big morning one)</td><td><b>15-minute</b> (10 or 30 also work)</td></tr>
+            <tr><td><b>All day</b> — the scalper and dip trades</td><td><b>5-minute</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>So:</b> start your morning on the <b>15-minute</b> to catch the opening. After the open, drop to the <b>5-minute</b> for the rest of the day. Same tool. Same market. You just change the timeframe. That's it.</p>
+      <div class="callout tip">
+        <span class="ic">🕐</span>
+        <div class="ct">For the all-day trades (scalper, boxes, dips, switches), <b>5-minute or 15-minute both work.</b> 5-minute gives you more trades, 15-minute gives you cleaner ones. Pick one and stick with it.</div>
+      </div>
+
+      <h3>What "style" to pick</h3>
+      <p>Go to Settings and pick your style. This sets how long you hold:</p>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>Your style</th><th>Best for</th></tr></thead>
+          <tbody>
+            <tr><td><b>Day Trading</b> (start here)</td><td>in and out, same day</td></tr>
+            <tr><td><b>1-Hour Swing</b></td><td>holding a few hours (use a 1-hour chart)</td></tr>
+            <tr><td><b>Multi-Day Swing</b></td><td>holding for days (use a 4-hour or Daily chart)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <span class="ic">⚠️</span>
+        <div class="ct">If you pick <b>"Multi-Day Swing"</b> but stay on a small chart, the screen looks empty. That's not broken — the chart just has to match the style. <b>Most people: Day Trading, and swap between the 15-minute and 5-minute like the box above says.</b></div>
+      </div>
     </div>
   </section>
 
   <!-- PART 3 -->
   <section class="lesson" id="part3">
-    <div class="lesson-head"><span class="lesson-num">03</span><h2>Best Settings</h2></div>
-    <div class="body-text">
-      <p>GLS ships ready to trade. These are the recommended defaults and the few you may tune.</p>
-
-      <div class="enforce">
-        <div class="eh">🟢 Leave these ON — the core</div>
-        <ul>
-          <li>🎯 <b>Sniper BUY/SELL</b> — the proven opening-momentum entry</li>
-          <li><b>Daily trend lock</b> — only trade with the daily trend</li>
-          <li><b>Require above-average volume</b></li>
-          <li><b>Chop filter</b></li>
-          <li>🚀 <b>Opening-Range Breakout</b></li>
-          <li>⭐ <b>A+ Setup</b> (golden pocket)</li>
-          <li>📊 <b>VWAP line</b></li>
-          <li>🛡 <b>Firewall</b> — daily loss limit + profit goal</li>
-        </ul>
-      </div>
-
-      <h3>Recommended values</h3>
-      <ul class="clean">
-        <li><b>Chop filter:</b> <code style="font-family:var(--mono);color:var(--green)">0.3</code> — lower = more signals (more chop), higher = stricter (fewer, cleaner). Start at 0.3.</li>
-        <li><b>Volume × average:</b> <code style="font-family:var(--mono);color:var(--green)">1.2</code> — only takes breaks with above-average volume.</li>
-        <li><b>Sniper band width (× ATR):</b> <code style="font-family:var(--mono);color:var(--green)">1.0</code> — lower = more signals, higher = only the biggest breaks.</li>
-        <li><b>Max risk per trade ($):</b> set to <b>your</b> number (e.g., $100–$250). GLS auto-sizes to it.</li>
-        <li><b>Reward multiple (R):</b> <code style="font-family:var(--mono);color:var(--green)">2.0</code>–<code style="font-family:var(--mono);color:var(--green)">3.0</code>.</li>
-        <li><b>Daily loss limit / profit goal:</b> set to your account's rules (funded accounts: match your drawdown).</li>
-      </ul>
-
-      <h3>Off by default (turn on only if you want them)</h3>
-      <ul class="clean">
-        <li>🛡🧱 <b>Strong S/R levels</b> (master switch — flip ON to show support/resistance)</li>
-        <li>💧 <b>Liquidity lines</b> (PDH/PDL), 🏛 BOS/CHoCH, Power Hour, Highlight-all-gaps</li>
-      </ul>
-
-      <div class="callout key">
-        <span class="ic">✅</span>
-        <div class="ct"><span class="hd">Rule</span>Start with defaults. Only change <b>one setting at a time</b> so you understand its effect.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PART 4 -->
-  <section class="lesson" id="part4">
-    <div class="lesson-head"><span class="lesson-num">04</span><h2>The Dashboard <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(read this first, every time)</span></h2></div>
+    <div class="lesson-head"><span class="lesson-num">03</span><h2>Read the Banner</h2></div>
     <div class="body-text">
       <figure class="shot">
-        <img src="/assets/course/new3.png" alt="The GLS dashboard — GO panel, the 3 green lights, the 15m-way read" loading="lazy" />
-        <figcaption>The GLS dashboard — GO panel, the 3 green lights, the 15m-way read</figcaption>
+        <img src="/assets/course/new2.png" alt="SYSTEM GO — the banner in the middle of the screen with three green lights" loading="lazy" />
+        <figcaption>The banner talks to you in plain words — here it says "SYSTEM GO"</figcaption>
       </figure>
 
-      <p>The dashboard answers the four questions in order: <b>which way, is it real, where do I get in, when do I stop.</b></p>
-
-      <h3>🎯 The DIRECTION panel (bottom-left)</h3>
-      <p>Four timeframes stacked: <b>Day · 4h · 15m · 5m</b>, each ▲ UP or ▼ DOWN.</p>
-      <ul class="clean">
-        <li><b>All green = strong long.</b> All red = strong short. Mixed = wait / lower confidence.</li>
-        <li>The header shows the overall lean: <i>STRONG LONG · leaning LONG · MIXED · leaning SHORT · STRONG SHORT.</i></li>
-        <li><b>This is your bias. Trade with it, never against it.</b></li>
-      </ul>
-
-      <h3>🟢 The 3 Green Lights (bottom-right)</h3>
-      <ul class="clean">
-        <li><b>① Trend</b> — there's a clean trend (not chop).</li>
-        <li><b>② Momentum</b> — momentum is healthy (not exhausted).</li>
-        <li><b>③ Setup</b> — a real entry is actually present.</li>
-        <li>Plus your <b>live day P&amp;L</b> and <b>Win %</b>.</li>
-        <li>Three white = nothing yet. The lights turning green = the pieces lining up.</li>
-      </ul>
-
-      <h3>🚦 The Status Banner (center)</h3>
-      <p>One plain-English instruction that walks you through the whole trade:</p>
-      <div class="flow">🔮 GET READY &nbsp;→&nbsp; 🟢 SYSTEM GO &nbsp;→&nbsp; 🟢 IN A TRADE, RIDE IT &nbsp;→&nbsp; 🚀 RUNNER, LET IT RIDE &nbsp;→&nbsp; 🛑 DONE FOR THE DAY</div>
-      <p>It also says <b>CHOP — STAND ASIDE</b>, <b>CLOSED</b>, and <b>STAND DOWN</b> (daily limit hit).</p>
-
+      <p>The tool talks to you in plain words in the middle of the screen. Just read it and do what it says.</p>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>It says</th><th>What it means</th><th>You do</th></tr></thead>
+          <tbody>
+            <tr><td>🔮 <b>GET READY</b></td><td>a trade is coming</td><td>watch, don't touch</td></tr>
+            <tr><td>🟢 <b>SYSTEM GO</b></td><td>all set, go now</td><td><b>buy or sell</b></td></tr>
+            <tr><td>🟢 <b>RIDE IT</b></td><td>you are in</td><td>hold on</td></tr>
+            <tr><td>🚀 <b>RUNNER</b></td><td>you are winning big</td><td>let it keep going</td></tr>
+            <tr><td>🛑 <b>STAND DOWN</b></td><td>you're done for the day</td><td>close the laptop</td></tr>
+            <tr><td>🟡 <b>STAND ASIDE / WAIT</b></td><td>no good trade right now</td><td>wait</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>That's the whole job.</b> Read the words. Do what they say. It only says "GO" when the setup meets the rules — but remember, <b>no signal wins every time.</b> Some will still lose, and that's normal.</p>
+      <div class="callout tip">
+        <span class="ic">🗒️</span>
+        <div class="ct"><span class="hd">Note</span>No matter which trade you take, you manage it the same easy way — keep your <b>dotted stop</b>, and take money at the <b>gold dot</b> (both coming up next).</div>
+      </div>
       <div class="callout key">
         <span class="ic">🚦</span>
         <div class="ct"><span class="hd">The banner is the final word</span>Three green lights alone is <b>not</b> a green light — wait for the banner to say <b>SYSTEM GO.</b></div>
@@ -401,261 +468,49 @@ blockquote.tipq b{color:var(--green)}
     </div>
   </section>
 
-  <!-- PART 5 -->
-  <section class="lesson" id="part5">
-    <div class="lesson-head"><span class="lesson-num">05</span><h2>The Signals <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(the lights on the chart)</span></h2></div>
+  <!-- PART 4 -->
+  <section class="lesson" id="part4">
+    <div class="lesson-head"><span class="lesson-num">04</span><h2>The 5 Ways to Win <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(+ a bonus)</span></h2></div>
     <div class="body-text">
-      <p>GLS marks entries as simple <b>lights</b>, never cluttered "BUY/SELL" text:</p>
-      <div class="chips">
-        <span class="chip">🟢 Green dot = long signal</span>
-        <span class="chip">🔴 Red dot = short signal</span>
-        <span class="chip">• Small dot = standard</span>
-        <span class="chip">💎 Large dot = STRONG (A+)</span>
-      </div>
-      <ul class="clean">
-        <li><b>Small dot</b> = a standard signal. <b>Large dot</b> = 💎 <b>STRONG</b> — the A+ version, when <i>all four timeframes also agree</i>. The large dot is your highest-conviction trade.</li>
-        <li>Every dot is <b>with the trend</b>, confirmed on a <b>closed candle</b>, with <b>above-average volume</b>, <b>inside the session</b>, and <b>out of chop.</b> GLS does not fire random counter-trend signals.</li>
-      </ul>
-      <p>When a signal fires, GLS also draws the <b>ticket</b>: entry, <b>🛑 stop-loss</b>, <b>🎯 target</b>, and <b>position size</b> in contracts — so you know exactly what to do.</p>
+      <p>There are <b>5 main ways</b> to win, plus a bonus. <b>You do not need all of them.</b> Pick ONE. Get good at it. Then add another. Every way only trades <b>with the 4 clocks</b> — never against them.</p>
 
-      <figure class="shot">
-        <img src="/assets/course/new2.png" alt="SYSTEM GO — the banner says TAKE IT, the FVG flips to FILLED — GET IN, and all three lights are green" loading="lazy" />
-        <figcaption>SYSTEM GO — the banner says TAKE IT, the FVG flips to ✅ FILLED — GET IN, and all three lights are green</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- PART 6 -->
-  <section class="lesson" id="part6">
-    <div class="lesson-head"><span class="lesson-num">06</span><h2>The Zones <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(where the action happens)</span></h2></div>
-    <div class="body-text">
-      <figure class="shot">
-        <img src="/assets/course/new5.png" alt="Golden pocket sell zone, A1 setup, reversal zone, and a limit waiting for fill in a STRONG SHORT trend" loading="lazy" />
-        <figcaption>Golden pocket (sell zone) + ⭐A1 setup + 🔄 reversal zone + a limit waiting for fill, in a STRONG SHORT trend</figcaption>
-      </figure>
-
-      <ul class="clean">
-        <li>⭐ <b>Golden Pocket</b> (yellow band) — the 0.618–0.79 institutional retracement, the prime pullback entry zone. It <b>orients to your trend</b>: leaning long → it's a <b>buy zone</b>; leaning short → a <b>sell zone.</b> <i>(They can never disagree with your DIR lean.)</i></li>
-        <li>🔄 <b>Reversal Zones</b> (shaded boxes at key highs/lows) — where price tends to stall and turn. Great for exits and for spotting where a pullback may end.</li>
-        <li>🛡 <b>Strong Support / 🧱 Resistance</b> (optional, toggle on) — levels tested 2+ times that held. The bounce/rejection spots.</li>
-        <li>🚀 <b>Opening-Range Breakout (ORB)</b> — the session's opening range; a volume-backed break in the trend direction is a classic play.</li>
-        <li>📦 <b>Fair-Value Gaps (FVG)</b> — a gap is highlighted as it forms and reads <b>"wait for fill."</b> When price returns and tags it, it flips to <b>"✅ FILLED — GET IN."</b> That's your heads-up the pullback reached the gap.</li>
-      </ul>
-
-      <figure class="shot">
-        <img src="/assets/course/new7.jpeg" alt="A gap flips to FILLED — GET IN as price tags it, just under the premium sell line" loading="lazy" />
-        <figcaption>A gap flips to "✅ FILLED — GET IN" as price tags it, just under the premium·sell line</figcaption>
-      </figure>
-
-      <ul class="clean">
-        <li>📊 <b>VWAP</b> (yellow line) — institutional fair value. Above it favors longs, below favors shorts; great for managing a runner.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PART 7 -->
-  <section class="lesson" id="part7">
-    <div class="lesson-head"><span class="lesson-num">07</span><h2>The Yellow Man <span style="font-size:.55em;color:var(--amber);font-weight:500">(warning, NOT a buy)</span></h2></div>
-    <div class="body-text">
-      <figure class="shot">
-        <img src="/assets/course/xau-yellowman.png" alt="Yellow Man flip in a downtrend — a warning, not an entry" loading="lazy" />
-        <figcaption>Yellow Man flip in a downtrend — a warning, not an entry</figcaption>
-      </figure>
-
-      <p>The <b>🟡 Yellow Man</b> paints a candle yellow when short-term momentum flips. It is a <b>WARNING</b> — "heads up, something may be turning" — <b>not an entry.</b></p>
-
-      <div class="callout danger">
-        <span class="ic">🟡</span>
-        <div class="ct"><span class="hd">Do not trade on yellow</span>Yellow = <b>get ready.</b> Green light + banner GO = <b>go.</b></div>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>Way</th><th>Name</th><th>Best chart</th></tr></thead>
+          <tbody>
+            <tr><td><b>1</b></td><td>The Open (🔔 OPENING GO)</td><td>15-minute</td></tr>
+            <tr><td><b>2</b></td><td>The Scalper (⚡ Breakaway)</td><td>5-minute</td></tr>
+            <tr><td><b>3</b></td><td>The Get-In Box (📦 FVG)</td><td>5 or 15-minute</td></tr>
+            <tr><td><b>4</b></td><td>The A1 Dip (⭐ A1 gold box)</td><td>15-minute (or 5)</td></tr>
+            <tr><td><b>5</b></td><td>The Switch (↑ / ↓ SWITCH)</td><td>15-minute (or 5)</td></tr>
+            <tr><td>Bonus</td><td>The Simple ORB (🚀)</td><td>15-minute</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="callout warn">
-        <span class="ic">⚠️</span>
-        <div class="ct"><span class="hd">Critical — fake-out warning</span>If the Yellow Man flips <b>against</b> your DIR trend (e.g., a flip-up while leaning SHORT), that's usually just a <b>pullback / bounce — a fake-out</b>, not a real reversal. In the example above, the trend is DOWN (Day/4h/15m down), so that yellow pop-up is the bounce <i>before price resumes lower</i> — a place to look for a <b>short continuation</b>, not a long. The system won't hand you a long there, and that's correct.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PART 8 -->
-  <section class="lesson" id="part8">
-    <div class="lesson-head"><span class="lesson-num">08</span><h2>GLS OSOB <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">— your exit tool, full breakdown</span></h2></div>
-    <div class="body-text">
-      <p>OSOB is the <b>second indicator</b> in your bundle. It sits in its own pane <b>below the price chart</b>, and it has <b>one job: tell you when to GET OUT / take profit.</b> GLS gets you <i>in</i>; OSOB tells you when the move is running out of gas.</p>
-
-      <figure class="shot wide">
-        <img src="/assets/course/osob1.png" alt="The OSOB pane — the wave, red tops, green bottoms, and the gold exit-bell dots" loading="lazy" />
-        <figcaption>The OSOB pane — the wave, red tops, green bottoms, and the 🟡 gold exit-bell dots</figcaption>
+      <h3>💰 Way 1 — The Open (the big one)</h3>
+      <figure class="shot">
+        <img src="/assets/course/new8.JPG" alt="The Open — OPENING GO fires the real move after the open, the limit waits for the fill" loading="lazy" />
+        <figcaption>The Open — the tool waits out the fake and calls the real move</figcaption>
       </figure>
-
-      <h3>What it is</h3>
-      <p>A smoothed momentum wave (built on an Ehlers Fisher Transform of a Fibonacci channel). It swings between roughly <b>+120 and −80</b>, centered on <b>0</b>, and it <i>snaps</i> at turns so tops and bottoms are obvious instead of rounded over.</p>
-
-      <h3>The 3 reference lines</h3>
-      <ul class="clean">
-        <li>🔴 <b>Red dashed (~+40) = OVERBOUGHT</b> — the up-move is stretched.</li>
-        <li>⚪ <b>Gray dashed (0) = neutral midline.</b></li>
-        <li>🟢 <b>Green dashed (~−40) = OVERSOLD</b> — the down-move is stretched.</li>
-      </ul>
-
-      <h3>The wave color = where momentum is</h3>
-      <ul class="clean">
-        <li>⚪ <b>White, drifting</b> → momentum is healthy → <b>let your trade ride.</b></li>
-        <li>🔴 <b>Turns red at the top</b> (above +40) → a <b>long is getting tired</b> → first target / scale out.</li>
-        <li>🟢 <b>Turns green at the bottom</b> (below −40) → a <b>short is getting tired</b> → cover / scale out.</li>
-      </ul>
-
-      <h3>🟡 GOLD dots = the EXIT BELL <span style="font-size:.7em;color:var(--ink-mute);font-weight:500">(this is the one to act on)</span></h3>
-      <p>A gold dot means the extreme is <b>rolling over</b> — the wave hit overbought/oversold and started turning back. <b>When the gold dots fire, act:</b> take profit, scale out, or tighten your stop. Don't wait for the wave to travel all the way back to the middle.</p>
-
-      <h3>The background tint = momentum side at a glance</h3>
-      <ul class="clean">
-        <li>Faint <b>green background</b> = momentum on the up side.</li>
-        <li>Faint <b>red background</b> = momentum on the down side.</li>
-      </ul>
-
-      <h3>▲▼ Zero-cross = momentum flip</h3>
-      <p>When the wave crosses 0, momentum just changed sides — an early heads-up.</p>
-
-      <figure class="shot wide">
-        <img src="/assets/course/osob2.png" alt="Reading OSOB across a full session — red tops, green bottoms, gold exit bells at every turn" loading="lazy" />
-        <figcaption>Reading OSOB across a full session — red tops, green bottoms, gold exit bells at every turn</figcaption>
-      </figure>
-
-      <h3>How to USE it with GLS (step by step)</h3>
+      <p>The first <b>90 minutes</b> after the market opens is the best time to trade. But it's tricky — the market often fakes one way first to trick people, then goes the real way. <b>The tool waits out the trick and catches the real move.</b> Here's what you do:</p>
       <ol class="clean">
-        <li>GLS (top chart) gets you <b>in</b> with a 🟢/🔴 light.</li>
-        <li>While you're in the trade, watch OSOB — <b>white wave = hold, let it ride.</b></li>
-        <li>When the wave reaches the colored extreme and the <b>🟡 gold exit-bell dot fires → take first target / scale / tighten your stop.</b></li>
-        <li>Use the OSOB <b>alerts</b> to get pinged on your phone when the extreme rolls over.</li>
+        <li><b>Don't trade the first 15 minutes.</b> Just watch. <i>(The tool measures those first 15 minutes to draw its range. Don't confuse that with the 90-minute window — one is the range it measures, one is the best time to trade.)</i></li>
+        <li>The tool waits for a real move (a strong candle, with lots of buying/selling).</li>
+        <li>When it's real → it says 🔔 <b>OPENING GO — BUY</b> (or SELL). It draws your stop line for you.</li>
+        <li>If it's a fake → <b>nothing happens.</b> The screen stays quiet.</li>
       </ol>
-
-      <div class="callout warn">
-        <span class="ic">⚠️</span>
-        <div class="ct"><span class="hd">Honest rule (read this twice)</span>Overbought/oversold works in <b>ranges</b> and <b>fails in strong trends</b> — in a rip, the wave can pin at the top while price keeps running. So use OSOB for <b>EXITS and scaling ONLY — never to enter, and never to fade a trend.</b> That's exactly why it's the <i>exit partner</i> to GLS, not a second entry signal.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PART 9 -->
-  <section class="lesson" id="part9">
-    <div class="lesson-head"><span class="lesson-num">09</span><h2>The Playbook <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(step-by-step trade)</span></h2></div>
-    <div class="body-text">
-      <ol class="clean">
-        <li><b>Read DIRECTION.</b> Which way is the market leaning? Only trade with it.</li>
-        <li><b>Wait for the BANNER to say SYSTEM GO</b> — not just three lights, not a yellow candle.</li>
-        <li><b>Take the entry GLS draws</b> — enter at the marked level, place your <b>stop</b> and <b>target</b> exactly where the ticket shows, size to your $ risk.</li>
-        <li><b>Move to breakeven at +1R.</b> Now the trade can't hurt you.</li>
-        <li><b>Let the trail ride</b> the trend toward the target (the banner will say RUNNER — LET IT RIDE).</li>
-        <li><b>Use OSOB to exit</b> — when the 🟡 gold exit-bell dots fire, take first target / scale / tighten.</li>
-        <li><b>Stop for the day</b> at your profit goal or loss limit. The firewall enforces it.</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- PART 10 -->
-  <section class="lesson" id="part10">
-    <div class="lesson-head"><span class="lesson-num">10</span><h2>Risk &amp; The Firewall</h2></div>
-    <div class="body-text">
-      <div class="enforce">
-        <div class="eh">🛡 Rules the firewall enforces</div>
-        <ul>
-          <li><b>Auto position sizing</b> — GLS sizes the trade to your chosen $ risk. Never oversize.</li>
-          <li><b>ATR stop + reward target</b> — every trade has a defined stop and target. No "hope."</li>
-          <li><b>Trailing stop</b> — ride winners; breakeven at +1R protects you.</li>
-          <li><b>Daily Firewall</b> — set a daily loss limit and a profit goal. Hit either → GLS says <b>STAND DOWN / DONE</b> — and you stop. This keeps funded accounts alive.</li>
-          <li><b>News blackout</b> — GLS blocks the 8:30 &amp; 10:00 ET news windows by default.</li>
-        </ul>
-      </div>
       <div class="callout key">
-        <span class="ic">🛡</span>
-        <div class="ct"><span class="hd">The most important feature in the whole tool</span>One disciplined "done for the day" saves more accounts than any signal.</div>
+        <span class="ic">🔔</span>
+        <div class="ct"><span class="hd">Best charts for the Opening Go</span>The OPENING GO shows up best on the <b>10-, 15-, and 30-minute</b> charts. <b>15-minute = the sweet spot</b> (it matches the tool's opening range — use this one first). 10-minute gets you in a touch sooner; 30-minute is slower and steadier with fewer fakes. Let the first candle build, and when 🔔 OPENING GO prints, take it on the <b>close of that candle</b>. Stop on the dotted line. One clean trade.</div>
       </div>
-    </div>
-  </section>
-
-  <!-- PART 11 -->
-  <section class="lesson" id="part11">
-    <div class="lesson-head"><span class="lesson-num">11</span><h2>When <span style="color:var(--red)">NOT</span> to Trade</h2></div>
-    <div class="body-text">
-      <ul class="clean">
-        <li>❌ <b>CHOP</b> — banner says "STAND ASIDE." No clean trend = no trade.</li>
-        <li>❌ <b>Against the trend</b> — a counter-trend yellow flip or bounce is a fake-out, not an entry.</li>
-        <li>❌ <b>Into a reversal zone / resistance with the trend exhausted</b> — that's an exit spot, not an entry.</li>
-        <li>❌ <b>During news</b> — let the 8:30 / 10:00 ET releases settle.</li>
-        <li>❌ <b>After you hit your daily limit or goal</b> — you're done. Walk away.</li>
-      </ul>
-      <div class="callout key">
-        <span class="ic">🧠</span>
-        <div class="ct"><span class="hd">The best traders skip more than they take</span>GLS is built to keep you out of bad trades as much as to get you into good ones.</div>
+      <div class="callout tip">
+        <span class="ic">⚙️</span>
+        <div class="ct"><span class="hd">Two modes</span>In Settings, the Opening has a switch called "How it calls direction." Leave it on <b>"Volume Breakout"</b> (go WITH the real move). The other choice, "Sweep-Reclaim Fade," flips it to bet the <i>other</i> way — advanced only. <b>Beginners: leave it on Volume Breakout.</b></div>
       </div>
-    </div>
-  </section>
 
-  <!-- PART 12 -->
-  <section class="lesson" id="part12">
-    <div class="lesson-head"><span class="lesson-num">12</span><h2>Best Times &amp; Markets</h2></div>
-    <div class="body-text">
-      <ul class="clean">
-        <li><b>Markets:</b> MES (S&amp;P), MNQ (Nasdaq), MGC (gold), MYM (Dow).</li>
-        <li><b>Sessions:</b> trade the <b>opens</b> — London (~3:00 AM ET) and the <b>New York open</b> (index 9:30 ET, gold ~8:20 ET). GLS auto-fits the right session per instrument.</li>
-        <li><b>Avoid:</b> the dead midday chop and the final minutes — let the system stay quiet there.</li>
-        <li><b>Timeframes:</b> 5-minute to trade, 15-minute for context.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PART 13 -->
-  <section class="lesson" id="part13">
-    <div class="lesson-head"><span class="lesson-num">13</span><h2>Common Mistakes <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(don't do these)</span></h2></div>
-    <div class="body-text">
-      <ol class="clean">
-        <li><b>Buying the yellow candle.</b> Yellow = warning, not buy. Wait for green + GO.</li>
-        <li><b>Trading against the DIR lean.</b> If it's leaning short, you're looking for shorts.</li>
-        <li><b>Entering into a reversal zone with the trend.</b> That's where you take profit, not where you enter.</li>
-        <li><b>Ignoring the banner.</b> Three lights ≠ go. The banner is the final word.</li>
-        <li><b>Skipping the stop or oversizing.</b> Always use the ticket's stop and size.</li>
-        <li><b>Trading after STAND DOWN.</b> Done means done.</li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- PART 14 -->
-  <section class="lesson" id="part14">
-    <div class="lesson-head"><span class="lesson-num">14</span><h2>Power Features <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(optional — turn on when you're ready)</span></h2></div>
-    <div class="body-text">
-      <p>Everything above is all you need to trade. These extras are <b>OFF by default on purpose</b> — so the chart stays clean for new traders. Once the core feels second-nature, you can switch any of these ON in <b>Settings</b>. Add them one at a time so you understand each.</p>
-
-      <blockquote class="tipq"><b>Beginner tip:</b> ignore this whole page for your first couple weeks. Master <i>direction → green light → manage → exit</i> first. Come back here when you want more tools.</blockquote>
-
+      <h3>💰 Way 2 — The Scalper (quick trades, all day)</h3>
       <figure class="shot">
-        <img src="/assets/course/new6.jpeg" alt="Power features on a Dow chart: PDH/PDL, Midnight Open, Weekly Open levels, the A1 setup, and a STRONG LONG read" loading="lazy" />
-        <figcaption>Power features on a Dow chart: PDH/PDL + Midnight Open + Weekly Open levels, the ⭐A1 setup, and a STRONG LONG read</figcaption>
-      </figure>
-
-      <ul class="clean">
-        <li>🏛 <b>BOS / CHoCH (structure breaks)</b> — marks when price breaks a prior swing. <b>BOS</b> = the trend is continuing; <b>CHoCH</b> = the trend may be changing. A clean way to see structure shift. <i>(Settings → Levels)</i></li>
-        <li>↪ <b>Pullback entries</b> — flags a dip back to the trend line that resumes with the trend (the bread-and-butter "buy the dip in an uptrend" spot). <i>(Settings → Setup)</i></li>
-        <li>📐 <b>Premium / Discount zones</b> — shades the chart into "expensive" (premium, favor sells) and "cheap" (discount, favor buys) halves, so you buy low and sell high. <i>(Settings → Display)</i></li>
-        <li>💧 <b>Liquidity lines (PDH/PDL · PWH/PWL)</b> — draws the prior day's and prior week's highs and lows. These are where stops sit and where price gets pulled — strong magnets and reaction levels. <i>(Settings → Levels)</i></li>
-        <li>🟡✅ <b>HTF-confirmed Yellow Man</b> — a <i>stronger</i> version of the flip warning: it only marks 🟡✅ when the higher timeframes agree with the turn. More reliable heads-up. <i>(on with Yellow Man)</i></li>
-        <li>🛡🧱 <b>Strong Support / Resistance</b> — green support / red resistance at levels tested 2+ times (the bounce and rejection spots). Master switch is OFF by default; flip it ON to show them. <i>(Settings → Levels)</i></li>
-        <li>🕓 <b>4h &amp; 15m High/Low lines</b> — key higher-timeframe levels drawn on your lower-timeframe chart for context. <i>(Settings → Display)</i></li>
-        <li>🌙 <b>Swing mode</b> — switches the whole engine to 4h/Daily and ignores intraday sessions, for swing trading instead of day trading. <i>(Settings → Sessions)</i></li>
-        <li>🕒 <b>Power Hour</b> — marks the 3–4 PM ET window. <i>(Off by default — research shows a weak edge, so test it before trusting it.) (Settings → Sessions)</i></li>
-        <li>🔴 <b>News-day stand-down</b> — flip this ON before a big news day (CPI, FOMC) and GLS stays quiet all day so you don't get chopped up. <i>(Settings → Firewall)</i></li>
-        <li>🔶 <b>Level Regain</b> — the failed-break reclaim: price pokes <i>beyond</i> a level then closes back <i>within</i> in 1–3 candles = a trap. Fires WITH the trend only. <i>(Settings → Setup)</i></li>
-        <li>🔁 <b>Reversal Switch</b> — catches the flip <i>after</i> the Yellow Man warning; great for the slow overnight / Asia trends. Optional volume-spike setting for sharp-only reversals. <i>(Settings → Setup)</i></li>
-        <li>🎯 <b>Sniper</b> — opening-momentum breakout dots (BUY / SELL / STRONG) for the first move of the session. <i>(Settings → Setup)</i></li>
-        <li>🔔 <b>Opening Go</b> — the opening-bell direction call. Prints <b>🔔 OPENING GO – LONG</b> or <b>SHORT</b> the moment the session opens clean, or <b>🟡 CHOP – STAND ASIDE</b> when there's no clean trend — so you know your bias before the first candle. <i>(Settings → Setup)</i></li>
-        <li>🔄 <b>Smart Reversal</b> — flags exhaustion at key levels — use it for exits and careful counter-trend, never a blind fade. <i>(Settings → Setup)</i></li>
-      </ul>
-
-      <div class="callout key" style="border-color:rgba(255,212,0,.35);background:linear-gradient(180deg,rgba(255,212,0,.06),transparent)">
-        <span class="ic">⚡</span>
-        <div class="ct"><span class="hd" style="color:var(--amber,#ffd400)">Bonus Feature — Breakaway Scalper</span>A separate range-break engine that trades the retest for you. When a range forms (yellow range lines), it waits for the break, drops a <b>limit at the retest</b>, then sets <b>TP + SL at 1:1</b>. It slides your stop to <b>breakeven at +1R</b>, and if the break rips away with no retest it still takes it at market (<b>runner-catch</b>). A strong-trend gate keeps it honest, and it works on <b>any timeframe</b>. Off by default — flip on <i>useBreak</i> when you want to scalp breakouts. <i>(Settings → Setup)</i></div>
-      </div>
-
-      <figure class="shot" style="background:rgba(0,0,0,.3)">
         <svg viewBox="0 0 680 300" role="img" aria-label="Breakaway Scalper: a range forms, price breaks out, a limit order fills on the retest, then price targets take profit at 1 to 1 while the stop moves to breakeven." style="display:block;width:100%;height:auto">
           <defs>
             <linearGradient id="tpg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(69,240,138,.30)"/><stop offset="1" stop-color="rgba(69,240,138,0)"/></linearGradient>
@@ -695,56 +550,422 @@ blockquote.tipq b{color:var(--green)}
             <text x="48" y="14" text-anchor="middle" fill="#45f08a" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">LIMIT BUY</text>
           </g>
         </svg>
-        <figcaption>Breakaway Scalper: range → break → limit at the retest → TP at 1:1, stop to breakeven.</figcaption>
+        <figcaption>The Scalper: range → break → limit at the retest → TP at 1:1, stop to breakeven.</figcaption>
       </figure>
+      <p>This one is <b>already on.</b> When price gets tight and squeezed, then pops out, the tool tells you to place an order at a good price. On the chart you'll see a <b>Limit Buy</b> or <b>Limit Sell</b> box and a line — that line is your price.</p>
+      <ul class="clean">
+        <li><b>BUY</b> → price popped up. Place a buy at the line. Buy the little dip back.</li>
+        <li><b>SELL</b> → price popped down. Place a sell at the line. Sell the little bounce up.</li>
+      </ul>
+      <p>You place a <b>limit order</b> at that line, so you get a good price instead of chasing. When it fills you'll see <b>"Long Filled" / "SHOTS FIRED."</b></p>
 
+      <h4>⏰ Best timeframe for the Scalper</h4>
+      <p>The scalper works best on the <b>5-minute chart.</b> It runs all day. This is your main all-day trade after the open.</p>
+
+      <h4>How to trade it (step by step)</h4>
+      <ol class="clean">
+        <li>Stay on the <b>5-minute chart</b>, with the trend (the 4 clocks agree).</li>
+        <li>Wait for price to get tight and squeezed, then pop out.</li>
+        <li>The tool shows a <b>Limit Buy / Limit Sell</b> line. Place your limit order right there.</li>
+        <li><b>Buy</b> → buy the little dip back. <b>Sell</b> → sell the little bounce.</li>
+        <li><b>Stop:</b> the line the tool draws. <b>First target:</b> the 🎯 line. Take half, then ride the 🏄 8-EMA.</li>
+      </ol>
+
+      <div class="enforce">
+        <div class="eh">⚙️ Best settings for the scalper (most come already set — but check Max range height)</div>
+        <ul>
+          <li>Chart on <b>5-minute</b></li>
+          <li>Strong-trend only: <b>ON</b> (already on)</li>
+          <li>Scalp with intraday trend: <b>OFF</b> (already off)</li>
+          <li>Max range height: <b>change it from 4 to 2</b> (only tight, clean squeezes)</li>
+          <li>Catch-the-runner: <b>OFF</b> (already off)</li>
+        </ul>
+      </div>
+
+      <h3>💰 Way 3 — The Get-In Box (the core trade)</h3>
+      <figure class="shot">
+        <img src="/assets/course/new7.jpeg" alt="A fair-value gap flips to FILLED — GET IN as price tags the box" loading="lazy" />
+        <figcaption>The Get-In Box — the gap flips to "✅ FILLED — GET IN" as price tags it</figcaption>
+      </figure>
+      <p>This is the trade the tool is built around. You'll see it a lot, so learn it well. When price moves fast, it leaves a little <b>gap</b> — a spot it skipped over. <i>(Traders call this an <b>FVG</b>, a "fair value gap" — that's all FVG means.)</i> Price likes to come back and "fill" that gap before it keeps going. The tool draws a <b>green box</b> (for buys) or <b>red box</b> (for sells) on that gap. That box is your <b>GET-IN spot.</b></p>
+      <h4>⏰ Best timeframes for the Get-In Box</h4>
+      <p>The GET-IN box works on the <b>5-minute and 15-minute</b> charts.</p>
+      <ul class="clean">
+        <li><b>5-minute</b> = you get <b>lots</b> of boxes all day. Best for active trading. This is the main one for the all-day part of your session.</li>
+        <li><b>15-minute</b> = fewer boxes, but <b>bigger and cleaner.</b> Best if you want fewer, stronger trades.</li>
+        <li>Use it on whatever chart you're already on for the day.</li>
+      </ul>
+      <h4>How to trade it (step by step)</h4>
+      <ol class="clean">
+        <li>Check the <b>4 clocks</b> agree (up for a green box, down for a red box). No trend = skip it.</li>
+        <li>A <b>green box</b> shows up under price in an up-trend (or a red box above price in a down-trend).</li>
+        <li>Wait for price to come back and touch the box. The tool says ✅ <b>FILLED — GET IN.</b></li>
+        <li><b>Enter there.</b> You got a great price — right where big money steps in.</li>
+        <li><b>Stop:</b> the dotted 🛑 line the tool draws (just past the box).</li>
+        <li><b>First target:</b> the 🎯 line the tool draws. <b>Take half</b>, then ride the trend with the 🏄 8-EMA for more.</li>
+      </ol>
       <div class="callout key">
-        <span class="ic">🧩</span>
-        <div class="ct"><span class="hd">The point</span>The core keeps you simple and safe. These let an experienced trader go deeper without cluttering a beginner's chart. Turn on only what you'll actually use.</div>
+        <span class="ic">🟢</span>
+        <div class="ct">Only take the box that goes <b>with the 4 clocks.</b> If a box breaks and fails, the tool grays it out — skip gray boxes. <i>(The tool only draws boxes that go with the trend, so you won't get bad-direction ones unless you turn on the extra "show ignored zones" switch.)</i></div>
+      </div>
+
+      <h3>💰 Way 4 — The A1 Trade (buy the dip in the gold box)</h3>
+      <figure class="shot">
+        <img src="/assets/course/golden-pocket.png" alt="The A1 Trade — price dips into the golden pocket gold box, the buy zone, then resumes the uptrend" loading="lazy" />
+        <figcaption>The A1 Trade — price dips into the gold box (the golden pocket) then resumes the trend</figcaption>
+      </figure>
+      <p>This is the ⭐ <b>A1 trade</b> — one of the best setups in the whole tool. "A1" just means <b>A-plus, top grade.</b> When the trend is strong and price dips back a little, it often stops in a special spot called the <b>golden pocket</b> — the tool draws it as a <b>gold box.</b> Buying the dip there means you join a strong trend at a <b>discount price.</b></p>
+      <p><b>Why it's so good:</b> you're not guessing. You wait for a strong trend, wait for the dip into the gold box, and wait for the tool to say the dip is done. Three green lights before you risk a dime.</p>
+      <h4>⏰ Best timeframes for the A1 trade</h4>
+      <p>The A1 works best on the <b>5-minute and 15-minute</b> charts.</p>
+      <ul class="clean">
+        <li><b>15-minute</b> = the <b>best</b> one. The gold box is bigger and cleaner. Fewer, stronger A1 trades. <b>Start here.</b></li>
+        <li><b>5-minute</b> = more A1 trades, a bit smaller. Good once you know the setup.</li>
+        <li>Keep it on the same chart you're already using for the day.</li>
+      </ul>
+      <h4>How to trade the A1 (step by step)</h4>
+      <ol class="clean">
+        <li><b>Check the trend.</b> The 4 clocks must agree (all up for a buy, all down for a sell). No trend = no A1.</li>
+        <li>Price <b>dips back</b> into the <b>gold box</b> (the golden pocket). The banner says <b>GET READY.</b></li>
+        <li>A 🎯 <b>shaded band</b> shows up — that's the exact "get-in zone" to watch.</li>
+        <li><b>Wait for the ⭐ star (⭐ A1).</b> The tool needs a strong candle to close back the right way. The star means "the dip is done, go now." <b>Do NOT buy just because price touched the box — wait for the star.</b></li>
+        <li><b>Get in</b> when the ⭐ A1 prints.</li>
+        <li><b>Stop:</b> just past the far side of the gold box.</li>
+        <li><b>First target:</b> the last high (for a buy) or last low (for a sell). Take half. Then ride the trend with the 🏄 8-EMA line.</li>
+      </ol>
+      <div class="callout warn">
+        <span class="ic">⚠️</span>
+        <div class="ct">This only works <b>with the trend.</b> The tool skips dips that go against the trend — those are traps. The ⭐ A1 star is your proof the dip is really over.</div>
+      </div>
+
+      <h3>💰 Way 5 — The Switch (catch the turn)</h3>
+      <figure class="shot">
+        <img src="/assets/course/xau-yellowman.png" alt="The Switch — a Yellow Man warning, then a switch arrow confirms the real turn" loading="lazy" />
+        <figcaption>The Switch — the Yellow Man warns first, then the arrow confirms the real turn</figcaption>
+      </figure>
+      <p>Sometimes the trend flips. Down turns into up. Up turns into down. The Switch trade catches that turn <b>early</b>, so you're in before the crowd. The tool warns you first, then tells you when the flip is real.</p>
+      <h4>The two steps of a Switch</h4>
+      <ol class="clean">
+        <li>First you see a 🟡 <b>Yellow Man</b> — a yellow candle. That's a <b>warning:</b> the trend might be turning. <i>(This is NOT a trade yet. Just get ready and watch.)</i></li>
+        <li>Then, when the turn is real, a big arrow prints: ↑ <b>SWITCH</b> (turned up) or ↓ <b>SWITCH</b> (turned down). <b>That arrow is your green light.</b></li>
+      </ol>
+      <h4>⏰ Best timeframes for the Switch</h4>
+      <p>The Switch works best on the <b>5-minute and 15-minute</b> charts.</p>
+      <ul class="clean">
+        <li><b>5-minute</b> = catches the turn <b>fast</b> — best for quick reversal scalps. More signals, a little more noise.</li>
+        <li><b>15-minute</b> = <b>cleaner, bigger</b> turns. Fewer signals, but stronger ones. Best if you want to hold longer.</li>
+        <li><b>Don't use it below the 5-minute</b> — a 1-minute chart flips too much and fakes you out.</li>
+      </ul>
+      <blockquote class="tipq"><b>Simple:</b> use the 5-minute for a quick catch, the 15-minute for a bigger, safer turn. Beginners: start on the <b>15-minute</b> — the Switches there are the trustworthy ones.</blockquote>
+      <h4>How to trade the Switch (step by step)</h4>
+      <ol class="clean">
+        <li>Wait for the 🟡 <b>Yellow Man</b> warning. Get ready. Don't trade yet.</li>
+        <li>Wait for the ↑ <b>SWITCH</b> (to buy) or ↓ <b>SWITCH</b> (to sell) arrow. This is your go.</li>
+        <li><b>Get in</b> on the <b>close</b> of the switch candle.</li>
+        <li><b>Stop:</b> just under the <b>low</b> of the switch candle (for a buy) — or just over the <b>high</b> (for a sell).</li>
+        <li><b>First target:</b> the last swing high (for a buy) or last swing low (for a sell). Take half there.</li>
+        <li><b>Then ride</b> the new trend with the 🏄 8-EMA line. Stay in while price holds it.</li>
+      </ol>
+      <blockquote class="tipq"><b>⭐ Extra-strong version:</b> if a <b>star</b> shows up on a GET-IN box right after a SWITCH, that's a reversal <i>and</i> a get-in box lining up. Those are the best turn trades — you can trust them more and even size up a little.</blockquote>
+      <div class="callout tip">
+        <span class="ic">🔔</span>
+        <div class="ct"><span class="hd">Important</span>The Switch goes <b>quiet during the opening window</b> (the first ~45 minutes) on purpose, so it doesn't fight the 🔔 Opening call. In the morning, the <b>Opening trade is the boss.</b> The Switch takes over later in the day. So: trade the 🔔 Opening at the open, then watch for Switches the rest of the session.</div>
+      </div>
+
+      <h3>🚀 Bonus — The Simple ORB</h3>
+      <p>Way 1 (The Open) is the smart version. But if you want the plain, old-school open trade, the tool has it too. It's <b>off</b> to start.</p>
+      <p><b>Turn it on:</b> Settings → ORB → flip <b>Opening-Range Breakout: ON.</b> ⚠️ <b>Important:</b> you also have to turn the <b>Scalper OFF</b> — if the Scalper is on, the ORB stays hidden.</p>
+      <h4>How to trade it</h4>
+      <ol class="clean">
+        <li>When the market opens, the tool draws a box around the first 15 minutes (the high and low).</li>
+        <li><b>Wait.</b> Don't trade inside the box.</li>
+        <li>A candle <b>closes above the box → buy.</b> A candle <b>closes below → sell.</b></li>
+        <li><b>Stop:</b> the other side of the box.</li>
+        <li><b>Target:</b> as far as the box is tall, once or twice. Or ride it if it runs.</li>
+      </ol>
+      <div class="callout warn">
+        <span class="ic">🟡</span>
+        <div class="ct"><span class="hd">Be honest</span>This plain version gives more trades, but more of them are fakes. That's why Way 1 is smarter. <b>Trade Way 1 first.</b> Use the plain ORB later, once you can spot a fake.</div>
+      </div>
+
+      <h3>Which switch turns on which way</h3>
+      <p>So you're never lost in the Settings menu:</p>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>Way</th><th>Switch name in Settings</th><th>On to start?</th></tr></thead>
+          <tbody>
+            <tr><td>Way 1 — The Open</td><td>🔔 <b>Opening</b></td><td><span class="ok">✅ ON</span></td></tr>
+            <tr><td>Way 2 — The Scalper</td><td>⚡ <b>Breakaway Scalper</b></td><td><span class="ok">✅ ON</span></td></tr>
+            <tr><td>Way 3 — The Get-In Box</td><td>📦 <b>GET IN boxes</b></td><td><span class="ok">✅ ON</span></td></tr>
+            <tr><td>Way 4 — The A1 Dip</td><td>⭐ <b>A+ Setup</b></td><td><span class="ok">✅ ON</span></td></tr>
+            <tr><td>Way 5 — The Switch</td><td>🟢 <b>Reversal-switch arrows</b></td><td><span class="ok">✅ ON</span></td></tr>
+            <tr><td>Bonus — Simple ORB</td><td>🚀 <b>Opening-Range Breakout</b></td><td><span class="no">✗ OFF</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout key">
+        <span class="ic">✅</span>
+        <div class="ct"><span class="hd">Good news</span>Ways 1 through 5 are <b>all already ON.</b> You don't have to turn anything on to start.</div>
       </div>
     </div>
   </section>
 
-  <!-- PART 15 -->
-  <section class="lesson" id="part15">
-    <div class="lesson-head"><span class="lesson-num">15</span><h2>More Real Examples</h2></div>
+  <!-- PART 5 -->
+  <section class="lesson" id="part5">
+    <div class="lesson-head"><span class="lesson-num">05</span><h2>The Helpers <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(extra things that help you win)</span></h2></div>
     <div class="body-text">
-      <p>A few more shots of the system on live charts so you know what to look for.</p>
-
-      <p><b>The full dashboard on a desktop chart</b> — direction stack, the 3 lights, the banner, the zones all working together:</p>
       <figure class="shot wide">
-        <img src="/assets/course/us30-dashboard.png" alt="GLS desktop layout — dashboard, painted candles, golden pocket, VWAP, all in one view" loading="lazy" />
-        <figcaption>GLS desktop layout — dashboard, painted candles, golden pocket, VWAP, all in one view</figcaption>
+        <img src="/assets/course/us30-dashboard.png" alt="The helpers on a live chart — VWAP, painted candles, support and resistance, zones all together" loading="lazy" />
+        <figcaption>The helpers on a live chart — VWAP, painted candles, support/resistance, and zones all working together</figcaption>
       </figure>
 
-      <p><b>Zones doing their job</b> — golden pocket, reversal zones, and support/resistance marking the spots that matter:</p>
+      <p>These are <b>not trades by themselves.</b> They're helpers that make your trades better. They're already on. Here's what each one means when you see it:</p>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>You see</th><th>What it is</th><th>How it helps</th></tr></thead>
+          <tbody>
+            <tr><td>🟡 <b>Yellow Man</b></td><td>a yellow candle</td><td>warning: the trend may flip. Get ready.</td></tr>
+            <tr><td>🧭 <b>LEAN LONG / SHORT</b></td><td>the day's lean</td><td>if no big GO fired yet, this is the day's bias. Context only, smaller size.</td></tr>
+            <tr><td>📊 <b>VWAP</b> (yellow line)</td><td>the day's fair price</td><td>buy above it, sell below it. A magnet and a target.</td></tr>
+            <tr><td>🏄 <b>8 EMA line</b> (thin)</td><td>your "stay in" line</td><td>while price holds it, stay in. When a candle closes through it, get out.</td></tr>
+            <tr><td>🛡 <b>Green line</b> (Support)</td><td>a floor price</td><td>price often bounces up off it. Take profit into it on a short.</td></tr>
+            <tr><td>🧱 <b>Red line</b> (Resistance)</td><td>a ceiling price</td><td>price often drops off it. Take profit into it on a long.</td></tr>
+            <tr><td>🟥 <b>Supply/Demand box</b></td><td>where big money sits</td><td>buy at a demand box, sell at a supply box. The tool only shows the one that goes with the trend.</td></tr>
+            <tr><td>🎯 <b>Shaded band</b></td><td>the pullback get-in zone</td><td>shows exactly where to wait for your dip entry.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout key">
+        <span class="ic">🧩</span>
+        <div class="ct"><span class="hd">Simple way to use them</span>The Ways tell you <b>WHEN</b> to get in. The helpers tell you <b>WHERE</b> the good and bad spots are. Use them together: take your GET-IN box or dip <b>at</b> support/demand/VWAP, and <b>take profit into</b> the next resistance or supply.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 6 -->
+  <section class="lesson" id="part6">
+    <div class="lesson-head"><span class="lesson-num">06</span><h2>The OSOB <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">— your "get out" tool</span></h2></div>
+    <div class="body-text">
       <figure class="shot wide">
-        <img src="/assets/course/us30-zones.png" alt="Zones on the chart — golden pocket, reversal zones, support and resistance levels" loading="lazy" />
-        <figcaption>Zones on the chart — golden pocket, reversal zones, support and resistance levels</figcaption>
+        <img src="/assets/course/osob1.png" alt="The OSOB pane — the wave, red tops, green bottoms, and the gold exit-bell dots" loading="lazy" />
+        <figcaption>The OSOB pane — the wave, red tops, green bottoms, and the 🟡 gold exit dots</figcaption>
       </figure>
 
-      <p><b>Reading a move on gold (MGC)</b> — trend, the band, VWAP, and the OSOB exit pane below:</p>
+      <p>You get <b>two</b> tools. The first one tells you when to <b>get in.</b> The OSOB tells you when to <b>get out.</b> That's its only job.</p>
+      <blockquote class="tipq"><b>OSOB just means: is it too high or too low?</b> It shows when a move is getting tired, so you can grab your money before it turns around.</blockquote>
+
+      <h3>How to add it</h3>
+      <p>The OSOB goes in a <b>box under your chart</b> — not on top of the candles.</p>
+      <ol class="clean">
+        <li>Add the <b>"Green Light Special — OSOB"</b> tool in TradingView.</li>
+        <li>It opens in its own box below the price. That's where it goes.</li>
+        <li>Now you see your GET IN tool on top and your GET OUT tool on the bottom.</li>
+      </ol>
+
+      <h3>How to read it</h3>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>You see</th><th>It means</th><th>You do</th></tr></thead>
+          <tbody>
+            <tr><td>⚪ <b>White line moving</b></td><td>move is healthy</td><td><b>hold, do nothing</b></td></tr>
+            <tr><td>🔴 <b>Line turns red at the top</b></td><td>a buy is getting tired</td><td>get ready to take some money</td></tr>
+            <tr><td>🟢 <b>Line turns green at the bottom</b></td><td>a sell is getting tired</td><td>get ready to take some money</td></tr>
+            <tr><td>🟡 <b>GOLD dot</b></td><td>it's turning around now</td><td><b>take some money. Move your stop up.</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><b>The gold dot is the star.</b> When you see the gold dot, the move is running out of gas. Grab some of your money. Don't panic and sell it all — just take your first bit and lock it in.</p>
+
       <figure class="shot wide">
-        <img src="/assets/course/gold-chart.png" alt="Gold (MGC) with the trend EMAs, VWAP, and the OSOB exit pane" loading="lazy" />
-        <figcaption>Gold (MGC) with the trend EMAs, VWAP, and the OSOB exit pane</figcaption>
+        <img src="/assets/course/osob2.png" alt="Reading OSOB across a full session — red tops, green bottoms, gold exit dots at every turn" loading="lazy" />
+        <figcaption>Reading OSOB across a full session — red tops, green bottoms, gold exit dots at every turn</figcaption>
       </figure>
 
-      <p>Study these until reading the chart at a glance feels natural. The more reps, the faster you'll spot a clean setup.</p>
+      <div class="callout warn">
+        <span class="ic">⚠️</span>
+        <div class="ct"><span class="hd">The one rule</span>Only use the OSOB to <b>GET OUT.</b> Never use it to get in. Never bet against the trend with it. In a strong trend it will say "too high" while price keeps going up and up — if you sell there, the trend runs you over. So: ✅ use it to take profit on a trade you're already in. ✗ don't use it to start a trade. ✗ don't sell just because it says "too high."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 7 -->
+  <section class="lesson" id="part7">
+    <div class="lesson-head"><span class="lesson-num">07</span><h2>Use Both Tools to Win <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(a real trade, step by step)</span></h2></div>
+    <div class="body-text">
+      <figure class="shot wide">
+        <img src="/assets/course/gold-chart.png" alt="Both tools together — the GET-IN tool on top with a BUY, the OSOB momentum pane below" loading="lazy" />
+        <figcaption>Both tools together — the GET-IN tool on top, the OSOB exit pane on the bottom</figcaption>
+      </figure>
+
+      <p>Here is a real trade, step by step. This is how the two tools make money together. Your screen has the main tool on top and the OSOB on the bottom.</p>
+      <ol class="clean">
+        <li><b>9:45.</b> The 4 clocks all say UP. It's a buy day. <i>(The OSOB is quiet. You're not in a trade yet.)</i></li>
+        <li><b>9:52.</b> The top tool says 🔔 <b>OPENING GO — BUY.</b> It draws your stop line.</li>
+        <li><b>You buy.</b> Stop goes on the dotted line. You risk a small set amount.</li>
+        <li><b>10:10.</b> Price is going up. <b>You're holding, watching your dotted stop.</b> Down below, the OSOB line is climbing. <i>You do nothing. Climbing is good.</i></li>
+        <li><b>10:24.</b> The OSOB line hits the top and a 🟡 <b>GOLD DOT</b> shows up. <b>Time to grab money.</b> You sell half. That money is now yours to keep.</li>
+        <li><b>You move your stop to where you got in.</b> Now you're <b>playing with house money</b> — your first half is locked in, and the rest is aiming for break-even or better.</li>
+        <li><b>10:40.</b> Price keeps running. You let the other half run and <b>trail it with the 🏄 8-EMA line.</b></li>
+        <li><b>11:05.</b> A second gold dot shows up. You sell the rest. <b>Done.</b></li>
+        <li><b>You hit your money goal for the day.</b> Banner says <b>STAND DOWN.</b> You close the laptop. <b>You won today.</b></li>
+      </ol>
+      <div class="callout key">
+        <span class="ic">💡</span>
+        <div class="ct"><span class="hd">The big idea</span>The top tool got you IN on the real move. The bottom tool told you when to TAKE YOUR MONEY. One without the other is not enough. <b>Together, they are how you win.</b></div>
+      </div>
+      <p><i>Say it simple:</i> Get in when the top says GO. Take money when the bottom shows the gold dot. Let the rest run. Stop when you hit your goal.</p>
+    </div>
+  </section>
+
+  <!-- PART 8 -->
+  <section class="lesson" id="part8">
+    <div class="lesson-head"><span class="lesson-num">08</span><h2>Manage a Trade <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(after you're in)</span></h2></div>
+    <div class="body-text">
+      <p>The tool does most of this for you, but here's what the lines mean:</p>
+      <ul class="clean">
+        <li><b>First target:</b> the first 🎯 line (traders call it "TP1" — just take-profit number one). When price hits it, <b>take half</b> and slide your stop to where you got in. Now the trade is safe.</li>
+        <li><b>Final target (the runner):</b> the far 🎯 line. Let the rest ride to here, or trail it with the trend.</li>
+        <li><b>The trail:</b> the tool moves your stop up behind price for you, so you keep more of a big win.</li>
+        <li><b>"OUT 🔄" (flip exit):</b> if the trend flips against you, the tool says get OUT. The trade is over. <b>Don't jump back in the same way</b> — wait for a fresh signal.</li>
+      </ul>
+      <div class="callout key">
+        <span class="ic">🟢</span>
+        <div class="ct"><span class="hd">The habit that makes the money</span>Take a little at the first target, then let the rest run far. Small sure wins + one big runner = a green day.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 9 -->
+  <section class="lesson" id="part9">
+    <div class="lesson-head"><span class="lesson-num">09</span><h2>The Money Rules <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(this keeps you from going broke)</span></h2></div>
+    <div class="body-text">
+      <p>Good trades still lose money if you break these. The tool does them for you:</p>
+      <div class="enforce">
+        <div class="eh">🛡 The Firewall (turn it on)</div>
+        <ul>
+          <li><b>Lose $500 in a day</b> → the tool shuts you off. No more trading. No revenge.</li>
+          <li><b>Make $200 in a day</b> → it says DONE. Walk away a winner.</li>
+          <li>Each trade risks a small, set amount (like <b>$250</b>). The tool sets your stop for you.</li>
+        </ul>
+      </div>
+      <h3>The 3 habits that make the money</h3>
+      <ol class="clean">
+        <li><b>No trade is fine.</b> If the screen is quiet, don't trade. A quiet day beats a bad day.</li>
+        <li><b>Small losses, big wins.</b> When the banner says RUNNER, let it run. This is the whole game.</li>
+        <li><b>Stop when you're up.</b> Hit your goal? Close the laptop. Come back tomorrow.</li>
+      </ol>
+      <div class="callout key">
+        <span class="ic">🛡</span>
+        <div class="ct"><span class="hd">The most important feature in the whole tool</span>One disciplined "done for the day" saves more accounts than any signal.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 10 -->
+  <section class="lesson" id="part10">
+    <div class="lesson-head"><span class="lesson-num">10</span><h2>The Top Ways to Win <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(the big ones)</span></h2></div>
+    <div class="body-text">
+      <p>If you only remember a few things, remember these. These are what make the money:</p>
+      <ol class="clean">
+        <li><b>Trade the open.</b> The first 90 minutes is the best time. Catch the 🔔 OPENING GO on the 15-minute chart. That one trade can make your day.</li>
+        <li><b>Only trade when all 4 clocks agree.</b> All up = buy. All down = sell. Mixed = wait. This alone saves your account.</li>
+        <li><b>Trade futures.</b> ES, NQ, YM, or Gold. Real volume = clean signals.</li>
+        <li><b>Two charts, two jobs.</b> 15-minute for the opening trade. 5-minute for the all-day scalper and dips.</li>
+        <li><b>Take half at the first target (or the gold dot). Let the rest run.</b> Lock in money early, then ride the winner with the trend.</li>
+        <li><b>Small losses, big wins.</b> Cut losers fast. When it says RUNNER, let it run far.</li>
+        <li><b>No trade beats a bad trade.</b> If the screen is quiet, don't force it. Wait for the green light.</li>
+        <li><b>Stop when you hit your goal.</b> Made your money for the day? Close the laptop.</li>
+        <li><b>One market. One way.</b> Get great at ONE thing before you add more.</li>
+      </ol>
+      <blockquote class="tipq"><b>The simplest winning plan there is:</b> trade the open on the <b>15-minute chart</b>, only when the clocks agree, take half at the first target, ride the rest, and stop when you're up. Do that over and over.</blockquote>
+    </div>
+  </section>
+
+  <!-- PART 11 -->
+  <section class="lesson" id="part11">
+    <div class="lesson-head"><span class="lesson-num">11</span><h2>Your Settings <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(what to turn on)</span></h2></div>
+    <div class="body-text">
+      <p>The tool has lots of switches. <b>You only touch a few.</b> Set these and leave the rest alone.</p>
+      <div class="tbl tbl-scroll">
+        <table>
+          <thead><tr><th>Setting</th><th>Set it to</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td><b>Trading Style</b></td><td>Day Trading</td><td>in and out, same day</td></tr>
+            <tr><td><b>Opening chart</b></td><td>15-minute</td><td>to catch the opening trade</td></tr>
+            <tr><td><b>All-day chart</b></td><td>5-minute</td><td>for the scalper and dips</td></tr>
+            <tr><td><b>Firewall</b></td><td>ON</td><td>protects your account</td></tr>
+            <tr><td><b>Lose limit</b></td><td>$500</td><td>it shuts you off if you lose this much</td></tr>
+            <tr><td><b>Money goal</b></td><td>$200</td><td>it says DONE when you make this much</td></tr>
+            <tr><td><b>Scalper</b></td><td>ON</td><td>Way 2, already on</td></tr>
+            <tr><td><b>Strong-trend only</b></td><td>ON</td><td>fewer, cleaner trades</td></tr>
+            <tr><td><b>Scalp with intraday trend</b></td><td>OFF</td><td>makes the clocks really agree</td></tr>
+            <tr><td><b>Max range height</b></td><td>change 4 → 2</td><td>it ships at 4. Change it to 2 = "only tight, clean squeezes." Smaller = pickier.</td></tr>
+            <tr><td><b>Opening</b></td><td>ON</td><td>Way 1, already on</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The switches you can leave alone</h3>
+      <p>These are extra tools, most are <b>off</b> to start. You don't need them. But so nothing is a mystery:</p>
+      <ul class="clean">
+        <li>🎯 <b>Sniper</b> — an extra advanced entry. Leave it <b>OFF</b> until you're experienced.</li>
+        <li>🔶 <b>Level Regain</b> — marks failed breaks that snap back. Off. Advanced.</li>
+        <li>🔄 <b>Smart Reversal</b> — marks tired moves at big levels (for exits). Off. Advanced.</li>
+        <li>🏛 <b>BOS / CHoCH</b> — marks when the trend structure breaks. Off. Advanced.</li>
+        <li>💧 <b>Liquidity lines</b> — shows yesterday's high/low (where stops sit). Turn on if you like targets.</li>
+        <li>📐 <b>Discount/Premium</b> — colors the cheap half vs the pricey half. Off. Optional.</li>
+      </ul>
+      <div class="callout tip">
+        <span class="ic">🧠</span>
+        <div class="ct"><span class="hd">Simple rule</span>If you don't know what a switch does, leave it alone. The tool already set it right. The only ones you'll ever change are <b>Trading Style, the two charts, the dollar amounts, and Max range height.</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 12 -->
+  <section class="lesson" id="part12">
+    <div class="lesson-head"><span class="lesson-num">12</span><h2>Your Daily Plan <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(print this, tape it to your screen)</span></h2></div>
+    <div class="body-text">
+      <ol class="clean">
+        <li>☀️ Open your chart. Start on the <b>15-minute</b> for the opening trade. Day Trading style.</li>
+        <li>👀 Look at the 4 clocks. All up? All down? Or mixed (skip it)?</li>
+        <li>✋ <b>9:30 to 9:45</b> → don't touch anything. Just watch.</li>
+        <li>🔔 Wait for <b>OPENING GO</b> → take it. Stop on the dotted line.</li>
+        <li>🔄 After the open, <b>switch to the 5-minute</b> for the rest of the day.</li>
+        <li>👟 Take the scalper, get-in boxes, and dip trades. Only with the trend.</li>
+        <li>🟡 See the <b>gold dot</b> on the bottom tool → take some money.</li>
+        <li>🚀 Banner says RUNNER → let it run. Banner says <b>STAND DOWN</b> → you're done.</li>
+        <li>💰 Hit your goal → close the laptop. <b>Win the day.</b></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PART 13 -->
+  <section class="lesson" id="part13">
+    <div class="lesson-head"><span class="lesson-num">13</span><h2>The Mindset <span style="font-size:.55em;color:var(--ink-mute);font-weight:500">(the part that matters most)</span></h2></div>
+    <div class="body-text">
+      <ul class="clean">
+        <li><b>You will lose some trades. That's normal.</b> You win by keeping losses small and letting wins grow.</li>
+        <li><b>A quiet screen is not broken.</b> It's keeping you safe. The best traders wait a lot.</li>
+        <li><b>Boring and steady beats exciting and broke.</b> Every time.</li>
+      </ul>
+      <p>Trade the plan. Let the tool do the hard part. Win your days.</p>
     </div>
   </section>
 
   <!-- FINAL WORD -->
   <section class="final" id="final">
     <span class="eyebrow">🟢 Final Word</span>
-    <h2 style="margin-top:16px">Final Word</h2>
-    <p>Green Light Special keeps you on the <b>right side of the trend, out of the chop, and inside your risk.</b> That's the whole game. Be patient, wait for the green light, take the trade it draws, manage it, and protect your daily number.</p>
+    <h2 style="margin-top:16px">Welcome to the Green Light Special.</h2>
+    <p>Get in when the top says GO. Take money when the bottom shows the gold dot. Let the rest run. Stop when you hit your goal. That's the whole game — be patient, wait for the green light, take the trade it draws, and protect your daily number.</p>
+    <p><b>When it's green, you go.</b></p>
   </section>
 
   <!-- BOTTOM CTA -->
   <section class="cta">
     <span class="eyebrow" style="justify-content:center">🟢 Get Access Today</span>
     <h2 style="margin-top:14px">When it's <span class="glow">green</span>, you go.</h2>
-    <p>You've seen the whole system. Get it on your charts — both indicators <b>plus</b> the live signal group calling clean setups with you, all in one membership.</p>
+    <p>You've seen the whole playbook. Get it on your charts — both indicators <b>plus</b> the live signal group calling clean setups with you, all in one membership.</p>
 
     <div class="price-cards">
       <div class="price-card alt" style="grid-column:1/-1;max-width:420px;margin:0 auto">
@@ -756,7 +977,7 @@ blockquote.tipq b{color:var(--green)}
     </div>
 
     <div class="cta-btns">
-      <a class="btn btn-ghost" href="/assets/course/green-light-special-course.pdf" download>📥 Download the Course (PDF)</a>
+      <a class="btn btn-ghost" href="/assets/course/green-light-special-course.pdf" download>📥 Download the Playbook (PDF)</a>
       <a class="btn btn-ghost" href="/">← Back to Green Light Special</a>
     </div>
   </section>
@@ -764,7 +985,7 @@ blockquote.tipq b{color:var(--green)}
   <!-- DISCLAIMER -->
   <div class="disclaimer">
     <div class="dh">Disclaimer</div>
-    <p><b>Green Light Special and GLS OSOB are educational tools, not financial advice and not a signal-for-hire service.</b> No indicator predicts the market or guarantees profits — the real edge is filtering, risk/reward, and discipline. Trading futures involves substantial risk of loss. Always backtest and forward-test on your own instruments, trade small, and manage your risk. Past performance does not guarantee future results.</p>
+    <p><b>Real talk: trading can lose money.</b> The Green Light Special and GLS OSOB are educational tools, not financial advice and not a signal-for-hire service. This tool does not promise wins or profit. It's built on solid market ideas, but no exact setup is promised to make money — the real edge is filtering, risk/reward, and discipline. Trading futures involves substantial risk of loss. Practice on fake money or small size first. Never trade money you can't lose. Past performance does not guarantee future results. This is teaching, not money advice.</p>
   </div>
 
 </main>
