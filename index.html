@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Green Light Special — The Indicator + The Signal Group</title>
-<meta name="description" content="Green Light Special: the invite-only TradingView indicator that calls the trade (GLS + OSOB) plus the live signal group that trades it with you — real-time calls on Gold, NAS, US30 & GBPJPY. One membership — indicator + signal group — $149.99/mo." />
+<title>Green Light Special — The Indicator + The Trading Group</title>
+<meta name="description" content="Green Light Special: the best of both worlds — an invite-only TradingView indicator that calls the trade (GLS + OSOB) PLUS a live trading group that trades it with you. Real-time calls on NQ, ES, YM & Gold. One membership — $149.99/mo." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,1141 +16,539 @@
   --ink:#f4f7f5; --ink-soft:#aeb8b2; --ink-mute:#717c76;
   --green:#45f08a; --green-deep:#36c977; --green-glow:rgba(69,240,138,.18);
   --red:#ff5d6c; --amber:#ffcf5c;
-  --line:rgba(69,240,138,.16); --line-soft:rgba(255,255,255,.08); --line-hair:rgba(255,255,255,.12);
-  --maxw:1180px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:22px;
-  --ease:cubic-bezier(.2,.7,.2,1); --ease-out:cubic-bezier(.16,.84,.44,1);
-  --t-fast:.28s; --t-mid:.45s;
+  --line:rgba(69,240,138,.16); --line-soft:rgba(255,255,255,.08);
+  --maxw:1080px; --r-md:14px; --r-lg:20px;
+  --ease:cubic-bezier(.2,.7,.2,1);
   --display:"Chakra Petch",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace; --body:"Hanken Grotesk",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.loading{overflow:hidden;height:100vh}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 ::selection{background:var(--green);color:#03130a}
 :focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
 
-/* film grain */
-body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+body::before{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-/* ambient green aura behind hero */
-.aura{position:fixed;top:-12%;left:50%;transform:translateX(-50%);width:120vw;height:60vh;z-index:0;pointer-events:none;
-  background:radial-gradient(60% 60% at 50% 0%,rgba(69,240,138,.10),transparent 70%);filter:blur(8px)}
+
+/* ═══════════ GREEN-LIGHT INTRO ═══════════ */
+#intro{position:fixed;inset:0;z-index:9999;background:radial-gradient(70% 90% at 50% 40%,#0b120d,#050706 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:38px;transition:opacity .7s var(--ease),visibility .7s}
+#intro.done{opacity:0;visibility:hidden;pointer-events:none}
+.tree{display:flex;gap:26px}
+.tree .bulb{width:58px;height:58px;border-radius:50%;background:#0e150f;border:1px solid rgba(69,240,138,.18);
+  box-shadow:inset 0 0 14px rgba(0,0,0,.7);opacity:.45;transform:scale(.9)}
+.tree .bulb.on{background:radial-gradient(circle at 40% 35%,#9dffc6,var(--green) 55%,var(--green-deep));
+  border-color:var(--green);opacity:1;transform:scale(1);
+  box-shadow:0 0 26px 6px var(--green-glow),0 0 60px 12px rgba(69,240,138,.22),inset 0 0 10px rgba(255,255,255,.35);
+  transition:opacity .12s,transform .12s}
+.intro-word{font-family:var(--display);font-weight:700;letter-spacing:.34em;font-size:.82rem;text-transform:uppercase;
+  color:var(--ink-mute);opacity:0;transition:opacity .5s .1s}
+.intro-word.show{opacity:1;color:var(--green)}
+.intro-skip{position:absolute;bottom:26px;font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);opacity:.55}
+@media (max-width:560px){.tree .bulb{width:44px;height:44px}.tree{gap:18px}}
+
+.aura{position:fixed;top:-10%;left:50%;transform:translateX(-50%);width:130vw;height:70vh;z-index:0;pointer-events:none;
+  background:radial-gradient(55% 55% at 50% 0%,rgba(69,240,138,.10),transparent 70%)}
+#bgchart{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.14}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
-.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:.7em}
-.eyebrow::before{content:"";width:24px;height:1px;background:linear-gradient(90deg,var(--green),transparent)}
-h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:.7em}
+.eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--green),transparent)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.03;letter-spacing:-.01em;text-wrap:balance}
 
-/* ticker */
-.ticker{border-bottom:1px solid var(--line-soft);background:rgba(8,11,9,.6);overflow:hidden;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
-.ticker .row{display:inline-flex;gap:42px;padding:9px 0;white-space:nowrap;animation:marq 30s linear infinite}
-.ticker .row span{color:var(--ink-mute)}.ticker .row b{color:var(--green);font-weight:600}
-@keyframes marq{to{transform:translateX(-50%)}}
-
-/* nav */
-.nav{position:sticky;top:0;z-index:50;background:rgba(6,8,7,.74);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-soft)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
-.brand{font-family:var(--display);font-weight:700;letter-spacing:.1em;font-size:.96rem;display:inline-flex;align-items:center;gap:.55em}
+.nav{position:sticky;top:0;z-index:60;background:rgba(6,8,7,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-soft)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:15px 24px}
+.brand{font-family:var(--display);font-weight:700;letter-spacing:.1em;font-size:.95rem;display:inline-flex;align-items:center;gap:.6em}
 .brand .blip{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px 2px var(--green)}
-.brand span{color:var(--green)}
-.nav-right{display:flex;align-items:center;gap:22px;font-family:var(--mono);font-size:.78rem}
-.nav-right a.back{color:var(--ink-soft)}.nav-right a.back:hover{color:var(--green)}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:.86rem;color:var(--ink-soft)}
+.nav-links a{transition:color .2s}.nav-links a:hover{color:var(--green)}
+.btn{font-family:var(--display);font-weight:600;font-size:.9rem;letter-spacing:.02em;padding:12px 22px;border-radius:100px;display:inline-flex;align-items:center;gap:.5em;transition:transform .2s var(--ease),box-shadow .2s;cursor:pointer;border:0}
+.btn-green{background:var(--green);color:#04140b;box-shadow:0 0 0 1px rgba(69,240,138,.4),0 8px 30px -6px var(--green-glow)}
+.btn-green:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--green),0 14px 40px -8px rgba(69,240,138,.5)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.hamb{display:none;background:none;border:0;color:var(--ink);font-size:1.4rem;cursor:pointer}
+@media (max-width:820px){.nav-links{display:none}.hamb{display:block}}
 
-.btn{font-family:var(--display);font-weight:600;font-size:.92rem;display:inline-flex;align-items:center;gap:.55em;
-  padding:13px 24px;border-radius:100px;cursor:pointer;border:1px solid transparent;white-space:nowrap;
-  transition:transform var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease),background var(--t-fast) var(--ease),color var(--t-fast) var(--ease),border-color var(--t-fast) var(--ease)}
-.btn .arr{transition:transform var(--t-fast) var(--ease)}.btn:hover .arr{transform:translateX(3px)}
-.btn-primary{background:var(--green);color:#04140b;box-shadow:0 12px 36px -16px var(--green)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px -14px var(--green)}
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn-ghost:hover{border-color:var(--green);color:var(--green);background:rgba(69,240,138,.05)}
+#mmenu{position:fixed;inset:0;z-index:55;background:rgba(5,7,6,.97);backdrop-filter:blur(10px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;font-family:var(--display);font-size:1.3rem}
+#mmenu.open{display:flex}#mmenu a{color:var(--ink-soft)}#mmenu a:hover{color:var(--green)}
 
-/* hero */
-.hero{padding:clamp(56px,9vw,108px) 0 clamp(30px,5vw,60px);position:relative}
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(28px,5vw,60px);align-items:center}
-.hero h1{font-size:clamp(2.5rem,6.5vw,4.8rem);text-transform:uppercase;margin:18px 0 16px}
-.hero h1 em{color:var(--green);font-style:normal;text-shadow:0 0 40px rgba(69,240,138,.35)}
-.hero p.lead{color:var(--ink-soft);font-size:clamp(1.04rem,1.6vw,1.22rem);font-weight:300;max-width:52ch}
-.hero p.lead b{color:var(--ink);font-weight:500}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
-.hero-meta{display:flex;gap:30px;margin-top:34px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-mute);flex-wrap:wrap}
-.hero-meta b{color:var(--ink);display:block;font-size:1.4rem;font-family:var(--display);letter-spacing:0;margin-bottom:2px}
+section{padding:106px 0;position:relative}
+.section-head{max-width:640px;margin:0 auto 54px;text-align:center}
+.section-head h2{font-size:clamp(1.9rem,4.6vw,3rem);margin:16px 0 14px}
+.section-head p{color:var(--ink-soft);font-size:1.02rem}
 
-/* chart panel */
-.chart{position:relative;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:linear-gradient(160deg,#0b1410,#070b09);aspect-ratio:16/10;box-shadow:0 40px 90px -50px #000,0 0 0 1px rgba(69,240,138,.05)}
-.chart .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);z-index:3;pointer-events:none}
-.chart .hud .live{color:var(--green);display:inline-flex;align-items:center;gap:.5em;background:rgba(0,0,0,.45);padding:4px 9px;border-radius:6px;border:1px solid var(--line)}
-.chart .hud .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:bl 1.6s infinite}
-.chart .hud .sym{background:rgba(0,0,0,.45);padding:4px 9px;border-radius:6px;border:1px solid var(--line-soft)}
-@keyframes bl{50%{opacity:.25}}
-.chart img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.chart svg.spark{position:absolute;inset:0;width:100%;height:100%}
-.chart .tagline{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:.66rem;color:var(--green);z-index:3;background:rgba(0,0,0,.5);padding:6px 10px;border:1px solid var(--line);border-radius:6px;letter-spacing:.05em}
-.chart::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 -60px 80px -50px #000;z-index:2}
+.hero{padding:118px 0 96px;text-align:center}
+.hero h1{font-size:clamp(2.7rem,8vw,5.6rem);margin:26px 0}
+.hero h1 .g{color:var(--green);text-shadow:0 0 40px var(--green-glow)}
+.hero p.sub{max-width:580px;margin:0 auto 36px;font-size:1.12rem;color:var(--ink-soft)}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-note{margin-top:22px;font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
 
-/* sections */
-.section{padding:clamp(56px,8vw,100px) 0;border-top:1px solid var(--line-soft);position:relative}
-.section-head{text-align:center;max-width:700px;margin:0 auto clamp(36px,5vw,58px)}
-.section-head .eyebrow{justify-content:center}
-.section-head h2{font-size:clamp(1.9rem,4.4vw,3rem);text-transform:uppercase;margin:16px 0 14px}
-.section-head p{color:var(--ink-soft);font-weight:300}
-.sub-head{text-align:center;max-width:640px;margin:clamp(40px,5vw,60px) auto clamp(22px,3vw,30px)}
-.sub-head .eyebrow{justify-content:center;margin-bottom:12px}
-.sub-head p{color:var(--ink-soft);font-weight:300;font-size:.96rem}
+.markets{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:24px 0}
+.markets .wrap{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
+.markets b{color:var(--green);font-weight:600}
 
-/* two indicators / bundle cards */
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.duo-card{position:relative;background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:30px 28px;overflow:hidden;transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
-.duo-card:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 28px 70px -44px var(--green)}
-.duo-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:.6}
-.duo-card .kpill{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#04140b;background:var(--green);padding:5px 12px;border-radius:100px;display:inline-block;margin-bottom:16px;font-weight:700}
-.duo-card .role{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
-.duo-card h3{font-size:1.35rem;margin-bottom:10px}
-.duo-card h3 em{color:var(--green);font-style:normal}
-.duo-card p{color:var(--ink-soft);font-weight:300;font-size:.95rem}
-.duo-card .verb{margin-top:16px;font-family:var(--display);font-weight:700;font-size:1.05rem;letter-spacing:.02em}
-.duo-card .verb.in{color:var(--green)}.duo-card .verb.out{color:var(--amber)}
-.duo-incl{margin-top:20px;text-align:center;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink-soft)}
-.duo-incl b{color:var(--green)}
-@media(max-width:760px){.duo{grid-template-columns:1fr}}
+/* free strategy band */
+.freeband{background:linear-gradient(90deg,rgba(69,240,138,.12),rgba(69,240,138,.03));border-bottom:1px solid var(--line-soft)}
+.freeband .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-top:38px;padding-bottom:38px}
+.freeband h3{font-size:clamp(1.4rem,3.4vw,1.9rem)}
+.freeband .fb-sub{color:var(--ink-soft);font-size:.96rem;margin-top:6px}
+.freeband .fb-fine{color:var(--ink-mute);font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;margin-top:8px}
 
-/* honest edge strip */
-.edge{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden;margin-top:8px}
-.edge .cell{background:var(--panel);padding:26px 24px}
-.edge .cell .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-.edge .cell h3{font-size:1.1rem;margin-bottom:8px}
-.edge .cell p{color:var(--ink-mute);font-size:.9rem}
-@media(max-width:780px){.edge{grid-template-columns:1fr}}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:820px){.cards{grid-template-columns:1fr}}
+.card{background:linear-gradient(180deg,var(--panel-hi),var(--panel));border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:32px 28px;transition:border-color .3s,transform .3s var(--ease)}
+.card:hover{border-color:var(--line);transform:translateY(-4px)}
+.card .ic{width:44px;height:44px;border-radius:12px;background:rgba(69,240,138,.1);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px}
+.card h3{font-size:1.22rem;margin-bottom:10px}
+.card p{color:var(--ink-soft);font-size:.96rem}
 
-/* 3 lights */
-.lights{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.light{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:30px 26px;position:relative;overflow:hidden;transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
-.light:hover{transform:translateY(-4px);border-color:var(--line)}
-.light::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:.6}
-.light .orb{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--green),var(--green-deep));box-shadow:0 0 24px -2px var(--green),inset 0 -4px 8px rgba(0,0,0,.3);margin-bottom:18px;position:relative}
-.light .orb b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:700;color:#04140b;font-size:1.05rem}
-.light .lname{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
-.light h3{font-size:1.2rem;margin-bottom:10px}
-.light p{color:var(--ink-soft);font-size:.94rem;font-weight:300}
-.go-rule{margin-top:26px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-align:center;color:var(--ink-soft)}
-.go-rule .go{color:#04140b;background:var(--green);padding:8px 16px;border-radius:100px;font-weight:700;letter-spacing:.12em;box-shadow:0 0 24px -6px var(--green)}
-.go-rule .wait{color:var(--amber);border:1px solid rgba(255,207,92,.35);padding:8px 16px;border-radius:100px;letter-spacing:.12em}
-.boss-note{margin-top:18px;text-align:center;color:var(--ink-mute);font-size:.9rem;font-weight:300}
-.boss-note b{color:var(--ink)}.boss-note .ym{color:var(--amber)}
+/* feature grid */
+.featgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.featgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.featgrid{grid-template-columns:1fr}}
+.feat{display:flex;gap:14px;padding:20px 22px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--panel);transition:border-color .3s,transform .3s var(--ease)}
+.feat:hover{border-color:var(--line);transform:translateY(-3px)}
+.feat .fic{font-size:1.35rem;line-height:1.1}
+.feat h4{font-family:var(--display);font-weight:600;font-size:1rem;margin-bottom:4px}
+.feat p{color:var(--ink-soft);font-size:.85rem;line-height:1.5}
 
-/* dashboard */
-.dash{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
-.dash-card{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:26px 24px}
-.dash-card .dh{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:.5em;margin-bottom:16px}
-.dash-card h3{font-size:1.12rem;margin-bottom:6px}
-.dash-card p.sub{color:var(--ink-mute);font-size:.88rem;font-weight:300;margin-bottom:16px}
-/* direction stack */
-.tfstack{display:flex;flex-direction:column;gap:8px}
-.tfrow{display:flex;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:.82rem;background:rgba(0,0,0,.3);border:1px solid var(--line-soft);border-radius:8px;padding:9px 13px}
-.tfrow .tf{color:var(--ink-soft);letter-spacing:.06em}
-.tfrow .st{font-weight:700;letter-spacing:.08em;display:inline-flex;align-items:center;gap:.5em}
-.tfrow .st .d{width:9px;height:9px;border-radius:50%}
-.tfrow .st.up{color:var(--green)}.tfrow .st.up .d{background:var(--green);box-shadow:0 0 8px var(--green)}
-.tfrow .st.dn{color:var(--red)}.tfrow .st.dn .d{background:var(--red);box-shadow:0 0 8px var(--red)}
-.dir-key{margin-top:14px;font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);line-height:1.6}
-.dir-key b.g{color:var(--green)}.dir-key b.r{color:var(--red)}.dir-key b.a{color:var(--amber)}
-/* 3 green lights mini */
-.glmini{display:flex;flex-direction:column;gap:10px}
-.glrow{display:flex;align-items:flex-start;gap:12px}
-.glrow .gd{width:18px;height:18px;border-radius:50%;flex:0 0 18px;margin-top:2px;background:radial-gradient(circle at 35% 30%,var(--green),var(--green-deep));box-shadow:0 0 14px -2px var(--green)}
-.glrow .gt{font-family:var(--mono);font-size:.85rem;color:var(--ink-soft)}
-.glrow .gt b{color:var(--ink);font-family:var(--display);font-weight:600;display:block;font-size:.95rem}
-.gl-stats{margin-top:16px;display:flex;gap:10px}
-.gl-stats .s{flex:1;background:rgba(0,0,0,.3);border:1px solid var(--line-soft);border-radius:8px;padding:10px 12px;text-align:center}
-.gl-stats .s b{display:block;font-family:var(--display);font-weight:700;font-size:1.2rem;color:var(--green)}
-.gl-stats .s span{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
-/* status banner walkthrough */
-.statuses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}
-.stt{background:var(--panel);padding:20px 20px;transition:background var(--t-mid) var(--ease)}
-.stt:hover{background:var(--panel-hi)}
-.stt .badge2{font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border-radius:100px;display:inline-block;margin-bottom:10px}
-.stt .badge2.go{color:#04140b;background:var(--green)}
-.stt .badge2.ready{color:var(--amber);border:1px solid rgba(255,207,92,.4)}
-.stt .badge2.in{color:var(--green);border:1px solid var(--line)}
-.stt .badge2.stop{color:var(--red);border:1px solid rgba(255,93,108,.4)}
-.stt p{color:var(--ink-mute);font-size:.86rem;font-weight:300}
-@media(max-width:760px){.dash{grid-template-columns:1fr}.statuses{grid-template-columns:1fr}}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:820px){.results-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.results-grid{grid-template-columns:1fr}}
+.results-grid figure{margin:0;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line-soft);background:var(--panel);transition:border-color .3s,transform .3s var(--ease)}
+.results-grid figure:hover{border-color:var(--green);transform:translateY(-3px)}
+.results-grid img{width:100%;display:block}
+.results-grid figcaption{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft);padding:12px 14px;border-top:1px solid var(--line-soft)}
+.results-grid figcaption b{color:var(--green)}
+.results-empty{grid-column:1/-1;text-align:center;padding:56px 24px;border:1px dashed var(--line);border-radius:var(--r-lg);color:var(--ink-mute);font-family:var(--mono);font-size:.8rem;letter-spacing:.1em}
 
-/* signals grid */
-.sigs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}
-.sigc{background:var(--panel);padding:22px 20px;transition:background var(--t-mid) var(--ease)}
-.sigc:hover{background:var(--panel-hi)}
-.sigc .si{font-size:1.3rem;line-height:1;margin-bottom:10px}
-.sigc h3{font-size:1rem;margin-bottom:6px}
-.sigc h3 .opt{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);border:1px solid var(--line-soft);border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:2px}
-.sigc p{color:var(--ink-mute);font-size:.85rem;font-weight:300}
-.sig-dots{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto 26px;font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);flex-wrap:wrap}
-.sig-dots .gdot,.sig-dots .rdot{width:13px;height:13px;border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:6px}
-.sig-dots .gdot{background:var(--green);box-shadow:0 0 12px var(--green)}
-.sig-dots .rdot{background:var(--red);box-shadow:0 0 12px var(--red)}
-@media(max-width:860px){.sigs{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.sigs{grid-template-columns:1fr}}
+/* win strip (auto-scroll) */
+.winmarquee{overflow:hidden;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:14px 0;margin-bottom:42px;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.winmarquee .track{display:inline-flex;gap:14px;white-space:nowrap;animation:wmarq 38s linear infinite}
+.winmarquee:hover .track{animation-play-state:paused}
+.winchip{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);border:1px solid var(--line);border-radius:100px;padding:8px 15px;background:var(--panel)}
+.winchip b{color:var(--green);font-weight:600}
+@keyframes wmarq{to{transform:translateX(-50%)}}
+/* win cards */
+.wins{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:820px){.wins{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.wins{grid-template-columns:1fr}}
+.wincard{background:linear-gradient(180deg,var(--panel-hi),var(--panel));border:1px solid var(--line-soft);border-radius:var(--r-md);padding:22px 22px 18px;transition:border-color .3s,transform .3s var(--ease);position:relative;overflow:hidden}
+.wincard::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 120%,var(--green-glow),transparent 60%);opacity:0;transition:opacity .35s}
+.wincard:hover{border-color:var(--green);transform:translateY(-4px)}
+.wincard:hover::after{opacity:.5}
+.wincard .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;position:relative;z-index:1}
+.wincard .sym{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--ink-soft);border:1px solid var(--line);border-radius:100px;padding:4px 11px;text-transform:uppercase}
+.wincard .amt{font-family:var(--display);font-weight:700;font-size:1.5rem;color:var(--green);white-space:nowrap}
+.wincard p{color:var(--ink-soft);font-size:.92rem;position:relative;z-index:1}
+.wincard .tag{margin-top:14px;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);position:relative;z-index:1}
+.proof-note{text-align:center;margin-top:34px;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
 
-/* risk & discipline */
-.risk{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}
-.riskc{background:var(--panel);padding:24px 22px;transition:background var(--t-mid) var(--ease)}
-.riskc:hover{background:var(--panel-hi)}
-.riskc .rk{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
-.riskc h3{font-size:1.02rem;margin-bottom:7px}
-.riskc p{color:var(--ink-mute);font-size:.86rem;font-weight:300}
-@media(max-width:860px){.risk{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.risk{grid-template-columns:1fr}}
+/* proof cards (screenshot + result badge + quote) */
+.proofgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:820px){.proofgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.proofgrid{grid-template-columns:1fr}}
+.proof{position:relative;border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden;background:var(--panel);transition:border-color .3s,transform .3s var(--ease),box-shadow .3s}
+.proof:hover{border-color:var(--green);transform:translateY(-5px);box-shadow:0 24px 60px -30px var(--green-glow)}
+.proof .ph{position:relative;background:#05060a}
+.proof .ph img{width:100%;display:block}
+.proof .badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--green);color:#04140b;font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.02em;padding:5px 13px;border-radius:100px;box-shadow:0 6px 20px -6px var(--green-glow)}
+.proof .q{padding:16px 18px;font-size:.9rem;color:var(--ink-soft);line-height:1.5;border-top:1px solid var(--line-soft)}
+.proof .q .who{display:block;margin-top:9px;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+/* testimonial quote cards */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:920px;margin:46px auto 0}
+@media(max-width:700px){.quotes{grid-template-columns:1fr}}
+.quote{border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:26px 28px 24px;background:linear-gradient(180deg,var(--panel-hi),var(--panel));position:relative;transition:border-color .3s,transform .3s var(--ease)}
+.quote:hover{border-color:var(--line);transform:translateY(-3px)}
+.quote::before{content:"\201C";font-family:Georgia,serif;font-size:3.4rem;color:var(--green);opacity:.45;line-height:.7;position:absolute;top:18px;left:18px}
+.quote p{color:var(--ink);font-size:.98rem;line-height:1.6;padding-top:18px}
+.quote .who{margin-top:14px;font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+/* reviews */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.reviews{grid-template-columns:1fr}}
+.rev{border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:26px;background:linear-gradient(180deg,var(--panel-hi),var(--panel));display:flex;flex-direction:column;gap:14px;transition:border-color .3s,transform .3s var(--ease)}
+.rev:hover{border-color:var(--green);transform:translateY(-4px)}
+.rev .stars{color:var(--green);font-size:.92rem;letter-spacing:3px}
+.rev p{color:var(--ink);font-size:.95rem;line-height:1.6;flex:1;margin:0}
+.rev .rby{display:flex;align-items:center;gap:11px}
+.rev .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--green-deep),var(--green));color:#04140b;font-family:var(--display);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex:none}
+.rev .rn{font-family:var(--display);font-weight:600;font-size:.9rem;line-height:1.2}
+.rev .rr{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute)}
 
-/* method steps */
-.method{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:920px;margin:0 auto}
-.mstep{display:flex;gap:16px;background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:20px 22px;transition:border-color var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
-.mstep:hover{border-color:var(--line);transform:translateX(4px)}
-.mstep .num{flex:0 0 auto;width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--green);background:rgba(69,240,138,.08);border:1px solid var(--line)}
-.mstep h3{font-size:1.02rem;margin-bottom:5px}
-.mstep p{color:var(--ink-mute);font-size:.88rem;font-weight:300}
-.rules{margin-top:24px;text-align:center;max-width:840px;margin-left:auto;margin-right:auto;font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;color:var(--ink-soft);line-height:1.9}
-.rules b{color:var(--green);font-weight:600}
-@media(max-width:680px){.method{grid-template-columns:1fr}}
+.socials{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:760px;margin:0 auto}
+@media (max-width:560px){.socials{grid-template-columns:1fr}}
+.social{display:flex;align-items:center;gap:16px;padding:24px 26px;border-radius:var(--r-lg);border:1px solid var(--line-soft);background:var(--panel);transition:border-color .3s,transform .3s var(--ease)}
+.social:hover{border-color:var(--green);transform:translateY(-3px)}
+.social .s-ic{font-size:1.7rem}
+.social .s-t{font-family:var(--display);font-weight:600;font-size:1.05rem}
+.social .s-s{font-size:.82rem;color:var(--ink-mute)}
 
-/* validity badges */
-.valids{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px}
-.valids .vb{display:inline-flex;align-items:center;gap:.6em;background:var(--panel);border:1px solid var(--line);border-radius:100px;padding:11px 20px;font-family:var(--mono);font-size:.82rem;color:var(--ink-soft)}
-.valids .vb svg{width:16px;height:16px;stroke:var(--green);fill:none;stroke-width:2}
-.valids .vb b{color:var(--green);font-weight:600}
+/* prop partners */
+.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:860px;margin:0 auto}
+@media(max-width:700px){.partners{grid-template-columns:1fr}}
+.partner{display:block;text-align:center;padding:32px 24px;border:1px solid var(--line-soft);border-radius:var(--r-lg);background:linear-gradient(180deg,var(--panel-hi),var(--panel));transition:border-color .3s,transform .3s var(--ease)}
+.partner:hover{border-color:var(--green);transform:translateY(-4px)}
+.partner .pname{font-family:var(--display);font-weight:700;font-size:1.3rem;margin-bottom:8px}
+.partner .pdesc{color:var(--ink-soft);font-size:.88rem;margin-bottom:18px}
+.partner .plink{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
 
-/* access steps */
-.access{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.acc{background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:26px 22px;position:relative;transition:border-color var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
-.acc:hover{border-color:var(--line);transform:translateY(-3px)}
-.acc .anum{font-family:var(--display);font-weight:700;font-size:1.8rem;color:var(--green);line-height:1;margin-bottom:12px;text-shadow:0 0 20px rgba(69,240,138,.4)}
-.acc h3{font-size:1rem;margin-bottom:6px}
-.acc p{color:var(--ink-mute);font-size:.86rem;font-weight:300}
-.access-note{margin-top:22px;text-align:center;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:var(--ink-mute)}
-.access-note b{color:var(--green)}
-@media(max-width:900px){.access{grid-template-columns:1fr 1fr}}
-@media(max-width:480px){.access{grid-template-columns:1fr}}
+.price-card{max-width:460px;margin:0 auto;background:linear-gradient(180deg,var(--panel-hi),var(--panel));border:1px solid var(--line);border-radius:var(--r-lg);padding:40px 36px;text-align:center;box-shadow:0 30px 80px -30px rgba(69,240,138,.2)}
+.price-card .amt{font-family:var(--display);font-weight:700;font-size:3.4rem;color:var(--ink);line-height:1}
+.price-card .amt span{font-size:1rem;color:var(--ink-mute);font-weight:500}
+.price-card ul{list-style:none;text-align:left;margin:26px 0 30px;display:flex;flex-direction:column;gap:12px}
+.price-card li{display:flex;gap:11px;color:var(--ink-soft);font-size:.96rem}
+.price-card li::before{content:"●";color:var(--green);font-size:.7rem;margin-top:.45em}
 
-/* gallery */
-.shots{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.shot{border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden;background:var(--panel);transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
-.shot:hover{transform:translateY(-3px);border-color:var(--green);box-shadow:0 24px 60px -34px var(--green)}
-.shot.wide{grid-column:1/-1}
-.shot .imgwrap{position:relative;overflow:hidden}
-.shot img{width:100%;display:block;object-fit:cover;background:#04070a;transition:transform var(--t-mid) var(--ease)}
-.shot:hover img{transform:scale(1.02)}
-.shot.wide img{max-height:560px}
-.shot .tag{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--green);background:rgba(0,0,0,.55);border:1px solid var(--line);padding:4px 9px;border-radius:6px}
-.shot figcaption{font-family:var(--mono);font-size:.74rem;color:var(--ink-mute);letter-spacing:.03em;padding:14px 16px;border-top:1px solid var(--line-soft)}
-.shot figcaption b{color:var(--green);font-weight:600}
-@media(max-width:680px){.shots{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line-soft);padding:60px 0 40px;margin-top:40px}
+footer .wrap{display:flex;flex-direction:column;gap:26px;align-items:center;text-align:center}
+.foot-links{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;font-size:.86rem;color:var(--ink-soft)}
+.foot-links a:hover{color:var(--green)}
+.disclaimer{max-width:720px;font-size:.74rem;color:var(--ink-mute);line-height:1.7}
+.copy{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
 
-/* ORB steps */
-.orb-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,48px);align-items:center}
-.orb-steps{display:flex;flex-direction:column;gap:16px}
-.ostep{display:flex;gap:18px;background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-md);padding:22px 24px;transition:border-color var(--t-mid) var(--ease),transform var(--t-mid) var(--ease)}
-.ostep:hover{border-color:var(--line);transform:translateX(4px)}
-.ostep .num{flex:0 0 auto;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:1.2rem;color:var(--green);background:rgba(69,240,138,.08);border:1px solid var(--line)}
-.ostep h3{font-size:1.08rem;margin-bottom:6px}
-.ostep p{color:var(--ink-mute);font-size:.92rem;font-weight:300}
-.ostep p .fake{color:var(--red);font-weight:600}
-.ostep p .go{color:var(--green);font-weight:600}
-.orb-img{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:var(--panel);box-shadow:0 30px 70px -46px #000}
-.orb-img img{width:100%;display:block}
-.orb-img figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);padding:12px 16px;border-top:1px solid var(--line-soft);text-align:center;letter-spacing:.04em}
-@media(max-width:860px){.orb-wrap{grid-template-columns:1fr}.orb-img{order:-1}}
-
-/* features (the trade) */
-.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}
-.feat{background:var(--panel);padding:28px 24px;transition:background var(--t-mid) var(--ease)}
-.feat:hover{background:var(--panel-hi)}
-.feat .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(69,240,138,.07);border:1px solid var(--line);color:var(--green);margin-bottom:16px}
-.feat .ic svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.feat h3{font-size:1.06rem;margin-bottom:8px}
-.feat p{color:var(--ink-mute);font-size:.9rem;font-weight:300}
-
-/* windows banner */
-.windows{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em}
-.windows .w{background:var(--panel);border:1px solid var(--line-soft);border-radius:100px;padding:9px 18px;color:var(--ink-soft)}
-.windows .w b{color:var(--green)}
-
-/* pricing */
-.tiers{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:stretch;max-width:820px;margin:0 auto}
-.mentor-line{max-width:820px;margin:clamp(20px,3vw,26px) auto 0;text-align:center;font-family:var(--mono);font-size:.8rem;
-  letter-spacing:.03em;color:var(--ink-mute);border:1px solid var(--line-soft);border-radius:var(--r-md);
-  background:var(--panel);padding:14px 20px}
-.mentor-line b{color:var(--ink-soft);font-weight:600}
-.mentor-line a{color:var(--green);font-weight:600}
-.tier{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line-soft);border-radius:var(--r-lg);padding:32px 26px;position:relative;transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease)}
-.tier:hover{transform:translateY(-4px);border-color:var(--line)}
-.tier.featured{border-color:var(--green);background:linear-gradient(180deg,rgba(69,240,138,.07),var(--panel));box-shadow:0 40px 90px -54px var(--green)}
-.tier .badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--green);color:#04140b;font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:100px;box-shadow:0 8px 24px -10px var(--green)}
-.tier .tname{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green)}
-.tier .valueline{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-mute);margin-top:14px}
-.tier .valueline .was{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px;font-weight:600}
-.tier .price{font-family:var(--display);font-weight:700;font-size:2.9rem;margin:14px 0 2px;letter-spacing:-.02em}
-.tier.featured .price{margin-top:4px}
-.tier .price small{font-size:.9rem;color:var(--ink-mute);font-weight:400;font-family:var(--mono);letter-spacing:0}
-.tier .ptag{color:var(--ink-mute);font-size:.86rem;min-height:42px}
-.tier ul{list-style:none;margin:20px 0 26px;display:flex;flex-direction:column;gap:11px}
-.tier li{display:flex;gap:10px;font-size:.92rem;color:var(--ink-soft);font-weight:300}
-.tier li svg{flex:0 0 18px;width:18px;height:18px;stroke:var(--green);fill:none;stroke-width:2;margin-top:3px}
-.tier .btn{width:100%;justify-content:center;margin-top:auto}
-.checkout-note{text-align:center;margin-top:22px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-mute)}
-.checkout-note svg{width:13px;height:13px;stroke:var(--green);fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px}
-
-/* faq */
-.faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
-.qa{border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--panel);overflow:hidden;transition:border-color var(--t-fast) var(--ease)}
-.qa[open]{border-color:var(--line)}
-.qa summary{cursor:pointer;list-style:none;padding:18px 22px;font-family:var(--display);font-weight:600;font-size:1.02rem;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.qa summary::-webkit-details-marker{display:none}
-.qa summary .pl{color:var(--green);transition:transform var(--t-fast) var(--ease);font-family:var(--mono);flex:0 0 auto}
-.qa[open] summary .pl{transform:rotate(45deg)}
-.qa .a{padding:0 22px 20px;color:var(--ink-soft);font-size:.94rem;font-weight:300}
-
-/* final cta */
-.final{text-align:center;border:1px solid var(--line);border-radius:var(--r-xl);background:linear-gradient(180deg,rgba(69,240,138,.08),var(--panel));padding:clamp(40px,6vw,76px) 24px;position:relative;overflow:hidden}
-.final::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:90%;height:80%;background:radial-gradient(50% 60% at 50% 0%,rgba(69,240,138,.16),transparent 70%);pointer-events:none}
-.final h2{font-size:clamp(1.9rem,4.6vw,3.1rem);text-transform:uppercase;margin-bottom:14px;position:relative}
-.final p{color:var(--ink-soft);font-weight:300;max-width:50ch;margin:0 auto 28px;position:relative}
-.final .btn{position:relative}
-
-.disclaimer{margin-top:32px;font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);text-align:center;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.7}
-
-.footer{border-top:1px solid var(--line-soft);padding:36px 0;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);letter-spacing:.1em}
-.footer a{color:var(--green)}
-
-/* reveal animation */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
-
-@media(max-width:880px){
-  .hero-grid{grid-template-columns:1fr}
-  .chart{order:-1}
-  .lights{grid-template-columns:1fr}
-  .tiers{grid-template-columns:1fr;max-width:440px;margin:0 auto}
-  .feats{grid-template-columns:1fr 1fr}
-}
-@media(max-width:560px){
-  .feats{grid-template-columns:1fr}
-  .nav-right a.back{display:none}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .reveal{opacity:1;transform:none}
-}
-
-/* ===== conversion: hero buy block ===== */
-.buybox{margin-top:26px;border:1px solid var(--line);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(69,240,138,.06),rgba(12,16,14,.6));padding:20px 22px}
-.buybox .priceline{font-family:var(--mono);font-size:.86rem;letter-spacing:.02em;color:var(--ink-soft);margin-bottom:16px}
-.buybox .priceline b{color:var(--green);font-weight:700}
-.buybox .priceline .amt{color:var(--ink);font-family:var(--display);font-weight:700}
-.buybox .buy-cta{display:flex;gap:12px;flex-wrap:wrap}
-.buybox .trustline{margin-top:14px;font-family:var(--mono);font-size:.7rem;letter-spacing:.02em;color:var(--ink-mute);line-height:1.6}
-.buybox .trustline b{color:var(--ink-soft);font-weight:500}
-@media(max-width:480px){.buybox .buy-cta .btn{width:100%;justify-content:center}}
-
-/* ===== conversion: trust strip ===== */
-.trust-strip{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:0 auto}
-.trust-strip.top{margin-top:clamp(24px,4vw,38px)}
-.trust-strip .chip{display:inline-flex;align-items:center;gap:.5em;font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;color:var(--ink-soft);background:var(--panel);border:1px solid var(--line-soft);border-radius:100px;padding:8px 15px;transition:border-color var(--t-fast) var(--ease)}
-.trust-strip .chip:hover{border-color:var(--line)}
-.trust-strip .chip b{color:var(--green);font-weight:600}
-
-/* ===== conversion: featured testimonial ===== */
-.ftest{max-width:900px;margin:0 auto clamp(36px,5vw,52px);text-align:center;background:linear-gradient(180deg,rgba(255,212,0,.05),var(--panel));border:1px solid rgba(255,212,0,.28);border-radius:var(--r-xl);padding:clamp(30px,5vw,48px) clamp(24px,4vw,44px);position:relative;overflow:hidden}
-.ftest::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--amber),transparent);opacity:.7}
-.ftest .fstars{display:inline-flex;gap:5px;margin-bottom:18px}
-.ftest .fstars svg{width:22px;height:22px;fill:var(--amber);stroke:var(--amber)}
-.ftest blockquote{font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,3.4vw,2.2rem);line-height:1.22;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
-.ftest blockquote em{color:var(--amber);font-style:normal}
-.ftest .fby{margin-top:20px;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink-soft)}
-.ftest .fby b{color:var(--green);font-weight:600}
-.ftest .fby span{color:var(--ink-mute)}
-
-/* ===== conversion: guarantee / what-you-get strip ===== */
-.guarantee{max-width:1020px;margin:0 auto clamp(30px,4vw,42px);display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:var(--r-lg);overflow:hidden}
-.guarantee .gcell{background:var(--panel);padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transition:background var(--t-mid) var(--ease)}
-.guarantee .gcell:hover{background:var(--panel-hi)}
-.guarantee .gcell .gck{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(69,240,138,.1);border:1px solid var(--line);flex:0 0 auto}
-.guarantee .gcell .gck svg{width:14px;height:14px;stroke:var(--green);fill:none;stroke-width:2.4}
-.guarantee .gcell p{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-soft);line-height:1.4}
-.guarantee .gcell p b{color:var(--ink);font-weight:600}
-@media(max-width:860px){.guarantee{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:420px){.guarantee{grid-template-columns:1fr}}
-
-/* ===== conversion: founding-member line ===== */
-.founding-line{text-align:center;font-family:var(--mono);font-size:.76rem;letter-spacing:.04em;color:var(--ink-soft);margin:0 auto clamp(28px,4vw,38px)}
-.founding-line b{color:var(--amber);font-weight:600}
-
-/* ===== conversion: post-pricing CTA row ===== */
-.pricing-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:clamp(24px,3vw,32px)}
-@media(max-width:480px){.pricing-cta{flex-direction:column}.pricing-cta .btn{width:100%;justify-content:center}}
-
-/* final cta button row */
-.final .final-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
-@media(max-width:480px){.final .final-cta{flex-direction:column}.final .final-cta .btn{width:100%;justify-content:center}}
-
-/* ===== conversion: repeat CTA band (primary = group) ===== */
-.cta-band{margin-top:clamp(30px,4vw,44px);text-align:center;border:1px solid var(--line);border-radius:var(--r-lg);
-  background:linear-gradient(180deg,rgba(69,240,138,.06),rgba(12,16,14,.5));padding:clamp(22px,3vw,30px) 22px}
-.cta-band p{font-family:var(--mono);font-size:.8rem;letter-spacing:.03em;color:var(--ink-soft);margin-bottom:16px}
-.cta-band p b{color:var(--green)}
-.cta-band .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-@media(max-width:480px){.cta-band .row{flex-direction:column}.cta-band .row .btn{width:100%;justify-content:center}}
-
-/* ===== conversion: value stack ===== */
-.vstack-wrap{max-width:760px;margin:0 auto}
-.vstack{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;
-  box-shadow:0 40px 100px -56px var(--green),0 0 0 1px rgba(69,240,138,.06)}
-.vstack .vrow{display:flex;align-items:flex-start;gap:14px;padding:16px 24px;border-bottom:1px solid var(--line-soft)}
-.vstack .vrow:last-child{border-bottom:0}
-.vstack .vrow .vck{flex:0 0 22px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
-  background:rgba(69,240,138,.1);border:1px solid var(--line);margin-top:2px}
-.vstack .vrow .vck svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:2.6}
-.vstack .vrow .vtxt{flex:1 1 auto}
-.vstack .vrow .vtxt b{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);display:block}
-.vstack .vrow .vtxt span{color:var(--ink-mute);font-size:.86rem;font-weight:300}
-.vstack .vrow .vval{flex:0 0 auto;font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;color:var(--green);
-  text-align:right;margin-top:3px;white-space:nowrap}
-.vstack .vrow .vval.free{color:var(--amber)}
-.vstack .vrow .vval.inc{color:var(--ink-soft)}
-.vstack .vtotal{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  padding:20px 24px;background:linear-gradient(180deg,rgba(69,240,138,.07),transparent)}
-.vstack .vtotal .tl{font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;color:var(--ink-soft)}
-.vstack .vtotal .tl b{color:var(--ink);font-family:var(--display);font-weight:700;font-size:1.15rem;display:block;letter-spacing:0}
-.vstack .vprice{text-align:right}
-.vstack .vprice .was{font-family:var(--mono);font-size:.78rem;color:var(--ink-mute);text-decoration:line-through;
-  text-decoration-color:var(--red);text-decoration-thickness:2px;display:block}
-.vstack .vprice .now{font-family:var(--display);font-weight:700;font-size:2.1rem;letter-spacing:-.02em;color:var(--green);line-height:1}
-.vstack .vprice .now small{font-size:.86rem;color:var(--ink-mute);font-weight:400;font-family:var(--mono);letter-spacing:0}
-.vstack-cta{margin-top:24px;text-align:center}
-.vstack-cta .btn{font-size:1.04rem;padding:15px 36px}
-.vstack-cta .sub{margin-top:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--ink-mute)}
-.vstack-cta .sub a{color:var(--green)}
-@media(max-width:520px){.vstack .vrow{padding:14px 18px}.vstack .vrow .vval{display:none}}
 </style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}#intro{display:none!important}</style></noscript>
 </head>
-<body>
-<div class="aura" aria-hidden="true"></div>
+<body class="loading">
 
-<!-- top payment bar -->
-<a class="topbar" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">
-  <span class="tb-txt"><span class="tb-dot"></span> The Telegram Group + the Indicator — <b>everything for $149.99/mo</b> · free course included</span>
-  <span class="tb-btn">Join Now →</span>
-</a>
-<style>
-  .topbar{position:relative;z-index:70;display:flex;align-items:center;justify-content:center;gap:16px 22px;flex-wrap:wrap;
-    padding:10px 18px;background:linear-gradient(90deg,rgba(69,240,138,.14),rgba(69,240,138,.05) 45%,rgba(69,240,138,.14));
-    border-bottom:1px solid var(--line);transition:background .28s var(--ease)}
-  .topbar:hover{background:linear-gradient(90deg,rgba(69,240,138,.24),rgba(69,240,138,.1) 45%,rgba(69,240,138,.24))}
-  .topbar .tb-txt{font-family:var(--mono);font-size:.8rem;letter-spacing:.03em;color:var(--ink);display:inline-flex;align-items:center;gap:.6em}
-  .topbar .tb-txt b{color:var(--green);font-weight:700}
-  .topbar .tb-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px 2px var(--green);animation:bl 1.6s infinite}
-  .topbar .tb-btn{font-family:var(--display);font-weight:700;font-size:.82rem;color:#04140b;background:var(--green);
-    padding:7px 16px;border-radius:100px;box-shadow:0 8px 24px -12px var(--green);white-space:nowrap}
-  @media(max-width:560px){.topbar{gap:8px 14px;padding:9px 14px}.topbar .tb-txt{font-size:.72rem}}
-</style>
-
-<!-- ticker -->
-<div class="ticker"><div class="row">
-  <span>TWO <b>INDICATORS</b></span><span>SYSTEM <b>GO</b></span><span>3 GREEN <b>LIGHTS</b></span><span><b>GLS OSOB</b> EXIT BELL</span><span><b>FVG</b> DETECTION</span><span><b>ORB</b> BREAK</span><span>DAILY <b>FIREWALL</b></span><span>NON-<b>REPAINTING</b></span><span><b>MES · MNQ · MGC · MYM</b></span><span>5M <b>·</b> 15M</span>
-  <span>TWO <b>INDICATORS</b></span><span>SYSTEM <b>GO</b></span><span>3 GREEN <b>LIGHTS</b></span><span><b>GLS OSOB</b> EXIT BELL</span><span><b>FVG</b> DETECTION</span><span><b>ORB</b> BREAK</span><span>DAILY <b>FIREWALL</b></span><span>NON-<b>REPAINTING</b></span><span><b>MES · MNQ · MGC · MYM</b></span><span>5M <b>·</b> 15M</span>
-</div></div>
-
-<!-- nav -->
-<nav class="nav"><div class="wrap">
-  <a class="brand" href="#top"><span class="blip"></span>GREEN LIGHT <span>SPECIAL</span></a>
-  <div class="nav-links">
-    <a href="/course/">How to Use</a>
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
+<!-- ═══════════ GREEN-LIGHT INTRO ═══════════ -->
+<div id="intro" role="status" aria-label="Loading">
+  <div class="tree">
+    <span class="bulb" id="b1"></span>
+    <span class="bulb" id="b2"></span>
+    <span class="bulb" id="b3"></span>
   </div>
-  <div class="nav-right">
-    <a class="btn btn-primary nav-join" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join <span class="arr">→</span></a>
-    <button class="hamb" id="hambBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
+  <div class="intro-word" id="introWord">Green Light Special</div>
+  <div class="intro-skip">tap to skip</div>
 </div>
-  <div class="mobile-menu" id="mmenu">
-    <a href="/course/"><span>📘</span> How to Use <span class="mm-sub">— the full course</span></a>
-    <a href="#value-stack"><span>🎁</span> What You Get</a>
-    <a href="#features"><span>⚡</span> Features <span class="mm-sub">— everything it does</span></a>
-    <a href="#signals"><span>📈</span> Live Results</a>
-    <a href="#pricing"><span>💳</span> Pricing &amp; Join</a>
-    <a href="/faq/"><span>❓</span> FAQ</a>
-    <a href="/disclaimer/"><span>📄</span> Disclaimer</a>
-    <a class="btn btn-primary mm-cta" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join the Group — $149.99/mo <span class="arr">→</span></a>
-  </div>
-</nav>
-<style>
-  .nav .nav-links{display:flex;gap:26px;margin-left:auto;margin-right:22px}
-  .nav .nav-links a{font-family:var(--mono);font-size:.82rem;letter-spacing:.02em;color:var(--ink-soft);transition:color .2s}
-  .nav .nav-links a:hover{color:var(--green)}
-  .nav .hamb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:38px;background:transparent;border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0 10px}
-  .nav .hamb span{display:block;height:2px;width:100%;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
-  .nav .hamb.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .nav .hamb.open span:nth-child(2){opacity:0}
-  .nav .hamb.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  .mobile-menu{overflow:hidden;max-height:0;transition:max-height .35s ease;background:var(--panel);border-bottom:1px solid var(--line)}
-  .mobile-menu.open{max-height:640px}
-  .mobile-menu a{display:flex;align-items:center;gap:12px;padding:15px 22px;font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);border-top:1px solid rgba(255,255,255,.05)}
-  .mobile-menu a:first-child{border-top:0}
-  .mobile-menu a .mm-sub{font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--ink-mute)}
-  .mobile-menu .mm-cta{justify-content:center;margin:14px 18px 20px;color:#04140b}
-  @media(max-width:760px){.nav .nav-links{display:none}.nav .hamb{display:flex}.nav .nav-join{display:none}}
-  @media(min-width:761px){.mobile-menu{display:none}}
-</style>
-<script>
-  (function(){var b=document.getElementById('hambBtn'),m=document.getElementById('mmenu');if(!b)return;
-    function close(){b.classList.remove('open');m.classList.remove('open');b.setAttribute('aria-expanded','false');}
-    b.addEventListener('click',function(){var o=m.classList.toggle('open');b.classList.toggle('open',o);b.setAttribute('aria-expanded',o);});
-    m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',close);});
-  })();
-</script>
 
-<!-- hero -->
-<header class="hero" id="top"><div class="wrap"><div class="hero-grid">
-  <div>
-    <span class="eyebrow">The Indicator + The Telegram Group</span>
-    <h1>Green Light <em>Special</em></h1>
-    <p class="lead"><b>Get the Telegram signal group AND the indicator — everything for $149.99/mo.</b> The invite-only TradingView indicator (GLS + OSOB) draws your entry, stop and target, and our Telegram room calls clean setups on Gold · NAS · US30 · GBPJPY in real time. One price. One membership.</p>
-    <div class="buybox">
-      <div class="priceline"><b>Telegram Group + Indicator</b> <span class="amt">$149.99</span>/mo · everything included</div>
-      <div class="buy-cta">
-        <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join Now — $149.99/mo <span class="arr">→</span></a>
-        <a class="btn btn-ghost" href="/course/">📘 Free Course</a>
-      </div>
-      <p class="trustline">🔒 <b>Secure checkout via Whop</b> · cancel anytime · both indicators + the Telegram group + free course</p>
-    </div>
+<canvas id="bgchart" aria-hidden="true"></canvas>
+<div class="aura"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="blip"></span>GREEN LIGHT SPECIAL</a>
+    <nav class="nav-links">
+      <a href="#what">What You Get</a>
+      <a href="#results">Results</a>
+      <a href="/course/">Free Course</a>
+      <a href="https://www.youtube.com/@STEVIE_O11" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://kick.com/royalemodetv" target="_blank" rel="noopener">Kick</a>
+    </nav>
+    <a href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener" class="btn btn-green">Get Access</a>
+    <button class="hamb" id="hambBtn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mmenu">
+  <a href="#what">What You Get</a>
+  <a href="#results">Results</a>
+  <a href="/course/">Free Course</a>
+  <a href="https://www.youtube.com/@STEVIE_O11" target="_blank" rel="noopener">YouTube</a>
+  <a href="https://kick.com/royalemodetv" target="_blank" rel="noopener">Kick</a>
+  <a href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener" class="btn btn-green">Get Access $149.99</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">The Indicator + The Trading Group</span>
+    <h1>WHEN IT'S <span class="g">GREEN</span>,<br>YOU GO.</h1>
+    <p class="sub">Best of both worlds — the indicator that calls the trade, and the live group that trades it with you. NQ · ES · YM · Gold.</p>
     <div class="hero-cta">
-      <a class="btn btn-ghost" href="#features">See the Features</a>
-      <a class="btn btn-ghost" href="#signals">Real Results</a>
+      <a href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener" class="btn btn-green">Get Access — $149.99/mo</a>
+      <a href="/course/" class="btn btn-ghost">Watch the Free Course</a>
     </div>
-    <div class="hero-meta">
-      <div><b>Live</b>signal room daily</div>
-      <div><b>2</b>indicators included</div>
-      <div><b>Gold · NAS · US30</b>real-time calls</div>
-    </div>
+    <div class="hero-note">Invite-only · Cancel anytime</div>
   </div>
-  <div class="chart">
-    <div class="hud"><span class="sym">NQ1! · 15M</span><span class="live">SYSTEM GO</span></div>
-    <img src="/assets/chart.png" alt="Green Light Special workspace on NQ futures" onerror="this.style.display='none'" onload="var s=document.getElementById('heroSpark');if(s)s.style.display='none';" />
-    <svg id="heroSpark" class="spark" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
-      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(69,240,138,.35)"/><stop offset="1" stop-color="rgba(69,240,138,0)"/></linearGradient></defs>
-      <path d="M0,210 L40,200 L80,215 L120,180 L160,190 L200,150 L240,165 L280,110 L320,130 L360,80 L400,95" fill="none" stroke="#45f08a" stroke-width="2.5"/>
-      <path d="M0,210 L40,200 L80,215 L120,180 L160,190 L200,150 L240,165 L280,110 L320,130 L360,80 L400,95 L400,300 L0,300 Z" fill="url(#g)"/>
-      <circle cx="200" cy="150" r="5" fill="#45f08a"/><circle cx="280" cy="110" r="5" fill="#45f08a"/><circle cx="360" cy="80" r="5" fill="#45f08a"/>
-    </svg>
-    <div class="tagline">▲ LONG · break + retest confirmed · FVG fill</div>
+</section>
+
+<!-- MARKETS -->
+<div class="markets">
+  <div class="wrap">
+    <span><b>NQ</b> Nasdaq</span>
+    <span><b>ES</b> S&amp;P 500</span>
+    <span><b>YM</b> Dow</span>
+    <span><b>GOLD</b> XAU</span>
   </div>
 </div>
-<div class="trust-strip top">
-  <span class="chip">🔒 <b>Secure checkout</b> · Whop</span>
-  <span class="chip">Cancel anytime</span>
-  <span class="chip">TradingView invite within <b>24h</b></span>
-  <span class="chip"><b>Both indicators</b> included</span>
-  <span class="chip"><b>Free course</b> included</span>
+
+<!-- FREE STRATEGY BAND -->
+<div class="freeband">
+  <div class="wrap">
+    <div>
+      <h3>Get our FREE $20K/Month Blueprint 🟢</h3>
+      <p class="fb-sub">The exact funded-account game plan we run — yours free. No card, no catch.</p>
+      <p class="fb-fine">Educational only · results vary · trading is risky · not financial advice</p>
+    </div>
+    <a href="/assets/GLS-Trading-Protocol.pdf" target="_blank" rel="noopener" class="btn btn-green">Get the Free Strategy →</a>
+  </div>
 </div>
-</div></header>
 
-<!-- VALUE STACK — why the group is worth $149.99 -->
-<section class="section reveal" id="value-stack"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Everything You Get in the Group</span>
-    <h2>Everything You Get for $149.99/mo</h2>
-    <p>The indicator calls the trade. The group trades it with you. Here's the whole stack — with honest value on every line.</p>
-  </div>
-  <div class="vstack-wrap">
-    <div class="vstack">
-      <div class="vrow">
-        <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>Green Light Special indicator</b><span>Invite-only on TradingView — draws entry, stop, target &amp; size on price.</span></span>
-        <span class="vval">$200/mo value</span>
-      </div>
-      <div class="vrow">
-        <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>GLS OSOB exit indicator</b><span>The companion pane that rings the EXIT BELL so you bank the winner.</span></span>
-        <span class="vval inc">included</span>
-      </div>
-      <div class="vrow">
-        <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>The Telegram signal group</b><span>Real-time calls on Gold · NAS · US30 · GBPJPY — trade right alongside the team.</span></span>
-        <span class="vval">$300+/mo value</span>
-      </div>
-      <div class="vrow">
-        <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>Trade WITH the team</b><span>Live sessions, daily bias and watchlists — not just alerts, a room.</span></span>
-        <span class="vval inc">included</span>
-      </div>
-      <div class="vrow">
-        <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>The full 15-part course + PDF</b><span>Step-by-step walkthrough of the whole system — downloadable.</span></span>
-        <span class="vval free">free</span>
-      </div>
-      <div class="vrow">
-        <span class="vck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
-        <span class="vtxt"><b>Invite-only access within 24h</b><span>Added by hand to both scripts + the room — cancel anytime.</span></span>
-        <span class="vval inc">included</span>
-      </div>
-      <div class="vtotal">
-        <span class="tl">Total value<b>$500+/mo</b></span>
-        <span class="vprice"><span class="was">$500+/mo</span><span class="now">$149.99<small>/mo</small></span></span>
-      </div>
+<!-- WHAT YOU GET -->
+<section id="what">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">One Membership</span>
+      <h2>The tool tells you when. The group trades it with you.</h2>
+      <p>No noise, no fluff. Two things that work together.</p>
     </div>
-    <div class="vstack-cta">
-      <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join Now — $149.99/mo <span class="arr">→</span></a>
-      <p class="sub">One membership — indicator + signal group together. Cancel anytime.</p>
-    </div>
-  </div>
-</div></section>
-
-<!-- A) TWO INDICATORS, ONE SYSTEM -->
-
-<!-- the honest edge -->
-
-<!-- B) THE DASHBOARD -->
-
-<!-- C) THE SIGNALS -->
-
-<!-- 🎯 SCALPER MODE (new) -->
-
-<!-- ===================== FULL FEATURE LIST ===================== -->
-<section class="section reveal" id="features"><div class="wrap">
-  <style>
-    #features .feat-note{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);text-align:center;max-width:60ch;margin:0 auto 6px;line-height:1.6}
-    #features .feat-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,2vw,22px);margin-top:clamp(22px,3vw,34px)}
-    @media(max-width:820px){#features .feat-groups{grid-template-columns:1fr}}
-    #features .fgroup{background:var(--panel);border:1px solid var(--line-hair);border-radius:var(--r-xl);padding:clamp(18px,2.2vw,26px);box-shadow:0 30px 80px -50px #000}
-    #features .fgroup.span2{grid-column:1/-1}
-    #features .fg-head{display:flex;align-items:center;gap:.6em;font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--ink);margin-bottom:4px}
-    #features .fg-head .ico{font-size:1.2rem}
-    #features .fg-sub{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:16px}
-    #features .frow{display:flex;gap:12px;padding:11px 0;border-top:1px solid rgba(255,255,255,.05)}
-    #features .frow:first-of-type{border-top:0}
-    #features .frow .fchip{flex:0 0 auto;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:rgba(69,240,138,.08);border:1px solid var(--line);font-size:1rem}
-    #features .frow .ftxt b{display:block;font-family:var(--display);font-weight:600;font-size:.94rem;color:var(--ink);margin-bottom:2px}
-    #features .frow .ftxt span{font-size:.86rem;color:var(--ink-soft);line-height:1.5}
-    #features .frow .ftxt em{color:var(--green);font-style:normal;font-weight:600}
-    /* BONUS breakaway card */
-    #features .bonus{grid-column:1/-1;position:relative;background:linear-gradient(180deg,rgba(255,212,0,.05),var(--panel));border:1px solid rgba(255,212,0,.32);border-radius:var(--r-xl);padding:clamp(20px,2.4vw,30px);overflow:hidden}
-    #features .bonus:before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 12% 0%,rgba(255,212,0,.10),transparent 60%);pointer-events:none}
-    #features .bonus .btag{display:inline-flex;align-items:center;gap:.5em;font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(255,212,0,.4);border-radius:100px;padding:6px 14px;margin-bottom:14px}
-    #features .bonus h3{font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,3vw,1.7rem);color:var(--ink);margin-bottom:6px;position:relative}
-    #features .bonus h3 .zap{color:var(--gold)}
-    #features .bonus>p{color:var(--ink-soft);font-size:.95rem;max-width:64ch;line-height:1.6;position:relative}
-    #features .bfig{position:relative;margin:20px 0 0;background:rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:clamp(10px,1.5vw,16px)}
-    #features .bfig svg{display:block;width:100%;height:auto}
-    #features .bfig figcaption{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);text-align:center;margin-top:10px;line-height:1.5}
-    #features .bfig figcaption b{color:var(--ink);font-weight:600}
-    #features .bsteps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;position:relative}
-    @media(max-width:760px){#features .bsteps{grid-template-columns:1fr 1fr}}
-    @media(max-width:480px){#features .bsteps{grid-template-columns:1fr}#features .fgroup{padding:16px}#features .frow .fchip{width:30px;height:30px}#features .bonus{padding:18px}}
-    #features .bstep{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px}
-    #features .bstep .bn{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
-    #features .bstep b{display:block;font-family:var(--display);font-weight:600;font-size:.92rem;color:var(--ink);margin-bottom:3px}
-    #features .bstep span{font-size:.82rem;color:var(--ink-soft);line-height:1.45}
-    #features .feat-foot{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-mute);text-align:center;margin-top:22px}
-  </style>
-  <div class="section-head">
-    <span class="eyebrow">Everything It Does</span>
-    <h2>The Full Feature List</h2>
-    <p class="feat-note">Every signal confirms on the candle close — non-repainting. Every feature has its own on/off toggle, so you build exactly the chart you want and trade one clean setup with discipline.</p>
-  </div>
-
-  <div class="feat-groups">
-    <!-- DECISION SYSTEM -->
-    <div class="fgroup">
-      <div class="fg-head"><span class="ico">🚦</span> The Decision System</div>
-      <div class="fg-sub">Should I be in a trade right now?</div>
-      <div class="frow"><span class="fchip">🟢</span><span class="ftxt"><b>3-Light Panel</b><span>① Trend · ② Momentum · ③ Setup. <em>All three green = go.</em></span></span></div>
-      <div class="frow"><span class="fchip">🚦</span><span class="ftxt"><b>Status Banner</b><span>One plain-English call: SYSTEM GO · WAIT · CONSOLIDATION – STAND ASIDE · RUNNER – LET IT RIDE · STAND DOWN.</span></span></div>
-      <div class="frow"><span class="fchip">🔔</span><span class="ftxt"><b>Opening Go</b><span><em>New.</em> The opening-bell direction call — <em>OPENING GO – LONG</em> or <em>SHORT</em> the moment the session opens clean, or <em>CHOP – STAND ASIDE</em> when it isn't. Know your bias before the first candle.</span></span></div>
-      <div class="frow"><span class="fchip">🎯</span><span class="ftxt"><b>DIR Stack Panel</b><span>Day · 4h · 15m · 5m in one box. All green = strong long, all red = strong short, mixed = wait.</span></span></div>
-      <div class="frow"><span class="fchip">📊</span><span class="ftxt"><b>Win% + Day P&amp;L Tracker</b><span>Live win rate, R multiple, and daily $ result on the chart.</span></span></div>
-    </div>
-
-    <!-- ENTRIES -->
-    <div class="fgroup">
-      <div class="fg-head"><span class="ico">🟢</span> Entries</div>
-      <div class="fg-sub">Each toggles on / off</div>
-      <div class="frow"><span class="fchip">📦</span><span class="ftxt"><b>GET IN (FVG)</b><span>The core trade. Price fills a fair-value gap with the trend → <em>✅ FILLED – GET IN</em> with a BUY/SELL label, auto stop &amp; target.</span></span></div>
-      <div class="frow"><span class="fchip">⭐</span><span class="ftxt"><b>A1 — Golden-Pocket Pullback</b><span>The A+ pullback. Trap-guarded — won't fire over-extended (no buying tops / selling bottoms).</span></span></div>
-      <div class="frow"><span class="fchip">🔶</span><span class="ftxt"><b>Level Regain</b><span>Failed-break reclaim: price sweeps beyond a level then closes back within in 1–3 candles = a trap. Trend-filtered.</span></span></div>
-      <div class="frow"><span class="fchip">🔁</span><span class="ftxt"><b>Reversal Switch</b><span>Catches the flip after the Yellow Man warning; rides slow overnight / Asia trends.</span></span></div>
-      <div class="frow"><span class="fchip">🎯</span><span class="ftxt"><b>Sniper</b><span>Opening-momentum breakout dots — BUY / SELL / STRONG.</span></span></div>
-      <div class="frow"><span class="fchip">🚀</span><span class="ftxt"><b>ORB</b><span>Opening-range breakout with a fakeout filter.</span></span></div>
-    </div>
-
-    <!-- WARNINGS & MANAGEMENT -->
-    <div class="fgroup">
-      <div class="fg-head"><span class="ico">🟡</span> Warnings &amp; Trade Management</div>
-      <div class="fg-sub">Stay in the good trades, get out of the bad ones</div>
-      <div class="frow"><span class="fchip">🟡</span><span class="ftxt"><b>Yellow Man</b><span>The trend-flip warning candle — one clean marker to tighten up.</span></span></div>
-      <div class="frow"><span class="fchip">🏄</span><span class="ftxt"><b>8 EMA Ride Line</b><span>The "stay in the trade" guide — ride while price holds it, exit on a close through it.</span></span></div>
-      <div class="frow"><span class="fchip">🔄</span><span class="ftxt"><b>Smart Reversal</b><span>Exhaustion reversal at key levels — for exits and careful counter-trend.</span></span></div>
-      <div class="frow"><span class="fchip">📈</span><span class="ftxt"><b>Trend EMA + VWAP</b><span>Color-coded trend EMA plus the session VWAP fair-value anchor.</span></span></div>
-    </div>
-
-    <!-- ZONES & LEVELS + RISK -->
-    <div class="fgroup">
-      <div class="fg-head"><span class="ico">📐</span> Zones, Levels &amp; Risk</div>
-      <div class="fg-sub">Where to trade from — and how much</div>
-      <div class="frow"><span class="fchip">⭐</span><span class="ftxt"><b>Golden Pocket + Premium / Discount</b><span>The 0.618–0.79 buy/sell zone with premium/discount shading.</span></span></div>
-      <div class="frow"><span class="fchip">🔶</span><span class="ftxt"><b>Yellow Level Lines + Reference Levels</b><span>The range levels the regain watches, plus PDH/PDL, prior-week highs/lows, session/weekly/monthly opens.</span></span></div>
-      <div class="frow"><span class="fchip">🛡</span><span class="ftxt"><b>Auto-Sized Risk + Daily Firewall</b><span>Position size holds your $ risk fixed; auto stand-down at your loss limit or profit goal.</span></span></div>
-      <div class="frow"><span class="fchip">🕒</span><span class="ftxt"><b>Trade Any Hour + Volume Fix</b><span>Open all hours (stands aside only on consolidation). Futures <em>and</em> volume-less CFDs — NAS100, US30, XAU — get the same signals.</span></span></div>
-    </div>
-  </div>
-
-  <!-- ⚡ BONUS: BREAKAWAY SCALPER -->
-  <div class="bonus" style="margin-top:clamp(14px,2vw,22px)">
-    <span class="btag">⚡ Bonus Feature · Included</span>
-    <h3><span class="zap">⚡</span> Breakaway Scalper</h3>
-    <p>A separate range-break engine that trades the retest for you — automatic entry, stop, target and breakeven on any timeframe. Off by default; flip it on when you want to scalp the breakout.</p>
-
-    <figure class="bfig">
-      <svg viewBox="0 0 680 300" role="img" aria-label="Breakaway Scalper: a range forms, price breaks out, a limit order fills on the retest, then price targets take profit at 1 to 1 while the stop moves to breakeven.">
-        <defs>
-          <linearGradient id="tpg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(69,240,138,.30)"/><stop offset="1" stop-color="rgba(69,240,138,0)"/></linearGradient>
-          <linearGradient id="slg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,93,108,0)"/><stop offset="1" stop-color="rgba(255,93,108,.28)"/></linearGradient>
-        </defs>
-        <rect x="415" y="34" width="240" height="30" fill="url(#tpg)"/>
-        <line x1="415" y1="48" x2="655" y2="48" stroke="#45f08a" stroke-width="1.4" stroke-dasharray="2 5"/>
-        <text x="651" y="30" text-anchor="end" fill="#45f08a" font-family="'JetBrains Mono',monospace" font-size="12.5" font-weight="700">TP · 1:1 R</text>
-        <rect x="300" y="222" width="355" height="30" fill="url(#slg)"/>
-        <line x1="300" y1="236" x2="655" y2="236" stroke="#ff5d6c" stroke-width="1.4" stroke-dasharray="2 5"/>
-        <text x="651" y="268" text-anchor="end" fill="#ff5d6c" font-family="'JetBrains Mono',monospace" font-size="12.5" font-weight="700">SL</text>
-        <rect x="30" y="112" width="300" height="90" fill="rgba(255,212,0,.06)"/>
-        <line x1="30" y1="112" x2="330" y2="112" stroke="#ffd400" stroke-width="1.6" stroke-dasharray="6 5"/>
-        <line x1="30" y1="202" x2="655" y2="202" stroke="#ffd400" stroke-width="1.6" stroke-dasharray="6 5"/>
-        <text x="40" y="104" fill="#ffd400" font-family="'JetBrains Mono',monospace" font-size="12" font-weight="700" opacity=".9">RANGE</text>
-        <line x1="330" y1="112" x2="655" y2="112" stroke="#45f08a" stroke-width="1.8" stroke-dasharray="7 5"/>
-        <g stroke-linecap="butt">
-          <line x1="55" y1="132" x2="55" y2="184" stroke="#5a6b62" stroke-width="1.5"/><rect x="48" y="142" width="14" height="35" rx="1.5" fill="#45f08a"/>
-          <line x1="90" y1="127" x2="90" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="83" y="137" width="14" height="35" rx="1.5" fill="#ff5d6c"/>
-          <line x1="125" y1="134" x2="125" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="118" y="142" width="14" height="33" rx="1.5" fill="#45f08a"/>
-          <line x1="160" y1="130" x2="160" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="153" y="140" width="14" height="34" rx="1.5" fill="#ff5d6c"/>
-          <line x1="195" y1="132" x2="195" y2="180" stroke="#5a6b62" stroke-width="1.5"/><rect x="188" y="142" width="14" height="30" rx="1.5" fill="#45f08a"/>
-          <line x1="230" y1="134" x2="230" y2="182" stroke="#5a6b62" stroke-width="1.5"/><rect x="223" y="142" width="14" height="32" rx="1.5" fill="#ff5d6c"/>
-          <line x1="278" y1="78" x2="278" y2="197" stroke="#5a6b62" stroke-width="1.5"/><rect x="269" y="87" width="18" height="100" rx="2" fill="#45f08a"/>
-          <line x1="305" y1="66" x2="305" y2="100" stroke="#5a6b62" stroke-width="1.5"/><rect x="298" y="72" width="14" height="22" rx="1.5" fill="#45f08a"/>
-          <line x1="345" y1="74" x2="345" y2="116" stroke="#5a6b62" stroke-width="1.5"/><rect x="338" y="82" width="14" height="28" rx="1.5" fill="#ff5d6c"/>
-          <line x1="378" y1="96" x2="378" y2="120" stroke="#5a6b62" stroke-width="1.5"/><rect x="371" y="102" width="14" height="12" rx="1.5" fill="#ff5d6c"/>
-          <line x1="415" y1="80" x2="415" y2="116" stroke="#5a6b62" stroke-width="1.5"/><rect x="408" y="87" width="14" height="24" rx="1.5" fill="#45f08a"/>
-          <line x1="450" y1="58" x2="450" y2="94" stroke="#5a6b62" stroke-width="1.5"/><rect x="443" y="64" width="14" height="26" rx="1.5" fill="#45f08a"/>
-          <line x1="485" y1="42" x2="485" y2="72" stroke="#5a6b62" stroke-width="1.5"/><rect x="478" y="46" width="14" height="24" rx="1.5" fill="#45f08a"/>
-          <line x1="520" y1="36" x2="520" y2="56" stroke="#5a6b62" stroke-width="1.5"/><rect x="513" y="40" width="14" height="14" rx="1.5" fill="#45f08a"/>
-        </g>
-        <circle cx="378" cy="112" r="7" fill="#45f08a" stroke="#04140b" stroke-width="1.5"/>
-        <path d="M378 108 l6 8 h-12 z" fill="#04140b"/>
-        <g transform="translate(392,104)">
-          <rect x="0" y="0" width="96" height="20" rx="5" fill="#0c100e" stroke="#45f08a" stroke-width="1"/>
-          <text x="48" y="14" text-anchor="middle" fill="#45f08a" font-family="'JetBrains Mono',monospace" font-size="11" font-weight="700">LIMIT BUY</text>
-        </g>
-      </svg>
-      <figcaption>How it fills — <b>range → break → limit at the retest → TP at 1:1, stop to breakeven.</b></figcaption>
-    </figure>
-
-    <div class="bsteps">
-      <div class="bstep"><div class="bn">Step 1</div><b>Range forms</b><span>Yellow range lines mark the box as price coils.</span></div>
-      <div class="bstep"><div class="bn">Step 2</div><b>Break → retest</b><span>On the break it places a limit at the retest, then fills TP + SL at an adjustable 1:1.</span></div>
-      <div class="bstep"><div class="bn">Step 3</div><b>Breakeven at +1R</b><span>Slides the stop to entry the moment you're up one R — free trade.</span></div>
-      <div class="bstep"><div class="bn">Step 4</div><b>Runner-catch</b><span>If the break rips with no retest, it still takes it at market. Strong-trend gate keeps it honest.</span></div>
-    </div>
-  </div>
-
-  <p class="feat-foot">Non-repainting · locked to the price scale · every feature has its own toggle</p>
-
-  <div class="cta-band" style="margin-top:clamp(22px,3vw,34px)">
-    <p>Get every one of these on your charts <b>+ the room calling them live.</b></p>
-    <div class="row">
-      <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join the Group — $149.99 <span class="arr">→</span></a>
-    </div>
-  </div>
-</div></section>
-
-<!-- ENTRY EXAMPLES — what a green light entry looks like -->
-
-<!-- on the charts gallery -->
-
-<!-- signals from the team -->
-<section class="section reveal" id="signals"><div class="wrap">
-  <style>
-    .sig-disc{margin-top:18px;font-size:.78rem;font-style:italic;color:var(--ink-mute);font-weight:300}
-    /* ===== REAL WINS GALLERY ===== */
-    .wins-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:clamp(26px,3vw,34px)}
-    @media(max-width:980px){.wins-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:680px){.wins-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:420px){.wins-grid{grid-template-columns:1fr}}
-    .winshot{position:relative;display:block;border:1px solid var(--line-hair);border-radius:var(--r-lg);overflow:hidden;
-      background:var(--panel);padding:10px;box-shadow:0 22px 56px -38px #000,0 0 0 1px rgba(255,255,255,.02);
-      transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
-    .winshot:hover{transform:translateY(-5px);border-color:var(--green);box-shadow:0 0 0 1px rgba(69,240,138,.28),0 30px 70px -38px var(--green)}
-    .winshot .frame{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#04070a;
-      border-radius:var(--r-md);border:1px solid var(--line-soft)}
-    .winshot .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:34% center;
-      transition:transform var(--t-mid) var(--ease)}
-    .winshot:hover .frame img{transform:scale(1.035)}
-    .winshot .frame::after{content:"";position:absolute;inset:0;pointer-events:none;
-      background:linear-gradient(to top,rgba(4,7,6,.96) 0%,rgba(4,7,6,.7) 16%,rgba(4,7,6,.12) 40%,transparent 62%)}
-    /* result chip — bottom-left green pill */
-    .winshot .chip{position:absolute;left:18px;bottom:18px;right:18px;z-index:2;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-    .winshot .result{font-family:var(--display);font-weight:700;font-size:.92rem;letter-spacing:.01em;color:#04140b;
-      background:var(--green);padding:6px 12px;border-radius:100px;line-height:1.1;
-      box-shadow:0 8px 24px -10px var(--green),0 0 0 1px rgba(69,240,138,.4)}
-    .winshot .result .inst{display:block;font-family:var(--mono);font-size:.56rem;font-weight:700;letter-spacing:.14em;
-      text-transform:uppercase;color:rgba(4,20,11,.7);margin-bottom:1px}
-    .winshot .by{font-family:var(--mono);font-size:.54rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-      color:var(--green);background:rgba(0,0,0,.55);border:1px solid var(--line);padding:3px 8px;border-radius:6px}
-    /* top-right BANKED flag */
-    .winshot .flag{position:absolute;top:17px;right:17px;z-index:2;font-family:var(--mono);font-size:.54rem;font-weight:700;
-      letter-spacing:.2em;text-transform:uppercase;color:var(--green);background:rgba(0,0,0,.55);border:1px solid var(--line);
-      padding:4px 9px;border-radius:100px;display:inline-flex;align-items:center;gap:.45em}
-    .winshot .flag .blip{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px 1px var(--green);animation:bl 1.6s infinite}
-    /* featured tile — spans 2x2 */
-    .winshot.feature{grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column;border-color:var(--green);
-      box-shadow:0 0 0 1px rgba(69,240,138,.2),0 34px 84px -44px var(--green)}
-    .winshot.feature .frame{aspect-ratio:auto;flex:1 1 auto;min-height:0}
-    .winshot.feature .frame img{object-position:42% center}
-    .winshot.feature .result{font-size:clamp(1.05rem,2vw,1.5rem);padding:9px 16px}
-    .winshot.feature .result .inst{font-size:.62rem;margin-bottom:2px}
-    @media(max-width:680px){.winshot.feature{grid-column:span 2;grid-row:auto}.winshot.feature .frame{aspect-ratio:4/5}}
-    @media(max-width:420px){.winshot.feature{grid-column:span 1}}
-    /* JOIN cta */
-    .wins-join{margin:clamp(30px,4vw,44px) auto clamp(8px,2vw,14px);text-align:center;max-width:620px}
-    .wins-join p.lead{font-family:var(--body);font-weight:300;font-size:clamp(1rem,2vw,1.12rem);
-      line-height:1.55;margin-bottom:22px;color:var(--ink-soft)}
-    .wins-join .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-    .wins-join .btn{font-size:1.02rem;padding:15px 34px}
-    @media(max-width:480px){.wins-join .cta-row{flex-direction:column}.wins-join .cta-row .btn{width:100%;justify-content:center}}
-  </style>
-  <div class="section-head">
-    <span class="eyebrow">See the Group's Real Calls</span>
-    <h2>Signals From the Team</h2>
-    <p>Real trades called live in the room — Gold, NAS, US30 — with the pip results. <b style="color:var(--ink);font-weight:600">This is what you get inside the group.</b> The indicator shows you the setup; the group calls it in real time.</p>
-  </div>
-
-  <!-- REAL WIN SCREENSHOTS — cropped clean charts at /assets/wins/clean/ (header + side margins removed via ImageMagick) -->
-  <div class="wins-grid">
-
-    <!-- FEATURED: biggest win, spans 2x2 -->
-    <a class="winshot feature" href="/assets/wins/clean/win-10.png" target="_blank" rel="noopener" aria-label="Gold +3,370 pips, full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-10.png" alt="Real Gold trade screenshot — +3,370 pips, full TP" loading="lazy" /></div>
-      <div class="chip">
-        <span class="result"><span class="inst">Gold · Full TP</span>+3,370 pips</span>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="ic">📈</div>
+        <h3>The Indicator</h3>
+        <p>Invite-only on TradingView (GLS + OSOB). Clean green-light / red-light calls with entry, stop and targets — no repaint.</p>
       </div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-12.png" target="_blank" rel="noopener" aria-label="Gold +2,500 pips, full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-12.png" alt="Real Gold trade screenshot — +2,500 pips, full TP" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · Full TP</span>+2,500 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-03.png" target="_blank" rel="noopener" aria-label="Gold +1,600 pips, full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-03.png" alt="Real Gold trade screenshot — +1,600 pips, full TP" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · Full TP</span>+1,600 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-01.png" target="_blank" rel="noopener" aria-label="Gold +1,258 pips, TP1">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-01.png" alt="Real Gold trade screenshot — +1,258 pips, TP1" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · TP1</span>+1,258 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-02.png" target="_blank" rel="noopener" aria-label="Gold +1,149 pips, full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-02.png" alt="Real Gold trade screenshot — +1,149 pips, full TP" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · Full TP</span>+1,149 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-18.png" target="_blank" rel="noopener" aria-label="Gold +622 pips, full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-18.png" alt="Real Gold trade screenshot — +622 pips, full TP" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · Full TP</span>+622 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-14.png" target="_blank" rel="noopener" aria-label="Gold +575 pips, full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-14.png" alt="Real Gold trade screenshot — +575 pips, full TP" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · Full TP</span>+575 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-13.png" target="_blank" rel="noopener" aria-label="Gold +385 pips, TP1">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-13.png" alt="Real Gold trade screenshot — +385 pips, TP1" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · TP1</span>+385 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-16.png" target="_blank" rel="noopener" aria-label="Gold +321 pips, TP1">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-16.png" alt="Real Gold trade screenshot — +321 pips, TP1" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">Gold · TP1</span>+321 pips</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-17.png" target="_blank" rel="noopener" aria-label="NAS100 full take profit">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-17.png" alt="Real NAS100 trade screenshot — full TP" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">NAS100</span>Full TP</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-07.png" target="_blank" rel="noopener" aria-label="NAS100 TP smashed">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-07.png" alt="Real NAS100 trade screenshot — TP smashed" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">NAS100</span>TP Smashed</span></div>
-    </a>
-
-    <a class="winshot" href="/assets/wins/clean/win-06.png" target="_blank" rel="noopener" aria-label="US30 risked 41 for plus 275 points">
-      <span class="flag"><span class="blip"></span> Banked</span>
-      <div class="frame"><img src="/assets/wins/clean/win-06.png" alt="Real US30 trade screenshot — risked 41 for +275 points" loading="lazy" /></div>
-      <div class="chip"><span class="result"><span class="inst">US30 · Risked 41</span>+275 pts</span></div>
-    </a>
-
-  </div>
-
-  <!-- SINGLE BOTTOM CTA -->
-  <div class="wins-join">
-    <p class="lead">Want these calls in real time? <b style="color:var(--ink);font-weight:500">Join the group</b> — get the calls live plus both indicators, all in one membership.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join the Group — $149.99 <span class="arr">→</span></a>
-    </div>
-    <p class="sig-disc">For education only. Results shown are individual outcomes from our room — not typical and not guaranteed. Trading involves substantial risk of loss.</p>
-  </div>
-</div></section>
-
-<!-- members making money -->
-<section class="section reveal" id="member-reviews"><div class="wrap">
-  <style>
-    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media(max-width:900px){.rev-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:560px){.rev-grid{grid-template-columns:1fr}}
-    .revcard{display:flex;flex-direction:column;gap:14px;background:var(--panel);border:1px solid var(--line-soft);
-      border-radius:var(--r-lg);padding:24px 22px;position:relative;overflow:hidden;
-      transition:transform var(--t-mid) var(--ease),border-color var(--t-mid) var(--ease),box-shadow var(--t-mid) var(--ease)}
-    .revcard:hover{transform:translateY(-4px);border-color:var(--line);box-shadow:0 26px 64px -40px var(--green)}
-    .revcard::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
-      background:linear-gradient(90deg,transparent,var(--line),transparent);opacity:.7}
-    .rev-stars{display:inline-flex;gap:3px}
-    .rev-stars svg{width:15px;height:15px}
-    .rev-stars .on{fill:var(--green);stroke:var(--green)}
-    .rev-stars .off{fill:none;stroke:var(--ink-mute);stroke-width:1.4}
-    .rev-quote{font-family:var(--body);font-size:1rem;font-weight:300;color:var(--ink-soft);line-height:1.55}
-    .rev-quote b{color:var(--ink);font-weight:500}
-    .rev-name{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--line-soft)}
-    .rev-av{width:32px;height:32px;border-radius:50%;flex:0 0 32px;display:grid;place-items:center;
-      font-family:var(--display);font-weight:700;font-size:.82rem;color:#04140b;
-      background:radial-gradient(circle at 35% 30%,var(--green),var(--green-deep));box-shadow:0 0 16px -4px var(--green)}
-    .rev-id{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:var(--ink)}
-    .rev-id span{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-top:2px}
-  </style>
-  <div class="section-head">
-    <span class="eyebrow">Members</span>
-    <h2>Members Making Money</h2>
-    <p>Real members of the room — following the signals, reading the lights, taking clean setups.</p>
-  </div>
-  <div class="rev-grid">
-
-    <article class="revcard">
-      <span class="rev-stars" aria-label="5 out of 5 stars">
-        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-      </span>
-      <p class="rev-quote">Caught the <b>US30 389-point call</b> live — paid for the year in a day.</p>
-      <div class="rev-name"><span class="rev-av">M</span><span class="rev-id">Marcus T.<span>Indicator + Team</span></span></div>
-    </article>
-
-    <article class="revcard">
-      <span class="rev-stars" aria-label="5 out of 5 stars">
-        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-      </span>
-      <p class="rev-quote">The indicator finally made setups click. <b>I see the green light, I take it.</b></p>
-      <div class="rev-name"><span class="rev-av">D</span><span class="rev-id">Dré W.<span>Indicator + Team</span></span></div>
-    </article>
-
-    <article class="revcard">
-      <span class="rev-stars" aria-label="5 out of 5 stars">
-        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-      </span>
-      <p class="rev-quote">Banked the <b>1258-pip gold run</b> with the team. Insane.</p>
-      <div class="rev-name"><span class="rev-av">P</span><span class="rev-id">Priya S.<span>Indicator + Team</span></span></div>
-    </article>
-
-    <article class="revcard">
-      <span class="rev-stars" aria-label="5 out of 5 stars">
-        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-      </span>
-      <p class="rev-quote">Was guessing before. Now I wait for <b>all three lights and the bias.</b> Game changer.</p>
-      <div class="rev-name"><span class="rev-av">J</span><span class="rev-id">Jalen R.<span>Indicator + Team</span></span></div>
-    </article>
-
-    <article class="revcard">
-      <span class="rev-stars" aria-label="4 out of 5 stars">
-        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="off" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-      </span>
-      <p class="rev-quote"><b>TP1 smashed, stops to break-even,</b> stress gone.</p>
-      <div class="rev-name"><span class="rev-av">T</span><span class="rev-id">Tasha M.<span>Indicator + Team</span></span></div>
-    </article>
-
-    <article class="revcard">
-      <span class="rev-stars" aria-label="5 out of 5 stars">
-        <svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg class="on" viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-      </span>
-      <p class="rev-quote">Signals to follow + the visual to learn from — <b>best $150 I spend monthly.</b></p>
-      <div class="rev-name"><span class="rev-av">A</span><span class="rev-id">Ari K.<span>Indicator + Team</span></span></div>
-    </article>
-
-  </div>
-  <p class="sig-disc" style="text-align:center;margin:clamp(26px,3vw,34px) auto 0;max-width:680px">For education only. Results shown are individual outcomes from our room and are not typical or guaranteed. Trading involves substantial risk of loss.</p>
-</div></section>
-
-<!-- D) RISK & DISCIPLINE -->
-
-<!-- OSOB + Yellow Man -->
-
-<!-- F) HOW THEY WORK TOGETHER -->
-
-<!-- G) VALIDITY -->
-
-<!-- H) HOW TO GET ACCESS -->
-
-<!-- FREE COURSE band -->
-<section class="section reveal" id="free-course"><div class="wrap">
-  <style>
-    .fc-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(24px,4vw,48px);align-items:center;position:relative}
-    @media(max-width:720px){.fc-grid{grid-template-columns:1fr;text-align:center}.fc-grid .eyebrow{justify-content:center}.fc-grid p{margin:0 auto!important}}
-  </style>
-  <div class="final" style="text-align:left">
-    <div class="fc-grid">
-      <div>
-        <span class="eyebrow">Free Course · No Cost</span>
-        <h2 style="font-size:clamp(1.7rem,4vw,2.6rem);text-transform:uppercase;margin:14px 0 12px">How To Use It</h2>
-        <p style="color:var(--ink-soft);font-weight:300;max-width:54ch;margin:0">A free, step-by-step walkthrough of the whole system — set up the indicators, read the dashboard, understand every signal, run the risk firewall, and master the exits with GLS OSOB. No login, no charge.</p>
+      <div class="card reveal">
+        <div class="ic">🟢</div>
+        <h3>The Trading Group</h3>
+        <p>Real-time calls traded alongside you on NQ, ES, YM and Gold — so you're never guessing the setup on your own.</p>
       </div>
-      <div style="text-align:left">
-        <a class="btn btn-primary" href="/course/" style="font-size:1.04rem;padding:15px 30px">Free Course — How To Use It <span class="arr">→</span></a>
+      <div class="card reveal">
+        <div class="ic">🎓</div>
+        <h3>The Free Course</h3>
+        <p>The full playbook in plain English — every way the system takes a trade, start to finish. Free to watch.</p>
       </div>
     </div>
   </div>
-</div></section>
+</section>
 
-<!-- pricing -->
-<section class="section reveal" id="pricing"><div class="wrap">
-  <div class="section-head">
-    <span class="eyebrow">Get Access</span>
-    <h2>Two Ways In</h2>
-    <p><b style="color:var(--ink);font-weight:600">One membership</b> — both indicators + the live signal room for $149.99/mo (a $500+ value). Invite-only on TradingView · cancel anytime.</p>
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Inside the GLS System</span>
+      <h2>The whole system, on one chart.</h2>
+      <p>Every signal in plain English. The chart tells you when — you take it.</p>
+    </div>
+    <div class="featgrid">
+      <div class="feat reveal"><span class="fic">🟢</span><div><h4>Green Light / Red Light</h4><p>The take-it-now call. Green = go long, red = go short. The one signal you can't miss.</p></div></div>
+      <div class="feat reveal"><span class="fic">🟡</span><div><h4>The Yellow Box</h4><p>The A+ golden pocket. Price taps the box, confirms, and that's the highest-quality entry on the chart.</p></div></div>
+      <div class="feat reveal"><span class="fic">🔵</span><div><h4>Blue Magic</h4><p>The high-volume price magnet — where the market keeps getting pulled back to. Today's and yesterday's, drawn live.</p></div></div>
+      <div class="feat reveal"><span class="fic">🟠</span><div><h4>Yellow Man</h4><p>The early warning. When momentum is about to flip, the Yellow Man shows up before the reversal does.</p></div></div>
+      <div class="feat reveal"><span class="fic">🔄</span><div><h4>The Reversal</h4><p>Double top, double bottom, and the Switch — caught right at the level where price actually turns.</p></div></div>
+      <div class="feat reveal"><span class="fic">🕯️</span><div><h4>Candles Change Color</h4><p>The bars flip green or red with the trend, so one glance tells you which way the market is really leaning.</p></div></div>
+      <div class="feat reveal"><span class="fic">🔔</span><div><h4>Opening GO</h4><p>One clean direction call after the open sweeps a level — the proven intraday edge, once a day.</p></div></div>
+      <div class="feat reveal"><span class="fic">🎯</span><div><h4>4-Clock Direction</h4><p>Day · 4h · 15m · 5m in one panel. When the clocks line up, the trade is real.</p></div></div>
+      <div class="feat reveal"><span class="fic">🚦</span><div><h4>Trend or Chop</h4><p>The regime read. When it says chop — sit out. Knowing when NOT to trade is half the edge.</p></div></div>
+      <div class="feat reveal"><span class="fic">🔕</span><div><h4>Exit Bells</h4><p>The bottom pane rings when it's time to scale out and lock profit — not just when to get in.</p></div></div>
+      <div class="feat reveal"><span class="fic">📐</span><div><h4>Auto Entry · Stop · Targets</h4><p>Every call draws your entry, stop and targets for you. No repaint — final on the candle close.</p></div></div>
+      <div class="feat reveal"><span class="fic">🚀</span><div><h4>Best of Both Worlds</h4><p>The indicator calls it, the live group trades it with you. You're never reading the chart alone.</p></div></div>
+    </div>
   </div>
+</section>
 
-  <!-- FEATURED TESTIMONIAL -->
-  <figure class="ftest">
-    <span class="fstars" aria-label="5 out of 5 stars">
-      <svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg>
-    </span>
-    <blockquote>“Caught the <em>US30 389-point call</em> live — paid for the year in a day.”</blockquote>
-    <figcaption class="fby"><b>Marcus T.</b> <span>· Indicator + Team member</span></figcaption>
-  </figure>
+<!-- RESULTS -->
+<section id="results">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Real Results</span>
+      <h2>Straight from the live group.</h2>
+      <p>Real calls, real trades — posted as they happen.</p>
+    </div>
+    <div class="winmarquee reveal">
+      <div class="track">
+        <span class="winchip"><b>YM</b> +$510 · DBL TOP</span>
+        <span class="winchip"><b>MES</b> +$1,025 · System Go Short</span>
+        <span class="winchip"><b>MNQ</b> +$365</span>
+        <span class="winchip"><b>50K</b> PASSED · GLS System 🟢</span>
+        <span class="winchip"><b>2</b> challenges passed in one day</span>
+        <span class="winchip"><b>GOLD</b> sell — system did its thing</span>
+        <span class="winchip"><b>+$4,170</b> P/L · funded account</span>
+        <span class="winchip"><b>TP1</b> hit · stops in profit</span>
+        <!-- duplicate for seamless loop -->
+        <span class="winchip"><b>YM</b> +$510 · DBL TOP</span>
+        <span class="winchip"><b>MES</b> +$1,025 · System Go Short</span>
+        <span class="winchip"><b>MNQ</b> +$365</span>
+        <span class="winchip"><b>50K</b> PASSED · GLS System 🟢</span>
+        <span class="winchip"><b>2</b> challenges passed in one day</span>
+        <span class="winchip"><b>GOLD</b> sell — system did its thing</span>
+        <span class="winchip"><b>+$4,170</b> P/L · funded account</span>
+        <span class="winchip"><b>TP1</b> hit · stops in profit</span>
+      </div>
+    </div>
+    <div class="proofgrid reveal">
+      <div class="proof"><div class="ph"><span class="badge">+$1,025</span><img src="/assets/results/r-01.jpg" alt="MES System Go short full take profit" loading="lazy"></div><div class="q">"System Go short — A+ setup, full take profit."<span class="who">MES · S&amp;P · GLS member</span></div></div>
+      <div class="proof"><div class="ph"><span class="badge">50K PASSED</span><img src="/assets/results/r-05.jpg" alt="50K challenge passed" loading="lazy"></div><div class="q">"Passed the 50K with ease. Stayed true to the system and was relaxed doing it."<span class="who">Funded trader · GLS member</span></div></div>
+      <div class="proof"><div class="ph"><span class="badge">50K PASSED</span><img src="/assets/results/r-08.jpg" alt="50K account passed with the GLS System" loading="lazy"></div><div class="q">"Passed 3 of these $150K-style accounts this year — with the system, with ease, staying true to it."<span class="who">Funded trader · GLS member</span></div></div>
+      <div class="proof"><div class="ph"><span class="badge">+$510</span><img src="/assets/results/r-02.jpg" alt="YM double top into the drop" loading="lazy"></div><div class="q">"DBL TOP into the drop. Partials in, stops in profit — risk free."<span class="who">YM · Dow · GLS member</span></div></div>
+      <div class="proof"><div class="ph"><span class="badge">FULL TP</span><img src="/assets/results/r-07.jpg" alt="NQ full take profit" loading="lazy"></div><div class="q">"Full take profit hit on NQ — we're out! 🔥"<span class="who">NQ · Nasdaq · GLS member</span></div></div>
+      <div class="proof"><div class="ph"><span class="badge">+200 PTS</span><img src="/assets/results/r-06.jpg" alt="YM pushing 200 points" loading="lazy"></div><div class="q">"Pushing 200 points on YM, sitting at 180."<span class="who">YM · Dow · GLS member</span></div></div>
+      <div class="proof"><div class="ph"><span class="badge">SYSTEM GO</span><img src="/assets/results/r-03.jpg" alt="MES live GLS System read" loading="lazy"></div><div class="q">"The system called the read live — got in right on the level."<span class="who">MES · S&amp;P · GLS member</span></div></div>
+    </div>
 
-  <!-- WHAT YOU GET / GUARANTEE STRIP -->
-  <div class="guarantee">
-    <div class="gcell"><span class="gck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><p><b>Both indicators</b><br>Green Light Special + GLS OSOB</p></div>
-    <div class="gcell"><span class="gck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><p><b>Invite-only access</b><br>TradingView within 24h</p></div>
-    <div class="gcell"><span class="gck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><p><b>Free full course</b><br>+ PDF included</p></div>
-    <div class="gcell"><span class="gck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><p><b>Cancel anytime</b><br>no lock-in</p></div>
-    <div class="gcell"><span class="gck"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span><p><b>Secure Whop</b><br>checkout</p></div>
+    <p class="proof-note reveal">📸 Real charts &amp; funded accounts from the live group · names hidden · not a promise of future results</p>
   </div>
+</section>
 
-  <!-- HONEST SCARCITY -->
-  <p class="founding-line"><b>Founding-member pricing</b> — lock in your rate.</p>
-
-  <!-- TRUST STRIP (near pricing) -->
-  <div class="trust-strip" style="margin-bottom:clamp(28px,4vw,38px)">
-    <span class="chip">🔒 <b>Secure checkout</b> · Whop</span>
-    <span class="chip">Cancel anytime</span>
-    <span class="chip">TradingView invite within <b>24h</b></span>
-    <span class="chip"><b>Both indicators</b> included</span>
-    <span class="chip"><b>Free course</b> included</span>
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">★★★★★ Reviews</span>
+      <h2>What members are saying.</h2>
+      <p>Real words from the live group. Names hidden for privacy.</p>
+    </div>
+    <div class="reviews reveal">
+      <div class="rev"><div class="stars">★★★★★</div><p>"This group teaches you discipline and how to actually understand what you're doing — what to look for even without the system. Slow and steady wins the race."</p><div class="rby"><span class="av">M</span><span><span class="rn">GLS Member</span><br><span class="rr">Verified member</span></span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Transparency: I passed three $150K accounts this year. With this software I passed with ease, stayed true to the system, and was relaxed doing it."</p><div class="rby"><span class="av">Z</span><span><span class="rn">Funded Trader</span><br><span class="rr">Verified · funded</span></span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Your leadership is incredible. Thank you is all I can continuously say — you actually teach us."</p><div class="rby"><span class="av">R</span><span><span class="rn">GLS Member</span><br><span class="rr">Verified member</span></span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Full take profit hit on NQ — we're out! The system called it live and I just followed it."</p><div class="rby"><span class="av">K</span><span><span class="rn">GLS Member</span><br><span class="rr">Verified member</span></span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"Passed the 50K with ease. Stayed true to the system and stayed relaxed the whole way."</p><div class="rby"><span class="av">T</span><span><span class="rn">Funded Trader</span><br><span class="rr">Verified · funded</span></span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>"System did its thing again — clean call, clean exit. Gold sell right off the read."</p><div class="rby"><span class="av">S</span><span><span class="rn">GLS Member</span><br><span class="rr">Verified member</span></span></div></div>
+    </div>
   </div>
+</section>
 
-  <div class="tiers">
+<!-- GET FUNDED -->
+<section id="funded">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Get Funded</span>
+      <h2>Why trade your money when you can trade theirs?</h2>
+      <p>Pass a challenge with the GLS System and trade a funded account. These are the prop firms we trust.</p>
+    </div>
+    <div class="partners reveal">
+      <a class="partner" href="https://tradeify.co" target="_blank" rel="noopener"><div class="pname">Tradeify</div><div class="pdesc">Funded futures accounts.</div><div class="plink">Get Funded →</div></a>
+      <a class="partner" href="https://lucidtrading.com/" target="_blank" rel="noopener"><div class="pname">Lucid Trading</div><div class="pdesc">Pass. Get funded. Trade.</div><div class="plink">Get Funded →</div></a>
+      <a class="partner" href="https://myfundedfutures.com/" target="_blank" rel="noopener"><div class="pname">MyFundedFutures</div><div class="pdesc">Futures funding built for consistency.</div><div class="plink">Get Funded →</div></a>
+    </div>
+  </div>
+</section>
 
-    <div class="tier featured">
-      <div class="badge">Best Value · Most Popular</div>
-      <div class="tname">Indicator + Signal Group</div>
-      <div class="valueline"><span class="was">Value $500+/mo</span> — yours for</div>
-      <div class="price">$149.99<small> / month</small></div>
-      <div class="ptag">Both indicators on your charts <b style="color:var(--ink);font-weight:600">AND</b> the live signal room — real-time calls on Gold · NAS · US30 · GBPJPY with the team.</div>
+<!-- SOCIALS -->
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Watch Live</span>
+      <h2>Catch us in action.</h2>
+    </div>
+    <div class="socials reveal">
+      <a href="https://www.youtube.com/@STEVIE_O11" target="_blank" rel="noopener" class="social">
+        <span class="s-ic">▶️</span>
+        <span><span class="s-t">YouTube</span><br><span class="s-s">@STEVIE_O11 — breakdowns &amp; recaps</span></span>
+      </a>
+      <a href="https://kick.com/royalemodetv" target="_blank" rel="noopener" class="social">
+        <span class="s-ic">🎥</span>
+        <span><span class="s-t">Kick</span><br><span class="s-s">royalemodetv — live trading streams</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FREE TELEGRAM -->
+<section id="telegram" style="background:linear-gradient(180deg,rgba(69,240,138,.05),transparent)">
+  <div class="wrap" style="text-align:center">
+    <img src="/assets/logo.png" alt="Signals by $teve" onerror="this.style.display='none'" style="width:128px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 30px rgba(255,207,92,.25))">
+    <div class="section-head reveal" style="margin:0 auto 28px">
+      <span class="eyebrow">Free Telegram</span>
+      <h2>Not ready? Start in the free chat.</h2>
+      <p>Live calls, breakdowns and the free strategy — no card, no catch. See the GLS System work before you join.</p>
+    </div>
+    <a href="https://t.me/+U-caV9LtBndmYmEx" target="_blank" rel="noopener" class="btn btn-green reveal">Join the FREE Telegram ✈️</a>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Get In</span>
+      <h2>One membership. Everything included.</h2>
+    </div>
+    <div class="price-card reveal">
+      <div class="amt">$149.99<span> /mo</span></div>
       <ul>
-        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> <b style="color:var(--ink);font-weight:600">The live signal room</b> — real-time calls on Gold · NAS · US30 · GBPJPY</li>
-        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> <b style="color:var(--ink);font-weight:600">Both indicators</b> — Green Light Special + GLS OSOB</li>
-        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Trade with the team — live sessions, daily bias &amp; watchlists</li>
-        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Invite-only on TradingView, added within 24h</li>
-        <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> Full 15-part course + PDF · cancel anytime</li>
+        <li>Invite-only GLS + OSOB indicator on TradingView</li>
+        <li>Live trading group — real-time calls</li>
+        <li>NQ, ES, YM &amp; Gold</li>
+        <li>Full free course + playbook</li>
+        <li>Cancel anytime</li>
       </ul>
-      <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join Now — $149.99/mo <span class="arr">→</span></a>
-    </div>
-
-  </div>
-  <p class="mentor-line">Want to go deeper? <b>1-on-1 Training</b> with our head trader — personal mentorship, limited spots. <a href="sms:+12132635389?&body=Hi%2C%20I%20want%201-on-1%20trading%20training.">Apply now →</a></p>
-  <div class="pricing-cta">
-    <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join Now — $149.99/mo <span class="arr">→</span></a>
-  </div>
-  <p class="checkout-note"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure checkout via Whop · cancel anytime</p>
-</div></section>
-
-<!-- faq -->
-<section class="section reveal"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">FAQ</span><h2>Before You Buy</h2></div>
-  <div class="faq">
-    <details class="qa"><summary>What exactly do I get? <span class="pl">+</span></summary><div class="a">One membership for <b>$149.99/mo</b>: both TradingView indicators (<b>Green Light Special</b> + <b>GLS OSOB</b>), the <b>Telegram signal group</b> with live calls, and the full <b>free course</b>.</div></details>
-    <details class="qa"><summary>How do I get access after I buy? <span class="pl">+</span></summary><div class="a">Invite-only. After checkout, send your exact TradingView username — both scripts are added within 24 hours — plus your invite to the Telegram group.</div></details>
-    <details class="qa"><summary>What markets and timeframes does it work on? <span class="pl">+</span></summary><div class="a">Intraday index &amp; commodity futures — <b>MES · MNQ · MGC · MYM</b> — on the <b>5-minute and 15-minute</b>. Works on the matching forex pairs too.</div></details>
-    <details class="qa"><summary>Does the indicator repaint? <span class="pl">+</span></summary><div class="a">No. Signals are non-repainting — they confirm on bar close and don't move after the fact. The edge is filtering, risk/reward and discipline.</div></details>
-  </div>
-  <p style="text-align:center;margin-top:clamp(20px,3vw,28px)"><a class="btn btn-ghost" href="/faq/">Read the full FAQ →</a></p>
-</div></section>
-
-<!-- final cta -->
-<section class="section reveal"><div class="wrap">
-  <div class="final">
-    <span class="eyebrow" style="justify-content:center">Ready</span>
-    <h2>When It's Green, You Go.</h2>
-    <p>Both indicators plus the room calling clean setups live — one membership, everything included.</p>
-    <div class="final-cta">
-      <a class="btn btn-primary" href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener">Join Now — $149.99/mo <span class="arr">→</span></a>
-      <a class="btn btn-ghost" href="#features">See What's Included</a>
+      <a href="https://whop.com/signal-s-by-steve/signal-s-by-steve-e6/?directPlanId=plan_9tPmjn0FVE56B&amp;a=newworldtycoon" target="_blank" rel="noopener" class="btn btn-green" style="width:100%;justify-content:center">Get Access Now</a>
     </div>
   </div>
-  <p class="disclaimer">Green Light Special and GLS OSOB are educational tools, not financial advice and not a signal-for-hire service. No indicator predicts the market or guarantees profits — the real edge is filtering, risk/reward, and discipline. Trading futures involves substantial risk of loss. Always backtest and forward-test on your own instruments, trade small, and manage your risk. Past performance does not guarantee future results.</p>
-</div></section>
+</section>
 
-<footer class="footer"><div class="wrap">
-  <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;font-family:var(--mono);font-size:.78rem">
-    <a href="/course/" style="color:var(--ink-soft)">Free Course</a>
-    <a href="/faq/" style="color:var(--ink-soft)">FAQ</a>
-    <a href="/disclaimer/" style="color:var(--ink-soft)">Disclaimer</a>
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="blip"></span>GREEN LIGHT SPECIAL</a>
+    <div class="foot-links">
+      <a href="#what">What You Get</a>
+      <a href="#results">Results</a>
+      <a href="/course/">Free Course</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/disclaimer/">Disclaimer</a>
+      <a href="https://www.youtube.com/@STEVIE_O11" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://kick.com/royalemodetv" target="_blank" rel="noopener">Kick</a>
+    </div>
+    <p class="disclaimer">Trading futures and leveraged products involves substantial risk of loss and is not suitable for every investor. The Green Light Special indicator and trading group are educational tools — they do not guarantee profits or any win rate. Screenshots are real member and owner posts and are not a promise of future performance. Nothing here is financial advice. Only risk capital you can afford to lose. Past performance is not indicative of future results.</p>
+    <p class="copy">© 2026 Green Light Special · When it's green, you go.</p>
   </div>
-  © <span id="yr"></span> Green Light Special &nbsp;·&nbsp; <a href="https://tradegreenlightspecial.com">tradegreenlightspecial.com</a>
-</div></footer>
+</footer>
 
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
+(function(){
+  var intro=document.getElementById('intro'),body=document.body;
+  var b=[document.getElementById('b1'),document.getElementById('b2'),document.getElementById('b3')];
+  var word=document.getElementById('introWord');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function finish(){intro.classList.add('done');body.classList.remove('loading');
+    setTimeout(function(){if(intro&&intro.parentNode)intro.parentNode.removeChild(intro);},800);}
+  if(reduce){finish();return;}
+  var t=[];
+  t.push(setTimeout(function(){b[0].classList.add('on');},380));
+  t.push(setTimeout(function(){b[1].classList.add('on');},760));
+  t.push(setTimeout(function(){b[2].classList.add('on');word.classList.add('show');},1140));
+  t.push(setTimeout(finish,2000));
+  intro.addEventListener('click',function(){t.forEach(clearTimeout);finish();});
+})();
+var hb=document.getElementById('hambBtn'),mm=document.getElementById('mmenu');
+if(hb){hb.addEventListener('click',function(){mm.classList.toggle('open');});
+  mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.classList.remove('open');});});}
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  // safety net: if anything is still hidden after 4s (e.g. tab was backgrounded), reveal it
+  setTimeout(function(){document.querySelectorAll('.reveal:not(.in)').forEach(function(el){var r=el.getBoundingClientRect();if(r.top<window.innerHeight)el.classList.add('in');});},4000);
+}else{
+  document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+}
 
-  /* ===== scroll reveals ===== */
-  (function(){
-    var els = document.querySelectorAll('.reveal');
-    if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-      els.forEach(function(e){ e.classList.add('in'); });
-      return;
-    }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    els.forEach(function(e){ io.observe(e); });
-  })();
+// ── animated market chart in the background ──
+(function(){
+  var c=document.getElementById('bgchart');if(!c)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var ctx=c.getContext('2d'),W,H,pts,sp=8,n,phase=0;
+  function seed(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;n=Math.ceil(W/sp)+3;pts=[];var v=H*0.6;
+    for(var i=0;i<n;i++){v+=(Math.random()-0.5)*16;v=Math.max(H*0.24,Math.min(H*0.8,v));pts.push(v);}}
+  seed();window.addEventListener('resize',seed);
+  function frame(){
+    phase+=0.5;
+    if(phase>=sp){phase-=sp;pts.shift();var v=pts[pts.length-1]+(Math.random()-0.5)*18;v=Math.max(H*0.24,Math.min(H*0.8,v));pts.push(v);}
+    ctx.clearRect(0,0,W,H);
+    ctx.beginPath();ctx.moveTo(-phase,pts[0]);
+    for(var i=1;i<pts.length;i++)ctx.lineTo(i*sp-phase,pts[i]);
+    ctx.lineTo(W+sp,H);ctx.lineTo(-phase,H);ctx.closePath();
+    var g=ctx.createLinearGradient(0,H*0.3,0,H);g.addColorStop(0,'rgba(69,240,138,.16)');g.addColorStop(1,'rgba(69,240,138,0)');
+    ctx.fillStyle=g;ctx.fill();
+    ctx.beginPath();ctx.moveTo(-phase,pts[0]);
+    for(var j=1;j<pts.length;j++)ctx.lineTo(j*sp-phase,pts[j]);
+    ctx.strokeStyle='rgba(69,240,138,.55)';ctx.lineWidth=2;ctx.stroke();
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
 </script>
 </body>
 </html>
