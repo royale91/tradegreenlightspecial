@@ -499,15 +499,59 @@ function chart(id,opts){
   svg.innerHTML=frag;
 }
 
-/* hero: sell-off, buy whale, rally to target */
-chart('heroChart',{
+/* ---- animated candle-chart renderer (the whales come in) ---- */
+function animChart(id,opts){
+  var svg=document.getElementById(id); if(!svg) return;
+  var vb=svg.viewBox.baseVal, W=vb.width, H=vb.height;
+  var padL=30,padR=56,padT=46,padB=44;
+  var p=opts.prices, n=p.length;
+  var min=Math.min.apply(null,p), max=Math.max.apply(null,p), pd=(max-min)*0.12; min-=pd; max+=pd;
+  var X=function(i){return padL+(i/(n-1))*(W-padL-padR);};
+  var Y=function(v){return padT+(1-(v-min)/(max-min))*(H-padT-padB);};
+  var bw=Math.max(5,(W-padL-padR)/n*0.56);
+  var i=0,t;
+  function draw(){
+    var s='';
+    for(var g=0;g<4;g++){var gy=padT+g*(H-padT-padB)/3;s+='<line x1="'+padL+'" x2="'+(W-padR)+'" y1="'+gy+'" y2="'+gy+'" stroke="rgba(255,255,255,.05)" stroke-width="1"/>';}
+    (opts.lines||[]).forEach(function(l){
+      var ai=l.appear||0; if(i<ai) return;
+      var y=Y(l.v), x2=W-padR;
+      if(l.sweep){var prog=Math.min(1,(i-ai+1)/4); x2=padL+prog*(W-padR-padL);
+        s+='<line x1="'+padL+'" x2="'+x2+'" y1="'+y+'" y2="'+y+'" stroke="'+l.color+'" stroke-width="'+((l.w||3)+5)+'" opacity=".2"/>';}
+      s+='<line x1="'+padL+'" x2="'+x2+'" y1="'+y+'" y2="'+y+'" stroke="'+l.color+'" stroke-width="'+(l.w||1.6)+'"'+(l.dash?' stroke-dasharray="'+l.dash+'"':'')+'/>';
+      if(l.label && (!l.sweep || (i-ai)>=1)) s+='<text x="'+(l.align==='r'?(W-padR-6):(padL+6))+'" y="'+(y-6)+'" fill="'+l.color+'" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" text-anchor="'+(l.align==='r'?'end':'start')+'">'+l.label+'</text>';
+    });
+    for(var k=0;k<=i&&k<n;k++){
+      var o=k===0?p[0]:p[k-1], c=p[k], up=c>=o, col=up?'#45f08a':'#ff5d6c', cx=X(k);
+      var hi=Math.max(o,c)+(max-min)*0.02, lo=Math.min(o,c)-(max-min)*0.02;
+      var yt=Y(Math.max(o,c)), yb=Y(Math.min(o,c)), op=(k===i&&i<n-1)?0.5:1;
+      s+='<line x1="'+cx+'" x2="'+cx+'" y1="'+Y(hi)+'" y2="'+Y(lo)+'" stroke="'+col+'" stroke-width="1.3" opacity="'+op+'"/>';
+      s+='<rect x="'+(cx-bw/2)+'" y="'+yt+'" width="'+bw+'" height="'+Math.max(2,yb-yt)+'" rx="1.5" fill="'+col+'" opacity="'+op+'"/>';
+    }
+    var tx=padL+4, ty=H-14;
+    (opts.tags||[]).forEach(function(tg){
+      if(i<(tg.appear||0)) return;
+      var w=tg.text.length*7.1+20, grn=tg.type==='green';
+      s+='<rect x="'+tx+'" y="'+(ty-15)+'" width="'+w+'" height="21" rx="10.5" fill="'+(grn?'#45f08a':'#f4f7f5')+'"/>';
+      s+='<text x="'+(tx+w/2)+'" y="'+ty+'" fill="#04140b" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">'+tg.text+'</text>';
+      tx+=w+10;
+    });
+    svg.innerHTML=s;
+  }
+  function tick(){draw(); if(i<n-1){i++;t=setTimeout(tick,130);} else {t=setTimeout(function(){i=0;tick();},2200);}}
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){i=n-1;draw();return;}
+  tick();
+}
+
+/* hero: sell-off, buy whale sweeps in, rally to target — loops */
+animChart('heroChart',{
   prices:[100,98.5,97,97.4,95,93,91.2,89.5,87.6,86,85.2,84.6,86,88,90.5,93,96,99.5,103,107,111,115,119,123,126],
   lines:[
-    {v:127,color:'#f4f7f5',label:'TARGET',w:1.4,align:'r'},
-    {v:84.9,color:'#45f08a',dash:'7 5',w:3,label:'WHALE'},
-    {v:81,color:'#ff5d6c',dash:'4 5',w:1.6,label:'STOP'}
+    {v:127,color:'#f4f7f5',label:'TARGET',w:1.4,align:'r',appear:21},
+    {v:84.9,color:'#45f08a',dash:'7 5',w:3,label:'WHALE',appear:11,sweep:true},
+    {v:81,color:'#ff5d6c',dash:'4 5',w:1.6,label:'STOP',appear:12}
   ],
-  tags:[{text:'WHALE +1,975',type:'green'},{text:'SELLERS ABSORBED',type:'white'}]
+  tags:[{text:'WHALE +1,975',type:'green',appear:13},{text:'SELLERS ABSORBED',type:'white',appear:14}]
 });
 /* c1: buy whale at vwap, push up */
 chart('c1',{

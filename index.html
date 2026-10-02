@@ -236,6 +236,12 @@ footer .wrap{display:flex;flex-direction:column;gap:26px;align-items:center;text
 .wp-shot{margin:0 0 0 auto;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#05060a;max-width:290px;box-shadow:0 40px 100px -45px var(--green-glow),0 0 0 1px rgba(69,240,138,.06)}
 .wp-shot img{width:100%;display:block}
 @media(max-width:820px){.wp-shot{margin:0 auto}}
+.wp-chartcard{border:1px solid var(--line);border-radius:var(--r-lg);background:linear-gradient(180deg,#070b09,#05070a);padding:14px 14px 12px;box-shadow:0 40px 110px -50px var(--green-glow),0 0 0 1px rgba(69,240,138,.05)}
+.wp-chartcard .cc-lbl{display:flex;align-items:center;gap:.5em;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--ink-mute);padding:4px 4px 8px}
+.wp-chartcard .cc-lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px 1px var(--green);animation:lblpulse 1.6s ease-in-out infinite}
+@keyframes lblpulse{0%,100%{opacity:1}50%{opacity:.35}}
+.wp-chartcard svg{width:100%;height:auto;display:block;min-height:210px}
+.wp-chartcard .cc-foot{font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;color:var(--ink-mute);padding:9px 4px 2px}
 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -335,7 +341,11 @@ footer .wrap{display:flex;flex-direction:column;gap:26px;align-items:center;text
         <a href="/whale/" class="btn btn-green">Explore the Whale System →</a>
       </div>
       <div class="wp-media">
-        <figure class="wp-shot"><img src="/assets/whale/whale-nq-long.png" alt="GLS Whale System live on NQ — whale buy, lean long" loading="lazy"></figure>
+        <div class="wp-chartcard">
+          <div class="cc-lbl">MNQ · 15m — live</div>
+          <svg id="wpChart" viewBox="0 0 600 380" preserveAspectRatio="xMidYMid meet" aria-label="Animated example: a buy whale absorbs the sell-off, price rallies to target"></svg>
+          <div class="cc-foot">Watch the whale come in — example for illustration</div>
+        </div>
       </div>
     </div>
   </div>
@@ -607,6 +617,59 @@ if('IntersectionObserver' in window){
   }
   frame();
 })();
+
+// ── animated whale chart (the whales come in) ──
+function animChart(id,opts){
+  var svg=document.getElementById(id); if(!svg) return;
+  var vb=svg.viewBox.baseVal, W=vb.width, H=vb.height;
+  var padL=30,padR=56,padT=46,padB=44;
+  var p=opts.prices, n=p.length;
+  var min=Math.min.apply(null,p), max=Math.max.apply(null,p), pd=(max-min)*0.12; min-=pd; max+=pd;
+  var X=function(i){return padL+(i/(n-1))*(W-padL-padR);};
+  var Y=function(v){return padT+(1-(v-min)/(max-min))*(H-padT-padB);};
+  var bw=Math.max(5,(W-padL-padR)/n*0.56);
+  var i=0,t;
+  function draw(){
+    var s='';
+    for(var g=0;g<4;g++){var gy=padT+g*(H-padT-padB)/3;s+='<line x1="'+padL+'" x2="'+(W-padR)+'" y1="'+gy+'" y2="'+gy+'" stroke="rgba(255,255,255,.05)" stroke-width="1"/>';}
+    (opts.lines||[]).forEach(function(l){
+      var ai=l.appear||0; if(i<ai) return;
+      var y=Y(l.v), x2=W-padR;
+      if(l.sweep){var prog=Math.min(1,(i-ai+1)/4); x2=padL+prog*(W-padR-padL);
+        s+='<line x1="'+padL+'" x2="'+x2+'" y1="'+y+'" y2="'+y+'" stroke="'+l.color+'" stroke-width="'+((l.w||3)+5)+'" opacity=".2"/>';}
+      s+='<line x1="'+padL+'" x2="'+x2+'" y1="'+y+'" y2="'+y+'" stroke="'+l.color+'" stroke-width="'+(l.w||1.6)+'"'+(l.dash?' stroke-dasharray="'+l.dash+'"':'')+'/>';
+      if(l.label && (!l.sweep || (i-ai)>=1)) s+='<text x="'+(l.align==='r'?(W-padR-6):(padL+6))+'" y="'+(y-6)+'" fill="'+l.color+'" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" text-anchor="'+(l.align==='r'?'end':'start')+'">'+l.label+'</text>';
+    });
+    for(var k=0;k<=i&&k<n;k++){
+      var o=k===0?p[0]:p[k-1], c=p[k], up=c>=o, col=up?'#45f08a':'#ff5d6c', cx=X(k);
+      var hi=Math.max(o,c)+(max-min)*0.02, lo=Math.min(o,c)-(max-min)*0.02;
+      var yt=Y(Math.max(o,c)), yb=Y(Math.min(o,c)), op=(k===i&&i<n-1)?0.5:1;
+      s+='<line x1="'+cx+'" x2="'+cx+'" y1="'+Y(hi)+'" y2="'+Y(lo)+'" stroke="'+col+'" stroke-width="1.3" opacity="'+op+'"/>';
+      s+='<rect x="'+(cx-bw/2)+'" y="'+yt+'" width="'+bw+'" height="'+Math.max(2,yb-yt)+'" rx="1.5" fill="'+col+'" opacity="'+op+'"/>';
+    }
+    var tx=padL+4, ty=H-14;
+    (opts.tags||[]).forEach(function(tg){
+      if(i<(tg.appear||0)) return;
+      var w=tg.text.length*7.1+20, grn=tg.type==='green';
+      s+='<rect x="'+tx+'" y="'+(ty-15)+'" width="'+w+'" height="21" rx="10.5" fill="'+(grn?'#45f08a':'#f4f7f5')+'"/>';
+      s+='<text x="'+(tx+w/2)+'" y="'+ty+'" fill="#04140b" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" text-anchor="middle">'+tg.text+'</text>';
+      tx+=w+10;
+    });
+    svg.innerHTML=s;
+  }
+  function tick(){draw(); if(i<n-1){i++;t=setTimeout(tick,130);} else {t=setTimeout(function(){i=0;tick();},2200);}}
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){i=n-1;draw();return;}
+  tick();
+}
+animChart('wpChart',{
+  prices:[100,98.5,97,97.4,95,93,91.2,89.5,87.6,86,85.2,84.6,86,88,90.5,93,96,99.5,103,107,111,115,119,123,126],
+  lines:[
+    {v:127,color:'#f4f7f5',label:'TARGET',w:1.4,align:'r',appear:21},
+    {v:84.9,color:'#45f08a',dash:'7 5',w:3,label:'WHALE',appear:11,sweep:true},
+    {v:81,color:'#ff5d6c',dash:'4 5',w:1.6,label:'STOP',appear:12}
+  ],
+  tags:[{text:'WHALE +1,975',type:'green',appear:13},{text:'SELLERS ABSORBED',type:'white',appear:14}]
+});
 </script>
 </body>
 </html>
